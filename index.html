@@ -89,7 +89,7 @@ const fmt = (x, d = 6) => x == null ? "—" : (+x).toPrecision(d);
 const tstr = ts => new Date(ts).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
 const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 
-let repo = localStorage.getItem("cb.repo") || "";
+let repo = localStorage.getItem("cb.repo") || "RAFAEL14741/cryptobots-live";
 $("#repo").value = repo;
 $("#save-repo").onclick = () => { repo = $("#repo").value.trim().replace(/^https?:\/\/github\.com\//, "").replace(/\.git$/, ""); localStorage.setItem("cb.repo", repo); load(); };
 
