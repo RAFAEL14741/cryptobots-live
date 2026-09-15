@@ -39,7 +39,7 @@
       "params": { "fast": 15, "slow": 25, "ma_type": "sma", "break_pct": 0.2, "tp_atr": 3.0, "sl_atr": 1.5, "atr_len": 14, "trend_filter_len": 0, "trail_atr": 0 },
       "broker": { "starting_cash": 10000, "fee_pct": 0.10, "slippage_pct": 0.05 }, "risk": {},
       "sentiment": { "enabled": true, "keywords": ["avax", "avalanche", "$avax"], "subreddits": ["Avax", "CryptoCurrency", "CryptoMarkets"], "window_hours": 12, "min_polarity": -0.2, "min_attention_z": -1.0, "block_on_risk_flag": true } },
-    { "name": "doge_scalp_1m", "symbol": "DOGEUSDT", "timeframe": "1m", "strategy": "scalper", "mode": "paper", "lookback_bars": 120,
+    { "name": "doge_scalp_1m", "symbol": "DOGEUSDT", "timeframe": "1m", "strategy": "scalper", "mode": "signal", "lookback_bars": 120,
       "params": { "ema_len": 8, "breakout_pct": 0.3, "tp_pct": 0.5, "sl_pct": 0.3, "max_hold_bars": 5 },
       "broker": { "starting_cash": 10000, "fee_pct": 0.10, "slippage_pct": 0.05 },
       "risk": { "risk_per_trade_pct": 1.0, "max_position_pct": 25, "max_daily_loss_pct": 3, "cooldown_bars": 3, "max_total_exposure_pct": 60 },
