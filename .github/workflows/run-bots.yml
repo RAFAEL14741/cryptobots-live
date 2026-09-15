@@ -1,0 +1,44 @@
+name: Run bots
+
+on:
+  schedule:
+    # Every 5 minutes — GitHub's own floor for scheduled workflows (it won't run more often than this, and can
+    # lag another few minutes during busy periods, which is why the 1-minute scalper bot catches up on every
+    # closed bar it missed rather than only looking at the newest one — see run.mjs).
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {} # lets you click "Run workflow" on the Actions tab to trigger one cycle immediately
+
+permissions:
+  contents: write # so this workflow's built-in token can commit state.json/log.json back to the repo
+
+concurrency:
+  group: cryptobots-cycle
+  cancel-in-progress: false # queue rather than overlap, so two runs never race to push at once
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run one bot cycle
+        run: node run.mjs
+
+      - name: Commit updated state
+        run: |
+          git config user.name "cryptobots-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state.json log.json
+          git diff --cached --quiet && echo "nothing changed this cycle" && exit 0
+          git commit -m "bot cycle $(date -u +'%Y-%m-%d %H:%M UTC')"
+          # If a config edit (or an overlapping run) landed while this cycle was working, rebase onto it
+          # rather than failing the push and losing this cycle's state.
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "$GITHUB_REF_NAME" && git push && exit 0
+            echo "push attempt $i failed, retrying"; sleep 5
+          done
+          echo "could not push state after 3 attempts"; exit 1

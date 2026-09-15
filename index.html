@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cryptobots — live</title>
+<style>
+  :root { --bg: #0f1115; --panel: #171a21; --line: #262b36; --text: #e6e8ee; --muted: #8b93a7; --up: #3ecf8e; --down: #f0616d; --acc: #6ea8fe; --warn: #f5b942; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 0 16px 40px; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 2; }
+  .top h1 { font-size: 18px; margin: 0 8px 0 0; letter-spacing: .3px; }
+  .top .muted { margin-right: auto; }
+  button, input { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; cursor: pointer; font: inherit; }
+  input { cursor: text; }
+  button:hover { border-color: var(--acc); }
+  .muted { color: var(--muted); }
+  .up { color: var(--up); } .down { color: var(--down); }
+  #total { font-weight: 600; }
+  #setup { margin: 16px 0; padding: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+  #setup input { width: min(420px, 100%); }
+  #bots { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 14px; margin-top: 16px; }
+  .bot { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+  .bot header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .bot h2 { margin: 0; font-size: 16px; }
+  .sym { color: var(--muted); font-size: 12px; }
+  .mode { margin-left: auto; font-size: 11px; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--line); text-transform: uppercase; letter-spacing: .3px; }
+  .mode.paper { border-color: var(--warn); color: var(--warn); }
+  .mode.signal { color: var(--acc); border-color: var(--acc); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 12px; }
+  .grid div { display: flex; flex-direction: column; }
+  .grid small { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .4px; }
+  .grid b { font-size: 15px; }
+  .grid span { font-size: 11px; }
+  .risk { margin-top: 8px; padding: 6px 8px; border-radius: 6px; background: rgba(240, 97, 109, .12); color: var(--down); font-size: 12px; }
+  .sig { margin-top: 8px; font-size: 12px; padding: 8px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); opacity: .85; }
+  .sig.buy { border-color: var(--up); } .sig.close { border-color: var(--down); } .sig.skip { opacity: .7; }
+  .sig .t { color: var(--muted); margin-right: 6px; }
+  .status { margin-top: 10px; font-size: 12.5px; padding: 8px 10px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); display: flex; align-items: flex-start; gap: 8px; }
+  .status .dot { width: 8px; height: 8px; min-width: 8px; border-radius: 50%; margin-top: 4px; background: var(--muted); }
+  .status.watching .dot { background: var(--acc); }
+  .status.in_position { border-color: var(--up); }
+  .status.in_position .dot { background: var(--up); }
+  .status.warming_up .dot { background: var(--muted); }
+  .status .txt { flex: 1; }
+  h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin: 24px 0 8px; display: flex; align-items: center; gap: 10px; }
+  #log-filter { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; font: inherit; font-size: 12px; }
+  #log { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 6px 12px; max-height: 420px; overflow: auto; }
+  .ll { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
+  .ll:last-child { border-bottom: 0; }
+  .ll .t { color: var(--muted); margin-right: 8px; }
+  .ll.signal b { color: var(--acc); } .ll.trade b { color: var(--up); } .ll.alert b { color: var(--down); }
+  .ll pre { margin: 4px 0 0; white-space: pre-wrap; color: var(--muted); font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .note { font-size: 12px; color: var(--muted); margin: 10px 0 0; }
+  .err { color: var(--down); font-size: 13px; margin-top: 8px; }
+  #stale { margin: 12px 0 0; padding: 10px 12px; border-radius: 8px; background: rgba(245, 185, 66, .14); border: 1px solid var(--warn); color: var(--warn); font-size: 13px; font-weight: 600; }
+  #stale[hidden] { display: none; }
+  .src { font-size: 11px; color: var(--muted); }
+  .src.kraken { color: var(--warn); }
+  .missed { margin-top: 8px; font-size: 11.5px; color: var(--muted); }
+  @media (max-width: 520px) { #bots { grid-template-columns: 1fr; } .grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>cryptobots — live</h1>
+  <span class="muted" id="last-cycle">loading…</span>
+  <span class="muted">paper total <span id="total">$0.00</span></span>
+  <button id="refresh">Refresh now</button>
+</div>
+<p class="note">Read-only view of bots running on a schedule in GitHub Actions — they keep checking the market roughly every 5 minutes whether or not your computer is on. <b>signal</b> mode = it only tells you what it would do; <b>paper</b> mode = it executes with fake money. There is no real-money mode anywhere in this project. Sentiment is shown but does not block trades (the strategies were validated without it). To change a bot's settings, ask Claude, or edit config.json in the repo directly.</p>
+<div id="stale" hidden></div>
+<div id="setup">
+  <div class="row">
+    <label class="muted" for="repo">GitHub repo (owner/name):</label>
+    <input id="repo" placeholder="e.g. rafael/cryptobots-live">
+    <button id="save-repo">Save</button>
+    <span class="muted" id="repo-status"></span>
+  </div>
+</div>
+<div id="bots"></div>
+<h3>Journal <select id="log-filter"><option value="important" selected>signals, trades, alerts</option><option value="signal">signals</option><option value="trade">trades</option><option value="alert">alerts</option><option value="all">everything</option></select></h3>
+<div id="log"></div>
+<script>
+const $ = s => document.querySelector(s);
+const money = x => (x < 0 ? "-$" : "$") + Math.abs(x).toFixed(2);
+const fmt = (x, d = 6) => x == null ? "—" : (+x).toPrecision(d);
+const tstr = ts => new Date(ts).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+
+let repo = localStorage.getItem("cb.repo") || "";
+$("#repo").value = repo;
+$("#save-repo").onclick = () => { repo = $("#repo").value.trim().replace(/^https?:\/\/github\.com\//, "").replace(/\.git$/, ""); localStorage.setItem("cb.repo", repo); load(); };
+
+let config = null, state = null, logLines = [];
+
+async function fetchJson(path) {
+  const url = `https://raw.githubusercontent.com/${repo}/main/${path}?_=${Date.now()}`;
+  const r = await fetch(url, { cache: "no-store" });
+  if (!r.ok) throw new Error(`${path}: ${r.status}`);
+  return r.json();
+}
+
+async function load() {
+  if (!repo) { $("#repo-status").textContent = "enter your repo above (e.g. yourname/cryptobots-live) and click Save"; return; }
+  $("#repo-status").textContent = "loading…";
+  try {
+    [config, state, logLines] = await Promise.all([fetchJson("config.json"), fetchJson("state.json"), fetchJson("log.json")]);
+    $("#repo-status").textContent = "";
+    render(); renderLog();
+  } catch (e) {
+    $("#repo-status").innerHTML = `<span class="err">couldn't load — check the repo name is right, it's public, and the first bot cycle has run (Actions tab → Run bots → Run workflow). (${esc(e.message)})</span>`;
+  }
+}
+
+function render() {
+  if (!config || !state) return;
+  const bots = config.bots.map(cfg => ({ cfg, st: state[cfg.name] || {} }));
+  $("#bots").innerHTML = bots.map(({ cfg: c, st }) => {
+    const last = st.last || {}, price = last.price, broker = st.broker || { cash: c.broker?.starting_cash ?? 10000, positions: {}, trades: [] };
+    const pos = (broker.positions || {})[c.symbol];
+    const trades = broker.trades || [], wins = trades.filter(t => t.pnl > 0).length, realized = trades.reduce((a, t) => a + t.pnl, 0);
+    const eq = price && pos ? broker.cash + pos.qty * price : broker.cash;
+    const unreal = pos && price ? (price - pos.entry_price) * pos.qty : 0;
+    const gap = last.fast != null && last.slow != null ? ((last.fast - last.slow) / last.slow * 100) : null;
+    const stratLabel = c.strategy === "scalper" ? `scalp · ema${c.params.ema_len}, ${c.params.max_hold_bars}-bar exit` : `${c.params.ma_type} ${c.params.fast}/${c.params.slow}`;
+    const explain = st.explain, sig = st.lastSignal, sent = st.sentiment;
+    return `<section class="bot">
+      <header><h2>${esc(c.name)}</h2><span class="sym">${esc(c.symbol)} · ${esc(c.timeframe)} · ${esc(stratLabel)}</span>
+        <span class="mode ${esc(c.mode)}">${esc(c.mode)}</span></header>
+      <div class="grid">
+        <div><small>price</small><b>${fmt(price)}</b><span class="muted">${last.ts ? tstr(last.ts) : "not yet"}</span></div>
+        <div><small>${esc(last.label || "MA gap")}</small><b class="${gap > 0 ? "up" : gap < 0 ? "down" : ""}">${gap == null ? "—" : gap.toFixed(2) + "%"}</b></div>
+        <div><small>paper equity</small><b>${money(eq)}</b><span class="muted">cash ${money(broker.cash)}</span></div>
+        <div><small>realized</small><b class="${realized >= 0 ? "up" : "down"}">${money(realized)}</b><span class="muted">${trades.length} trades · ${trades.length ? Math.round(wins / trades.length * 100) : 0}% win</span></div>
+        <div><small>position</small><b>${pos ? pos.qty.toPrecision(4) + " @ " + fmt(pos.entry_price) : "flat"}</b><span class="muted">${pos ? `stop ${fmt(pos.stop_loss)} · target ${fmt(pos.take_profit)} · ${money(unreal)}` : ""}</span></div>
+        <div><small>sentiment</small><b class="${sent?.risk_flag ? "down" : ""}">${sent ? (sent.risk_flag ? "RISK" : sent.polarity.toFixed(2)) : c.sentiment?.enabled ? "…" : "off"}</b><span class="muted">${sent ? `${sent.n_mentions} mentions · shown only` : ""}</span></div>
+      </div>
+      ${sent?.risk_flag ? `<div class="risk">${esc(sent.risk_reasons[0] || "")}</div>` : ""}
+      <div class="status ${esc(explain?.state || "watching")}"><span class="dot"></span><span class="txt">${explain ? esc(explain.text) : "waiting on the first cycle…"}</span></div>
+      ${sig ? `<div class="sig ${esc(sig.action)}"><span class="t">${tstr(sig.ts)} last action</span> <b>${esc(sig.action)}</b> ${esc(sig.reason)}</div>` : ""}
+      <div class="missed"><span class="src ${esc(st.source || "")}">prices: ${esc(st.source || "—")}</span>${st.missedEntries ? ` · ${st.missedEntries} entry signal(s) skipped since launch (fired between checks — taking them at a price that already passed would be fake)` : ""}</div>
+    </section>`;
+  }).join("");
+  const total = bots.reduce((a, { cfg: c, st }) => { const price = st.last?.price, broker = st.broker || { cash: c.broker?.starting_cash ?? 10000, positions: {} }, pos = (broker.positions || {})[c.symbol]; return a + (price && pos ? broker.cash + pos.qty * price : broker.cash); }, 0);
+  $("#total").textContent = money(total);
+  // "last check" is when the cloud job last ran — not the last bar timestamp, which always lags by design.
+  const cycleTs = state.__meta?.lastCycleTs || Math.max(0, ...bots.map(({ st }) => st.last?.ts || 0));
+  $("#last-cycle").textContent = cycleTs ? "last check " + tstr(cycleTs) : "no data yet";
+  // A silent failure (workflow disabled, data source blocked, push failing) would otherwise look identical to
+  // a quiet market. Say so plainly instead.
+  const ageMin = cycleTs ? Math.round((Date.now() - cycleTs) / 60000) : null;
+  const stale = $("#stale");
+  if (ageMin != null && ageMin >= 20) {
+    stale.hidden = false;
+    stale.textContent = `⚠ The bots haven't checked in for ~${ageMin} minutes (they should run every ~5). Open the repo's Actions tab: the workflow may have failed, or GitHub may have paused it — scheduled jobs get switched off after 60 days of no activity in the repo, and GitHub emails you a one-click re-enable.`;
+  } else stale.hidden = true;
+}
+function renderLog() {
+  const f = $("#log-filter").value;
+  $("#log").innerHTML = logLines.slice().reverse().filter(l => f === "all" || l.level === f || (f === "important" && l.level !== "info")).slice(0, 200)
+    .map(l => `<div class="ll ${esc(l.level)}"><span class="t">${tstr(l.ts)}</span><b>${esc(l.title)}</b><pre>${esc(l.body)}</pre></div>`).join("") || `<div class="muted">nothing yet</div>`;
+}
+$("#log-filter").onchange = renderLog;
+$("#refresh").onclick = load;
+load();
+setInterval(load, 30000); // GitHub's raw CDN can lag a minute or two behind the latest commit; refreshing every 30s catches it as soon as it's there
+</script>
+</body>
+</html>
