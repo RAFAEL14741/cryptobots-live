@@ -846,6 +846,183 @@
           "buy_hold_pct": -45.23
         }
       }
+    },
+    {
+      "name": "mew_4h",
+      "symbol": "MEWUSDT",
+      "timeframe": "4h",
+      "strategy": "ma_break",
+      "mode": "signal",
+      "lookback_bars": 300,
+      "params": {
+        "fast": 10,
+        "slow": 20,
+        "ma_type": "sma",
+        "break_pct": 0,
+        "tp_atr": 3,
+        "sl_atr": 1.5,
+        "atr_len": 14,
+        "trend_filter_len": 0,
+        "trail_atr": 0
+      },
+      "broker": {
+        "starting_cash": 10000,
+        "fee_pct": 0.1,
+        "slippage_pct": 0.05
+      },
+      "risk": {},
+      "sentiment": {
+        "enabled": true,
+        "keywords": [
+          "mew"
+        ],
+        "subreddits": [
+          "CryptoCurrency",
+          "CryptoMarkets",
+          "SatoshiStreetBets"
+        ],
+        "window_hours": 6,
+        "min_polarity": -0.2,
+        "min_attention_z": -1,
+        "block_on_risk_flag": true
+      },
+      "validated": {
+        "as_of": "2026-09-16",
+        "train": {
+          "n_trades": 15,
+          "win_rate_pct": 60,
+          "total_return_pct": 3.5,
+          "profit_factor": 1.36,
+          "max_drawdown_pct": 6.63,
+          "buy_hold_pct": -81.38
+        },
+        "test": {
+          "n_trades": 8,
+          "win_rate_pct": 50,
+          "total_return_pct": 3.39,
+          "profit_factor": 1.81,
+          "max_drawdown_pct": 2.91,
+          "buy_hold_pct": 18.16
+        }
+      }
+    },
+    {
+      "name": "brett_4h",
+      "symbol": "BRETTUSDT",
+      "timeframe": "4h",
+      "strategy": "ma_break",
+      "mode": "signal",
+      "lookback_bars": 300,
+      "params": {
+        "fast": 15,
+        "slow": 20,
+        "ma_type": "sma",
+        "break_pct": 0,
+        "tp_atr": 3,
+        "sl_atr": 2,
+        "atr_len": 14,
+        "trend_filter_len": 0,
+        "trail_atr": 0
+      },
+      "broker": {
+        "starting_cash": 10000,
+        "fee_pct": 0.1,
+        "slippage_pct": 0.05
+      },
+      "risk": {},
+      "sentiment": {
+        "enabled": true,
+        "keywords": [
+          "brett"
+        ],
+        "subreddits": [
+          "CryptoCurrency",
+          "CryptoMarkets",
+          "SatoshiStreetBets"
+        ],
+        "window_hours": 6,
+        "min_polarity": -0.2,
+        "min_attention_z": -1,
+        "block_on_risk_flag": true
+      },
+      "validated": {
+        "as_of": "2026-09-16",
+        "train": {
+          "n_trades": 29,
+          "win_rate_pct": 41.38,
+          "total_return_pct": 18.98,
+          "profit_factor": 2.78,
+          "max_drawdown_pct": 3.51,
+          "buy_hold_pct": -82.28
+        },
+        "test": {
+          "n_trades": 8,
+          "win_rate_pct": 50,
+          "total_return_pct": 6.76,
+          "profit_factor": 1.56,
+          "max_drawdown_pct": 9.65,
+          "buy_hold_pct": 2.19
+        }
+      }
+    },
+    {
+      "name": "toshi_1h",
+      "symbol": "TOSHIUSDT",
+      "timeframe": "1h",
+      "strategy": "ma_break",
+      "mode": "signal",
+      "lookback_bars": 300,
+      "params": {
+        "fast": 15,
+        "slow": 20,
+        "ma_type": "sma",
+        "break_pct": 0.2,
+        "tp_atr": 2,
+        "sl_atr": 2,
+        "atr_len": 14,
+        "trend_filter_len": 0,
+        "trail_atr": 0
+      },
+      "broker": {
+        "starting_cash": 10000,
+        "fee_pct": 0.1,
+        "slippage_pct": 0.05
+      },
+      "risk": {},
+      "sentiment": {
+        "enabled": true,
+        "keywords": [
+          "toshi"
+        ],
+        "subreddits": [
+          "CryptoCurrency",
+          "CryptoMarkets",
+          "SatoshiStreetBets"
+        ],
+        "window_hours": 6,
+        "min_polarity": -0.2,
+        "min_attention_z": -1,
+        "block_on_risk_flag": true
+      },
+      "validated": {
+        "as_of": "2026-09-16",
+        "train": {
+          "n_trades": 26,
+          "win_rate_pct": 23.08,
+          "total_return_pct": 1.94,
+          "profit_factor": 1.11,
+          "max_drawdown_pct": 10.94,
+          "buy_hold_pct": -42.03
+        },
+        "test": {
+          "n_trades": 7,
+          "win_rate_pct": 28.57,
+          "total_return_pct": 2.94,
+          "profit_factor": 1.71,
+          "max_drawdown_pct": 3.4,
+          "buy_hold_pct": -13.66
+        }
+      }
     }
   ]
 }

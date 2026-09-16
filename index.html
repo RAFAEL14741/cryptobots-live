@@ -94,12 +94,20 @@
   .mode-pill.paper { background: var(--warn-dim); color: var(--warn); }
   .mode-pill.signal { background: var(--acc-dim); color: var(--acc); }
 
-  .status-pill { display: flex; align-items: center; gap: 8px; font-size: 12.5px; padding: 9px 11px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--line); }
+  .status-pill { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; padding: 7px 11px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--line); text-transform: uppercase; letter-spacing: .3px; }
   .status-pill .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--muted); }
   .status-pill.in_position .dot { background: var(--up); }
   .status-pill.triggering .dot { background: var(--warn); animation: pulse-warn 1.5s infinite; }
   .status-pill.watching .dot, .status-pill.approaching .dot { background: var(--acc); }
   .status-pill .txt { flex: 1; color: var(--text-2); }
+
+  /* the bot "talking" — its own live read in plain words, straight from its last real check */
+  .bot-voice { display: flex; gap: 9px; padding: 10px 11px; border-radius: 10px; background: var(--acc-dim); border: 1px solid rgba(110,168,254,.22); }
+  .bot.state-in_position .bot-voice { background: var(--up-dim); border-color: rgba(52,211,153,.25); }
+  .bot-voice .ic { flex: none; font-size: 13px; line-height: 1.5; }
+  .bot-voice .body { flex: 1; min-width: 0; }
+  .bot-voice .line { font-size: 12.5px; line-height: 1.5; color: var(--text); font-style: italic; }
+  .bot-voice .age { display: block; margin-top: 3px; font-size: 10.5px; font-style: normal; color: var(--muted); text-transform: uppercase; letter-spacing: .3px; }
 
   .hero-nums { display: flex; align-items: baseline; gap: 10px; }
   .hero-nums .price { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.3px; }
@@ -342,7 +350,8 @@ function renderBots(bots) {
         ${gap != null ? `<span class="gap ${gap > 0 ? "up" : gap < 0 ? "down" : ""}">${gap > 0 ? "▲" : gap < 0 ? "▼" : ""} ${Math.abs(gap).toFixed(2)}%</span>` : ""}
       </div>
 
-      <div class="status-pill ${sm.cls}"><span class="dot"></span><span class="txt">${esc(sm.label)}${explain?.text ? " — " + esc(explain.text) : ""}</span></div>
+      <div class="status-pill ${sm.cls}"><span class="dot"></span><span class="txt">${esc(sm.label)}</span></div>
+      ${explain?.text ? `<div class="bot-voice"><span class="ic">${sm.cls === "in_position" ? "💰" : sm.cls === "triggering" ? "⚡" : "🔍"}</span><div class="body"><span class="line">"${esc(explain.text)}"</span><span class="age">${explain.ts ? agoStr(explain.ts) : ""}</span></div></div>` : ""}
       ${sent?.risk_flag ? `<div class="risk-flag">⚠ ${esc(sent.risk_reasons[0] || "sentiment risk flagged")}</div>` : ""}
 
       <div class="stat-row">
