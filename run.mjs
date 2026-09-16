@@ -208,6 +208,9 @@ function makeBot(cfg) {
     // Restored from state, not reset to 0: the alert below calls this a "running total for this bot", and each
     // cron tick is a fresh process, so starting at 0 made that claim false — it only ever counted one cycle.
     source: st.source || null, missed: st.missedEntries || 0, snap: null, readiness: st.readiness || null,
+    // A trimmed window of real candles, refreshed every cycle, so the dashboard can draw an actual chart
+    // instead of just numbers. Compact [ts,o,h,l,c] rows to keep state.json from ballooning.
+    bars: st.bars || [],
   };
   if (st.broker) { b.broker.cash = st.broker.cash; b.broker.starting_cash = st.broker.starting_cash; b.broker.positions = st.broker.positions || {}; b.broker.trades = st.broker.trades || []; }
   if (st.risk) { b.risk.daily = st.risk.daily || {}; b.risk.cooldownUntil = st.risk.cooldownUntil || 0; }
@@ -219,7 +222,7 @@ const bots = config.bots.map(makeBot);
 function persist(cycleTs) {
   const out = { __meta: { ...nextMeta, notified: nextNotified, lastCycleTs: cycleTs, sentiment_gates_trades: GATES } };
   for (const b of bots) out[b.cfg.name] = {
-    lastBarTs: b.lastBarTs, last: b.last, explain: b.explain, lastSignal: b.lastSignal, source: b.source, missedEntries: b.missed, readiness: b.readiness,
+    lastBarTs: b.lastBarTs, last: b.last, explain: b.explain, lastSignal: b.lastSignal, source: b.source, missedEntries: b.missed, readiness: b.readiness, bars: b.bars || [],
     sentiment: b.snap ? { polarity: b.snap.polarity, n_mentions: b.snap.n_mentions, attention_z: b.snap.attention_z, risk_flag: b.snap.risk_flag, risk_reasons: b.snap.risk_reasons } : null,
     broker: { cash: b.broker.cash, starting_cash: b.broker.starting_cash, positions: b.broker.positions, trades: b.broker.trades.slice(-200) },
     risk: { daily: b.risk.daily, cooldownUntil: b.risk.cooldownUntil },
@@ -265,6 +268,8 @@ async function stepBot(b, nowMs) {
   const closes = bars.map(x => x.close);
   if (cfg.strategy === "scalper") b.last = { price, ts: last.ts, fast: price, slow: ema(closes, +cfg.params.ema_len).at(-1), label: `vs EMA${cfg.params.ema_len}`, aboveNote: "price above EMA", belowNote: "price below EMA" };
   else { const f = cfg.params.ma_type === "ema" ? ema : sma; b.last = { price, ts: last.ts, fast: f(closes, +cfg.params.fast).at(-1), slow: f(closes, +cfg.params.slow).at(-1), label: "MA gap", aboveNote: "fast above slow", belowNote: "fast below slow" }; }
+  // Refreshed every cycle (not gated on a new bar closing) so the chart's rightmost candle is always live.
+  b.bars = bars.slice(-180).map(x => [x.ts, x.open, x.high, x.low, x.close]);
 
   if (sc.enabled) {
     b.snap = b.sentiment.snapshot(cfg.symbol, sc.keywords || [], textItems, nowMs, (sc.window_hours || 6) * 36e5);
