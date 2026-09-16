@@ -56,6 +56,24 @@
   .err { color: var(--down); font-size: 13px; margin-top: 8px; }
   #stale { margin: 12px 0 0; padding: 10px 12px; border-radius: 8px; background: rgba(245, 185, 66, .14); border: 1px solid var(--warn); color: var(--warn); font-size: 13px; font-weight: 600; }
   #stale[hidden] { display: none; }
+  #watch { margin: 16px 0 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  #watch[hidden] { display: none; }
+  #watch h4 { margin: 0 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+  #watch .sub { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+  .wrow { display: grid; grid-template-columns: 150px 1fr auto; gap: 12px; align-items: center; padding: 7px 0; border-top: 1px solid var(--line); font-size: 13px; }
+  .wrow .nm { font-weight: 600; }
+  .wrow .nm small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .3px; }
+  .bar { height: 7px; border-radius: 4px; background: var(--bg); border: 1px solid var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--acc); }
+  .wrow .d { font-size: 12px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .wrow.hot .bar i { background: var(--warn); } .wrow.hot .d { color: var(--warn); font-weight: 600; }
+  .wrow.pos .bar i { background: var(--up); } .wrow.pos .d { color: var(--up); font-weight: 600; }
+  #calls { margin: 16px 0 0; padding: 12px 14px; border-radius: 12px; background: rgba(110, 168, 254, .12); border: 1px solid var(--acc); }
+  #calls[hidden] { display: none; }
+  #calls h4 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--acc); }
+  #calls .c { font-size: 13px; padding: 6px 0; border-top: 1px solid rgba(110, 168, 254, .25); }
+  #calls .c:first-of-type { border-top: 0; }
+  #calls .c .t { color: var(--muted); margin-right: 8px; font-size: 12px; }
   .src { font-size: 11px; color: var(--muted); }
   .src.kraken { color: var(--warn); }
   .missed { margin-top: 8px; font-size: 11.5px; color: var(--muted); }
@@ -71,6 +89,12 @@
 </div>
 <p class="note">Read-only view of bots running on a schedule in GitHub Actions — they keep checking the market roughly every 5 minutes whether or not your computer is on. <b>signal</b> mode = it only tells you what it would do; <b>paper</b> mode = it executes with fake money. There is no real-money mode anywhere in this project. Sentiment is shown but does not block trades (the strategies were validated without it). To change a bot's settings, ask Claude, or edit config.json in the repo directly.</p>
 <div id="stale" hidden></div>
+<div id="calls" hidden><h4>Needs your call</h4><div id="calls-rows"></div></div>
+<div id="watch" hidden>
+  <h4>Closest to firing</h4>
+  <p class="sub">How far each bot's gap still has to travel before its trigger condition is met. A full bar means it is at the trigger — not that it will fire, and not a prediction.</p>
+  <div id="watch-rows"></div>
+</div>
 <div id="setup">
   <div class="row">
     <label class="muted" for="repo">GitHub repo (owner/name):</label>
@@ -108,7 +132,7 @@ async function load() {
   try {
     [config, state, logLines] = await Promise.all([fetchJson("config.json"), fetchJson("state.json"), fetchJson("log.json")]);
     $("#repo-status").textContent = "";
-    render(); renderLog();
+    render(); renderLog(); renderCalls();
   } catch (e) {
     $("#repo-status").innerHTML = `<span class="err">couldn't load — check the repo name is right, it's public, and the first bot cycle has run (Actions tab → Run bots → Run workflow). (${esc(e.message)})</span>`;
   }
@@ -156,7 +180,45 @@ function render() {
     stale.hidden = false;
     stale.textContent = `⚠ The bots haven't checked in for ~${ageMin} minutes (they should run every ~5). Open the repo's Actions tab: the workflow may have failed, or GitHub may have paused it — scheduled jobs get switched off after 60 days of no activity in the repo, and GitHub emails you a one-click re-enable.`;
   } else stale.hidden = true;
+  renderWatch(bots);
 }
+// Ranked "how close is each bot to actually doing something". Ten cards all reading "waiting" hide the
+// difference between a bot one candle away and one nowhere near; readiness (computed in run.mjs, where the
+// strategy's own thresholds live) is the number that separates them.
+const READY_SCALE = 3; // percentage points of gap; anything further out is simply "far", no need to scale for it
+function renderWatch(bots) {
+  const rows = bots.map(({ cfg, st }) => ({ cfg, r: st.readiness })).filter(x => x.r && typeof x.r.distance === "number");
+  const panel = $("#watch");
+  if (!rows.length) { panel.hidden = true; return; } // older state.json, written before readiness existed
+  panel.hidden = false;
+  rows.sort((a, b) => a.r.distance - b.r.distance);
+  $("#watch-rows").innerHTML = rows.map(({ cfg, r }) => {
+    const inPos = r.state === "in_position", hot = !inPos && r.distance <= 0.25;
+    const pct = inPos ? 100 : Math.max(2, Math.round((1 - Math.min(r.distance, READY_SCALE) / READY_SCALE) * 100));
+    let label;
+    if (inPos) label = "in a trade";
+    else if (r.state === "triggering") label = "conditions met right now";
+    else if (r.state === "already_crossed") label = `crossed already — must fall back ${Math.abs(r.gap).toFixed(2)}% and re-cross`;
+    else label = `${r.distance.toFixed(2)} pts to go`;
+    return `<div class="wrow ${inPos ? "pos" : hot ? "hot" : ""}">
+      <span class="nm">${esc(cfg.name)}<small>${esc(cfg.symbol)} · ${esc(cfg.mode)}</small></span>
+      <span class="bar"><i style="width:${pct}%"></i></span>
+      <span class="d">${esc(label)}</span>
+    </div>`;
+  }).join("");
+}
+
+// Signal-mode bots don't trade — they ask. Those asks are the one thing on this page that is actually addressed
+// to Rafael, so they get pulled out of the journal instead of being buried 40 lines down in it.
+function renderCalls() {
+  const cutoff = Date.now() - 24 * 36e5;
+  const calls = logLines.filter(l => l.level === "signal" && l.ts >= cutoff).slice(-5).reverse();
+  const panel = $("#calls");
+  if (!calls.length) { panel.hidden = true; return; }
+  panel.hidden = false;
+  $("#calls-rows").innerHTML = calls.map(l => `<div class="c"><span class="t">${tstr(l.ts)}</span><b>${esc(l.title)}</b></div>`).join("");
+}
+
 function renderLog() {
   const f = $("#log-filter").value;
   $("#log").innerHTML = logLines.slice().reverse().filter(l => f === "all" || l.level === f || (f === "important" && l.level !== "info")).slice(0, 200)

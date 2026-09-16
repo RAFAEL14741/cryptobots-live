@@ -26,7 +26,7 @@
 //    block or force a trade unless sentiment_gates_trades is turned on in config.json.
 // ---------------------------------------------------------------------------------------------------------
 
-import { readFileSync, writeFileSync, existsSync } from "fs";
+import { readFileSync, writeFileSync, existsSync, unlinkSync } from "fs";
 import { MABreak, Scalper, PaperBroker, RiskManager, ExposureRegistry, SentimentEngine, TIMEFRAME_MS, ema, sma } from "./engine.mjs";
 
 const STRATEGIES = { ma_break: MABreak, scalper: Scalper };
@@ -44,6 +44,26 @@ const meta = saved.__meta || { feeds: {}, source: {} };
 const nextMeta = { feeds: {}, source: {} };
 
 function log(level, title, body) { logLines.push({ ts: Date.now(), level, title, body: body || "" }); }
+
+// ---------- notifications ----------
+// A journal line only helps if someone happens to be looking at the journal. These get written to notify.md,
+// which the workflow turns into a GitHub issue — GitHub then emails/pushes it like any other issue on your own
+// repo. It uses the token Actions already has, so this adds no credentials to the project.
+//
+// Two guards against becoming noise, because a notification channel that cries wolf gets muted and then it may
+// as well not exist: (1) the same event on the same bar is only ever sent once, and (2) the same KIND of event
+// from one bot can't repeat inside 30 minutes. That second one matters for the scalper, whose buy condition is
+// a state ("price is above its EMA") rather than a one-off cross, so it can hold true for many cycles running.
+const notices = [];
+const nextNotified = { ...(meta.notified || {}) };
+const NOTIFY_MIN_GAP_MS = 30 * 60e3;
+function notify(botName, kind, barTs, title, body) {
+  const key = `${kind}:${barTs}`, prev = nextNotified[botName];
+  if (prev && prev.key === key) return;
+  if (prev && prev.key.split(":")[0] === kind && Date.now() - prev.ts < NOTIFY_MIN_GAP_MS) return;
+  nextNotified[botName] = { key, ts: Date.now() };
+  notices.push({ title, body });
+}
 // Only log a recurring condition when it CHANGES state. Returns true if it logged.
 function logOnChange(key, status, level, title, body) {
   nextMeta.feeds[key] = status;
@@ -150,6 +170,27 @@ async function refreshText() {
   return { added, sources };
 }
 
+// ---------- "how close is this bot to actually doing something" ----------
+// A wall of bots all saying "waiting" hides the difference between one that is a hair from firing and one that
+// is nowhere near. This turns each bot's own trigger condition into a single number of percentage points the
+// gap still has to travel, so the dashboard can rank them. Display-only — it never feeds back into a decision.
+//
+// The subtlety worth keeping: MABreak fires only on the BAR WHERE the fast MA crosses the slow one. So a bot
+// already sitting well above its threshold is NOT close to firing — it crossed a while ago and now has to fall
+// back under and re-cross. Hence the two cases below; treating "gap is big" as "nearly firing" would be wrong
+// and would rank the least-ready bot first.
+function readinessOf(cfg, last, inPosition) {
+  if (!last || last.fast == null || last.slow == null) return null;
+  if (inPosition) return { state: "in_position", distance: -1, gap: null, need: null };
+  if (cfg.strategy === "scalper") {
+    const gap = (last.price - last.slow) / last.slow * 100, need = +cfg.params.breakout_pct;
+    return { state: gap >= need ? "triggering" : "approaching", distance: Math.max(0, need - gap), gap, need };
+  }
+  const gap = (last.fast - last.slow) / last.slow * 100, need = +cfg.params.break_pct;
+  if (gap > 0) return { state: "already_crossed", distance: gap + need, gap, need };
+  return { state: "approaching", distance: need - gap, gap, need };
+}
+
 // ---------- bots ----------
 const registry = new ExposureRegistry();
 const GATES = config.sentiment_gates_trades === true; // default: sentiment is display-only (see header note 3)
@@ -164,7 +205,9 @@ function makeBot(cfg) {
     // pollute each other's attention history and produce a meaningless z-score for both
     sentiment: new SentimentEngine(),
     lastBarTs: st.lastBarTs || 0, last: st.last || {}, explain: st.explain || null, lastSignal: st.lastSignal || null,
-    source: st.source || null, missed: 0, snap: null,
+    // Restored from state, not reset to 0: the alert below calls this a "running total for this bot", and each
+    // cron tick is a fresh process, so starting at 0 made that claim false — it only ever counted one cycle.
+    source: st.source || null, missed: st.missedEntries || 0, snap: null, readiness: st.readiness || null,
   };
   if (st.broker) { b.broker.cash = st.broker.cash; b.broker.starting_cash = st.broker.starting_cash; b.broker.positions = st.broker.positions || {}; b.broker.trades = st.broker.trades || []; }
   if (st.risk) { b.risk.daily = st.risk.daily || {}; b.risk.cooldownUntil = st.risk.cooldownUntil || 0; }
@@ -174,9 +217,9 @@ function makeBot(cfg) {
 const bots = config.bots.map(makeBot);
 
 function persist(cycleTs) {
-  const out = { __meta: { ...nextMeta, lastCycleTs: cycleTs, sentiment_gates_trades: GATES } };
+  const out = { __meta: { ...nextMeta, notified: nextNotified, lastCycleTs: cycleTs, sentiment_gates_trades: GATES } };
   for (const b of bots) out[b.cfg.name] = {
-    lastBarTs: b.lastBarTs, last: b.last, explain: b.explain, lastSignal: b.lastSignal, source: b.source, missedEntries: b.missed,
+    lastBarTs: b.lastBarTs, last: b.last, explain: b.explain, lastSignal: b.lastSignal, source: b.source, missedEntries: b.missed, readiness: b.readiness,
     sentiment: b.snap ? { polarity: b.snap.polarity, n_mentions: b.snap.n_mentions, attention_z: b.snap.attention_z, risk_flag: b.snap.risk_flag, risk_reasons: b.snap.risk_reasons } : null,
     broker: { cash: b.broker.cash, starting_cash: b.broker.starting_cash, positions: b.broker.positions, trades: b.broker.trades.slice(-200) },
     risk: { daily: b.risk.daily, cooldownUntil: b.risk.cooldownUntil },
@@ -188,6 +231,17 @@ function persist(cycleTs) {
   const important = logLines.filter(l => l.level !== "info").slice(-250);
   const chatter = logLines.filter(l => l.level === "info").slice(-50);
   writeFileSync(LOG_PATH, JSON.stringify([...important, ...chatter].sort((a, b) => a.ts - b.ts), null, 2));
+
+  // notify.md is the handoff to the workflow: first line becomes the issue title, the rest the body. It is
+  // deliberately NOT committed — it describes this cycle only, and a stale one left lying around would raise a
+  // duplicate alert on the next run, so it gets removed when there is nothing to say.
+  const NOTIFY_PATH = new URL("./notify.md", import.meta.url);
+  if (notices.length) {
+    const title = notices.length === 1 ? notices[0].title
+      : `${notices.length} bot events — ${new Date(cycleTs).toISOString().slice(0, 16).replace("T", " ")} UTC`;
+    const body = notices.map(n => `### ${n.title}\n\n${n.body}`).join("\n\n---\n\n");
+    writeFileSync(NOTIFY_PATH, `${title}\n\n${body}\n`);
+  } else if (existsSync(NOTIFY_PATH)) unlinkSync(NOTIFY_PATH);
 }
 
 const ctxFor = (b, cfg, sc) => ({
@@ -233,7 +287,12 @@ async function stepBot(b, nowMs) {
     // Resting stop-loss / take-profit orders: these really would have filled at their level while we were
     // away, so they replay against the historical bar. This is the one place historical prices are correct.
     const tr = b.broker.onBar(cfg.symbol, nb);
-    if (tr) { b.risk.recordTrade(tr, barMs); log("trade", `[${cfg.name}] ${tr.exit_reason} hit`, `${cfg.symbol} pnl ${money(tr.pnl)} (${tr.pnl_pct.toFixed(2)}%)`); }
+    if (tr) {
+      b.risk.recordTrade(tr, barMs);
+      log("trade", `[${cfg.name}] ${tr.exit_reason} hit`, `${cfg.symbol} pnl ${money(tr.pnl)} (${tr.pnl_pct.toFixed(2)}%)`);
+      notify(cfg.name, "exit", nb.ts, `${cfg.name}: ${tr.exit_reason.replace("_", " ")} — ${money(tr.pnl)}`,
+        `**${cfg.symbol}** closed at its ${tr.exit_reason.replace("_", " ")}.\n\n- entry \`${fmt(tr.entry_price)}\` → exit \`${fmt(tr.exit_price)}\`\n- P&L **${money(tr.pnl)}** (${tr.pnl_pct.toFixed(2)}%)\n- fees ${money(tr.fees)}\n\nPaper money. No action needed — this was an automatic resting order.`);
+    }
     b.lastBarTs = nb.ts;
     if (nb === last) break; // newest bar gets full handling below, against the live price
 
@@ -265,12 +324,31 @@ function act(b, sig, price, nowMs, staleBarTs = null) {
   else if (sig.action === "buy") {
     const [ok, why] = b.risk.canOpen(nowMs, eq), [qty, note] = ok ? b.risk.size(eq, price, sig.stop_loss, sig.confidence) : [0, why];
     const plan = `${cfg.symbol} @ ${fmt(price)} · stop ${fmt(sig.stop_loss)} · target ${fmt(sig.take_profit)} · size ${qty.toPrecision(4)} (~${money(qty * price)})\nwhy: ${sig.reason}${sent}\nsizing: ${note}`;
-    if (cfg.mode === "paper" && ok && qty > 0) { b.broker.marketBuy(cfg.symbol, qty, price, nowMs, sig.stop_loss, sig.take_profit, sig.reason); log("trade", `[${cfg.name}] PAPER BUY`, plan); }
-    else if (cfg.mode === "paper") log("alert", `[${cfg.name}] buy blocked by risk`, `${plan}\nblocked: ${ok ? note : why}`);
-    else log("signal", `[${cfg.name}] BUY SIGNAL (your call)`, plan);
+    if (cfg.mode === "paper" && ok && qty > 0) {
+      b.broker.marketBuy(cfg.symbol, qty, price, nowMs, sig.stop_loss, sig.take_profit, sig.reason);
+      log("trade", `[${cfg.name}] PAPER BUY`, plan);
+      notify(cfg.name, "buy", b.lastBarTs, `${cfg.name}: opened a paper position in ${cfg.symbol}`,
+        `**Bought ${cfg.symbol} at \`${fmt(price)}\`** with fake money.\n\n- stop \`${fmt(sig.stop_loss)}\` · target \`${fmt(sig.take_profit)}\`\n- size ${qty.toPrecision(4)} (~${money(qty * price)})\n- why: ${sig.reason}\n\nNothing for you to do — it will exit on its own at the stop or target.`);
+    } else if (cfg.mode === "paper") log("alert", `[${cfg.name}] buy blocked by risk`, `${plan}\nblocked: ${ok ? note : why}`);
+    else {
+      log("signal", `[${cfg.name}] BUY SIGNAL (your call)`, plan);
+      notify(cfg.name, "buy", b.lastBarTs, `${cfg.name}: BUY setup on ${cfg.symbol} — your call`,
+        `This bot is in **signal mode**, so it did not trade. It would have bought:\n\n- **${cfg.symbol}** at \`${fmt(price)}\`\n- stop \`${fmt(sig.stop_loss)}\` · target \`${fmt(sig.take_profit)}\`\n- suggested size ${qty.toPrecision(4)} (~${money(qty * price)})\n- why: ${sig.reason}\n\nThis is not advice and this bot's settings are not validated to make money — that is exactly why it is on signal-only.`);
+    }
   } else if (sig.action === "close") {
-    if (cfg.mode === "paper") { const tr = b.broker.close(cfg.symbol, price, nowMs, sig.reason); if (tr) { b.risk.recordTrade(tr, TIMEFRAME_MS[cfg.timeframe]); log("trade", `[${cfg.name}] PAPER CLOSE`, `${cfg.symbol} @ ${fmt(price)} pnl ${money(tr.pnl)} (${tr.pnl_pct.toFixed(2)}%)\nwhy: ${sig.reason}${lateNote}`); } }
-    else log("signal", `[${cfg.name}] EXIT SIGNAL (your call)`, `${cfg.symbol} @ ${fmt(price)} — ${sig.reason}${sent}${lateNote}`);
+    if (cfg.mode === "paper") {
+      const tr = b.broker.close(cfg.symbol, price, nowMs, sig.reason);
+      if (tr) {
+        b.risk.recordTrade(tr, TIMEFRAME_MS[cfg.timeframe]);
+        log("trade", `[${cfg.name}] PAPER CLOSE`, `${cfg.symbol} @ ${fmt(price)} pnl ${money(tr.pnl)} (${tr.pnl_pct.toFixed(2)}%)\nwhy: ${sig.reason}${lateNote}`);
+        notify(cfg.name, "close", b.lastBarTs, `${cfg.name}: closed ${cfg.symbol} — ${money(tr.pnl)}`,
+          `**Closed ${cfg.symbol} at \`${fmt(price)}\`.**\n\n- P&L **${money(tr.pnl)}** (${tr.pnl_pct.toFixed(2)}%)\n- why: ${sig.reason}\n\nPaper money. No action needed.`);
+      }
+    } else {
+      log("signal", `[${cfg.name}] EXIT SIGNAL (your call)`, `${cfg.symbol} @ ${fmt(price)} — ${sig.reason}${sent}${lateNote}`);
+      notify(cfg.name, "close", b.lastBarTs, `${cfg.name}: EXIT setup on ${cfg.symbol} — your call`,
+        `Signal mode, so nothing was traded. It would have exited **${cfg.symbol}** at \`${fmt(price)}\`.\n\n- why: ${sig.reason}`);
+    }
   }
 }
 
@@ -280,6 +358,10 @@ async function runOnce() {
   try { feeds = await refreshText(); } catch (e) { log("alert", "feeds failed", String(e.message || e)); }
   for (const b of bots) {
     try { await stepBot(b, now); } catch (e) { log("alert", `[${b.cfg.name}] error`, String(e.message || e)); }
+    // Computed out here rather than inside stepBot so it reflects the position AFTER this cycle's exits, and so
+    // it still refreshes on the many cycles where stepBot returns early because no new bar has closed yet.
+    // Falls back to the previous value if this cycle had no usable data, rather than blanking the row.
+    b.readiness = readinessOf(b.cfg, b.last, !!b.broker.position(b.cfg.symbol)) || b.readiness;
     const price = b.last.price; if (price) registry.update(b.cfg.name, b.broker.equity({ [b.cfg.symbol]: price }), b.broker.exposure({ [b.cfg.symbol]: price }));
   }
   persist(now);
