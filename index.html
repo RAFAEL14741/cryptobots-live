@@ -67,6 +67,9 @@
   .bar i { display: block; height: 100%; background: var(--acc); }
   .wrow .d { font-size: 12px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
   .wrow.hot .bar i { background: var(--warn); } .wrow.hot .d { color: var(--warn); font-weight: 600; }
+  /* "already crossed" needs its gap to reverse direction before it can fire again — a much weaker kind of
+     close than simply approaching the threshold, so it must not look identical to it on the bar. */
+  .wrow.crossed .bar i { background: var(--muted); opacity: .5; }
   .wrow.pos .bar i { background: var(--up); } .wrow.pos .d { color: var(--up); font-weight: 600; }
   #calls { margin: 16px 0 0; padding: 12px 14px; border-radius: 12px; background: rgba(110, 168, 254, .12); border: 1px solid var(--acc); }
   #calls[hidden] { display: none; }
@@ -193,14 +196,15 @@ function renderWatch(bots) {
   panel.hidden = false;
   rows.sort((a, b) => a.r.distance - b.r.distance);
   $("#watch-rows").innerHTML = rows.map(({ cfg, r }) => {
-    const inPos = r.state === "in_position", hot = !inPos && r.distance <= 0.25;
+    const inPos = r.state === "in_position", crossed = r.state === "already_crossed";
+    const hot = !inPos && !crossed && r.distance <= 0.25;
     const pct = inPos ? 100 : Math.max(2, Math.round((1 - Math.min(r.distance, READY_SCALE) / READY_SCALE) * 100));
     let label;
     if (inPos) label = "in a trade";
     else if (r.state === "triggering") label = "conditions met right now";
     else if (r.state === "already_crossed") label = `crossed already — must fall back ${Math.abs(r.gap).toFixed(2)}% and re-cross`;
     else label = `${r.distance.toFixed(2)} pts to go`;
-    return `<div class="wrow ${inPos ? "pos" : hot ? "hot" : ""}">
+    return `<div class="wrow ${inPos ? "pos" : crossed ? "crossed" : hot ? "hot" : ""}">
       <span class="nm">${esc(cfg.name)}<small>${esc(cfg.symbol)} · ${esc(cfg.mode)}</small></span>
       <span class="bar"><i style="width:${pct}%"></i></span>
       <span class="d">${esc(label)}</span>
