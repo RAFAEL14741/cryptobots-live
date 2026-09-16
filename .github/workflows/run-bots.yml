@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write # so this workflow's built-in token can commit state.json/log.json back to the repo
+  issues: write # lets it raise a GitHub issue -- a real notification to you -- when a bot has something worth saying
 
 concurrency:
   group: cryptobots-cycle
@@ -27,6 +28,22 @@ jobs:
 
       - name: Run one bot cycle
         run: node run.mjs
+
+      - name: Raise an issue for anything worth telling you about
+        # run.mjs writes notify.md only when a bot actually has something to say (a signal fired, a paper
+        # trade opened/closed, entries were missed) -- most cycles there is nothing, and this step just skips.
+        # notify.md is never committed on purpose (see run.mjs), so it only exists right here, right now.
+        if: always()
+        run: |
+          if [ -f notify.md ]; then
+            title="$(head -1 notify.md)"
+            body="$(tail -n +2 notify.md)"
+            gh issue create --title "$title" --body "$body"
+          else
+            echo "nothing to notify this cycle"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Commit updated state
         run: |
