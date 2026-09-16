@@ -62,42 +62,35 @@
         "ts": 1789588832126
       }
     },
-    "lastCycleTs": 1789599318051,
+    "lastCycleTs": 1789599628763,
     "sentiment_gates_trades": false
   },
   "doge_1h": {
-    "lastBarTs": 1789592400000,
+    "lastBarTs": 1789596000000,
     "last": {
-      "price": 0.08058,
-      "ts": 1789592400000,
-      "fast": 0.07976999999999991,
-      "slow": 0.07977749999999999,
+      "price": 0.08004,
+      "ts": 1789596000000,
+      "fast": 0.07989999999999994,
+      "slow": 0.07977349999999998,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA 0.01% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1789599318051
+      "text": "fast MA 0.16% above slow MA — needs a cross with the gap over 0.2% (0.04pts short).",
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
     "missedEntries": 0,
     "readiness": {
-      "state": "approaching",
-      "distance": 0.20940114694002307,
-      "gap": -0.009401146940023052,
+      "state": "already_crossed",
+      "distance": 0.358573962531367,
+      "gap": 0.15857396253136694,
       "need": 0.2
     },
     "bars": [
-      [
-        1788948000000,
-        0.09023,
-        0.09082,
-        0.09023,
-        0.09076
-      ],
       [
         1788951600000,
         0.09079,
@@ -1350,6 +1343,13 @@
         0.08075,
         0.0803,
         0.08058
+      ],
+      [
+        1789596000000,
+        0.08017,
+        0.08047,
+        0.07993,
+        0.08004
       ]
     ],
     "sentiment": {
@@ -1482,7 +1482,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.89% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -2872,38 +2872,31 @@
     ]
   },
   "btc_1h": {
-    "lastBarTs": 1789592400000,
+    "lastBarTs": 1789596000000,
     "last": {
-      "price": 75974.33,
-      "ts": 1789592400000,
-      "fast": 75841.52800000002,
-      "slow": 75828.59280000004,
+      "price": 75678.12,
+      "ts": 1789596000000,
+      "fast": 75814.845,
+      "slow": 75837.08040000008,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA 0.02% above slow MA — needs a cross with the gap over 0.05% (0.03pts short).",
-      "ts": 1789599318051
+      "text": "fast MA 0.03% below slow MA — needs to cross above first, then clear 0.05%.",
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
     "missedEntries": 0,
     "readiness": {
-      "state": "already_crossed",
-      "distance": 0.06705847296163732,
-      "gap": 0.017058472961637313,
+      "state": "approaching",
+      "distance": 0.07931995783961875,
+      "gap": -0.02931995783961874,
       "need": 0.05
     },
     "bars": [
-      [
-        1788948000000,
-        79019.67,
-        79178.58,
-        78884.69,
-        78895.75
-      ],
       [
         1788951600000,
         78939.89,
@@ -4156,12 +4149,19 @@
         76216.57,
         75932.6,
         75974.33
+      ],
+      [
+        1789596000000,
+        75970.46,
+        75977.29,
+        75637.15,
+        75678.12
       ]
     ],
     "sentiment": {
       "polarity": -0.1395,
       "n_mentions": 4,
-      "attention_z": -1.075,
+      "attention_z": -1.058,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -4243,6 +4243,7 @@
       4,
       4,
       4,
+      4,
       4
     ]
   },
@@ -4260,7 +4261,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.56% below slow MA — needs to cross above first, then clear 0%. Price is above the 200-bar trend filter (ok).",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -5534,9 +5535,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0824,
-      "n_mentions": 11,
-      "attention_z": -4.458,
+      "polarity": -0.0925,
+      "n_mentions": 9,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -5551,7 +5552,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      19,
       19,
       19,
       19,
@@ -5646,7 +5646,8 @@
       13,
       13,
       11,
-      11
+      11,
+      9
     ]
   },
   "eth_4h": {
@@ -5663,7 +5664,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.37% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -6939,7 +6940,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 1,
-      "attention_z": -1.506,
+      "attention_z": -1.476,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -6971,7 +6972,6 @@
       2,
       2,
       2,
-      2,
       3,
       3,
       3,
@@ -7026,6 +7026,7 @@
       2,
       2,
       2,
+      1,
       1,
       1,
       1,
@@ -7053,20 +7054,20 @@
     ]
   },
   "sol_1h": {
-    "lastBarTs": 1789592400000,
+    "lastBarTs": 1789596000000,
     "last": {
-      "price": 98.47,
-      "ts": 1789592400000,
-      "fast": 98.04999999999976,
-      "slow": 97.35279999999997,
+      "price": 97.44,
+      "ts": 1789596000000,
+      "fast": 98.16399999999976,
+      "slow": 97.38559999999998,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "in_position",
-      "text": "holding since $98.2591 — now +0.21%. watching for the 5/25 MA to cross back down (gap 0.72% now). Stop $96.2874, target $101.094.",
-      "ts": 1789599318051
+      "text": "holding since $98.2591 — now -0.83%. watching for the 5/25 MA to cross back down (gap 0.80% now). Stop $96.2874, target $101.094.",
+      "ts": 1789599628763
     },
     "lastSignal": {
       "ts": 1789588829374,
@@ -7082,13 +7083,6 @@
       "need": null
     },
     "bars": [
-      [
-        1788948000000,
-        103.6,
-        104.04,
-        103.59,
-        103.82
-      ],
       [
         1788951600000,
         103.59,
@@ -8341,6 +8335,13 @@
         98.8,
         98.15,
         98.47
+      ],
+      [
+        1789596000000,
+        98.42,
+        98.42,
+        97.44,
+        97.44
       ]
     ],
     "sentiment": {
@@ -8484,7 +8485,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 3.15% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -9887,7 +9888,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.63% below slow MA — needs to cross above first, then clear 0.1%.",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -11192,10 +11193,10 @@
       1,
       1,
       1,
+      0,
+      0,
+      0,
       1,
-      0,
-      0,
-      0,
       1,
       1,
       1,
@@ -11290,7 +11291,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.41% below slow MA — needs to cross above first, then clear 0%. Price is above the 200-bar trend filter (ok).",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -12693,7 +12694,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.11% above slow MA — needs a cross with the gap over 0.2% (0.09pts short).",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -14083,12 +14084,12 @@
     ]
   },
   "doge_scalp_1m": {
-    "lastBarTs": 1789599240000,
+    "lastBarTs": 1789599540000,
     "last": {
       "price": 0.08004,
-      "ts": 1789599240000,
+      "ts": 1789599540000,
       "fast": 0.08004,
-      "slow": 0.08003878217888519,
+      "slow": 0.08003965337398641,
       "label": "vs EMA8",
       "aboveNote": "price above EMA",
       "belowNote": "price below EMA"
@@ -14096,7 +14097,7 @@
     "explain": {
       "state": "watching",
       "text": "price 0.00% above EMA8 — needs 0.3% and a rising EMA (0.30pts short).",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": {
       "ts": 1789587319168,
@@ -14107,46 +14108,11 @@
     "missedEntries": 21,
     "readiness": {
       "state": "approaching",
-      "distance": 0.29847846121385124,
-      "gap": 0.0015215387861487275,
+      "distance": 0.2995669321405393,
+      "gap": 0.0004330678594606936,
       "need": 0.3
     },
     "bars": [
-      [
-        1789591860000,
-        0.08064,
-        0.08064,
-        0.08064,
-        0.08064
-      ],
-      [
-        1789591920000,
-        0.08057,
-        0.08057,
-        0.08057,
-        0.08057
-      ],
-      [
-        1789591980000,
-        0.08057,
-        0.08057,
-        0.08057,
-        0.08057
-      ],
-      [
-        1789592040000,
-        0.08057,
-        0.08057,
-        0.08057,
-        0.08057
-      ],
-      [
-        1789592100000,
-        0.08057,
-        0.08057,
-        0.08057,
-        0.08057
-      ],
       [
         1789592160000,
         0.08057,
@@ -14979,6 +14945,41 @@
         0.08004,
         0.08004,
         0.08004
+      ],
+      [
+        1789599300000,
+        0.08004,
+        0.08004,
+        0.08004,
+        0.08004
+      ],
+      [
+        1789599360000,
+        0.08004,
+        0.08004,
+        0.08004,
+        0.08004
+      ],
+      [
+        1789599420000,
+        0.08004,
+        0.08004,
+        0.08004,
+        0.08004
+      ],
+      [
+        1789599480000,
+        0.08004,
+        0.08004,
+        0.08004,
+        0.08004
+      ],
+      [
+        1789599540000,
+        0.08004,
+        0.08004,
+        0.08004,
+        0.08004
       ]
     ],
     "sentiment": null,
@@ -15063,38 +15064,31 @@
     "attention": []
   },
   "shib_1h": {
-    "lastBarTs": 1789592400000,
+    "lastBarTs": 1789596000000,
     "last": {
       "price": 0.00000492,
-      "ts": 1789592400000,
-      "fast": 0.000004804285714285712,
-      "slow": 0.000004846999999999996,
+      "ts": 1789596000000,
+      "fast": 0.000004822857142857141,
+      "slow": 0.000004847999999999997,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA 0.88% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1789599318051
+      "text": "fast MA 0.52% below slow MA — needs to cross above first, then clear 0.2%.",
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
     "missedEntries": 0,
     "readiness": {
       "state": "approaching",
-      "distance": 1.0812520262901575,
-      "gap": -0.8812520262901574,
+      "distance": 0.718623290900483,
+      "gap": -0.5186232909004831,
       "need": 0.2
     },
     "bars": [
-      [
-        1788948000000,
-        0.00000541,
-        0.00000542,
-        0.00000541,
-        0.00000542
-      ],
       [
         1788951600000,
         0.00000542,
@@ -16347,6 +16341,13 @@
         0.00000492,
         0.0000049,
         0.00000492
+      ],
+      [
+        1789596000000,
+        0.00000492,
+        0.00000492,
+        0.00000492,
+        0.00000492
       ]
     ],
     "sentiment": {
@@ -16403,6 +16404,7 @@
       0,
       0,
       0,
+      0,
       0
     ]
   },
@@ -16420,7 +16422,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.66% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -17747,6 +17749,7 @@
       0,
       0,
       0,
+      0,
       0
     ]
   },
@@ -17764,7 +17767,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.88% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -19091,6 +19094,7 @@
       0,
       0,
       0,
+      0,
       0
     ]
   },
@@ -19108,7 +19112,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.34% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -20419,6 +20423,7 @@
       0,
       0,
       0,
+      0,
       0
     ]
   },
@@ -20436,7 +20441,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 8.54% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1789599318051
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -21747,42 +21752,36 @@
       0,
       0,
       0,
+      0,
       0
     ]
   },
   "toshi_1h": {
-    "lastBarTs": 1789592400000,
+    "lastBarTs": 1789596000000,
     "last": {
       "price": 0.00010863,
-      "ts": 1789592400000,
-      "fast": 0.00010979066666666682,
-      "slow": 0.00010874149999999998,
+      "ts": 1789596000000,
+      "fast": 0.0001096853333333335,
+      "slow": 0.00010927249999999995,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA is 0.96% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1789599318051
+      "text": "fast MA is 0.38% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1789599628763
     },
     "lastSignal": null,
     "source": "binance.us",
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 1.1648263695708139,
-      "gap": 0.9648263695708138,
+      "distance": 0.5778016731872653,
+      "gap": 0.3778016731872652,
       "need": 0.2
     },
     "bars": [
-      [
-        1788948000000,
-        0.0001271,
-        0.0001271,
-        0.0001271,
-        0.0001271
-      ],
       [
         1788951600000,
         0.0001271,
@@ -23035,6 +23034,13 @@
         0.00010863,
         0.00010863,
         0.00010863
+      ],
+      [
+        1789596000000,
+        0.00010863,
+        0.00010863,
+        0.00010863,
+        0.00010863
       ]
     ],
     "sentiment": {
@@ -23055,6 +23061,7 @@
       "cooldownUntil": 0
     },
     "attention": [
+      0,
       0,
       0,
       0,
