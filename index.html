@@ -79,6 +79,8 @@
   #calls .c .t { color: var(--muted); margin-right: 8px; font-size: 12px; }
   .src { font-size: 11px; color: var(--muted); }
   .src.kraken { color: var(--warn); }
+  .odds { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  .odds b { font-weight: 600; }
   .missed { margin-top: 8px; font-size: 11.5px; color: var(--muted); }
   #chart-panel { margin: 16px 0 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
   #chart-panel h4 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
@@ -96,7 +98,7 @@
   <span class="muted">paper total <span id="total">$0.00</span></span>
   <button id="refresh">Refresh now</button>
 </div>
-<p class="note">Read-only view of bots running on a schedule in GitHub Actions — they keep checking the market roughly every 5 minutes whether or not your computer is on. <b>signal</b> mode = it only tells you what it would do; <b>paper</b> mode = it executes with fake money. There is no real-money mode anywhere in this project. Sentiment is shown but does not block trades (the strategies were validated without it). To change a bot's settings, ask Claude, or edit config.json in the repo directly.</p>
+<p class="note">Read-only view of bots running on a schedule in GitHub Actions — they keep checking the market roughly every 5 minutes whether or not your computer is on. <b>signal</b> mode = it only tells you what it would do; <b>paper</b> mode = it executes with fake money. There is no real-money mode anywhere in this project. Sentiment is shown but does not block trades (the strategies were validated without it). Every trade a bot takes already has a stop-loss, a take-profit, and a capped size (1% of equity risked per trade, 25% max in one position, trading pauses for the day after a 3% loss) — that's built into the risk engine, not something you have to turn on. Each bot card also shows its real backtested win rate, so "likely to go up or down" is an actual measured number, not a guess. To change a bot's settings, ask Claude, or edit config.json in the repo directly.</p>
 <div id="stale" hidden></div>
 <div id="calls" hidden><h4>Needs your call</h4><div id="calls-rows"></div></div>
 <div id="watch" hidden>
@@ -183,6 +185,7 @@ function render() {
       ${sent?.risk_flag ? `<div class="risk">${esc(sent.risk_reasons[0] || "")}</div>` : ""}
       <div class="status ${esc(explain?.state || "watching")}"><span class="dot"></span><span class="txt">${explain ? esc(explain.text) : "waiting on the first cycle…"}</span></div>
       ${sig ? `<div class="sig ${esc(sig.action)}"><span class="t">${tstr(sig.ts)} last action</span> <b>${esc(sig.action)}</b> ${esc(sig.reason)}</div>` : ""}
+      ${c.validated ? `<div class="odds">historically: <b class="${c.validated.test.win_rate_pct >= 50 ? "up" : "down"}">${c.validated.test.win_rate_pct}% right</b> on ${c.validated.test.n_trades} trades it hadn't seen when tuned (${c.validated.train.win_rate_pct}% on the ${c.validated.train.n_trades} it was tuned on) — a real backtest, not a forecast for the next trade</div>` : ""}
       <div class="missed"><span class="src ${esc(st.source || "")}">prices: ${esc(st.source || "—")}</span>${st.missedEntries ? ` · ${st.missedEntries} entry signal(s) skipped since launch (fired between checks — taking them at a price that already passed would be fake)` : ""}</div>
     </section>`;
   }).join("");
