@@ -5,127 +5,223 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>cryptobots — live</title>
 <style>
-  :root { --bg: #0f1115; --panel: #171a21; --line: #262b36; --text: #e6e8ee; --muted: #8b93a7; --up: #3ecf8e; --down: #f0616d; --acc: #6ea8fe; --warn: #f5b942; }
+  :root {
+    --page: #0a0b0d; --panel: #15171d; --panel-2: #1b1e26; --line: rgba(255,255,255,.08); --line-2: rgba(255,255,255,.14);
+    --text: #f3f5f9; --text-2: #a7afc0; --muted: #6b7280;
+    --up: #34d399; --up-dim: rgba(52,211,153,.14);
+    --down: #f4636f; --down-dim: rgba(244,99,111,.14);
+    --acc: #6ea8fe; --acc-dim: rgba(110,168,254,.14);
+    --warn: #f5b942; --warn-dim: rgba(245,185,66,.14);
+    --radius: 14px;
+  }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 0 16px 40px; }
-  .top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 2; }
-  .top h1 { font-size: 18px; margin: 0 8px 0 0; letter-spacing: .3px; }
-  .top .muted { margin-right: auto; }
-  button, input { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; cursor: pointer; font: inherit; }
-  input { cursor: text; }
-  button:hover { border-color: var(--acc); }
-  .muted { color: var(--muted); }
-  .up { color: var(--up); } .down { color: var(--down); }
-  #total { font-weight: 600; }
-  #setup { margin: 16px 0; padding: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
-  #setup input { width: min(420px, 100%); }
-  #bots { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 14px; margin-top: 16px; }
-  .bot { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
-  .bot header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .bot h2 { margin: 0; font-size: 16px; }
-  .sym { color: var(--muted); font-size: 12px; }
-  .mode { margin-left: auto; font-size: 11px; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--line); text-transform: uppercase; letter-spacing: .3px; }
-  .mode.paper { border-color: var(--warn); color: var(--warn); }
-  .mode.signal { color: var(--acc); border-color: var(--acc); }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 12px; }
-  .grid div { display: flex; flex-direction: column; }
-  .grid small { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .4px; }
-  .grid b { font-size: 15px; }
-  .grid span { font-size: 11px; }
-  .risk { margin-top: 8px; padding: 6px 8px; border-radius: 6px; background: rgba(240, 97, 109, .12); color: var(--down); font-size: 12px; }
-  .sig { margin-top: 8px; font-size: 12px; padding: 8px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); opacity: .85; }
-  .sig.buy { border-color: var(--up); } .sig.close { border-color: var(--down); } .sig.skip { opacity: .7; }
-  .sig .t { color: var(--muted); margin-right: 6px; }
-  .status { margin-top: 10px; font-size: 12.5px; padding: 8px 10px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); display: flex; align-items: flex-start; gap: 8px; }
-  .status .dot { width: 8px; height: 8px; min-width: 8px; border-radius: 50%; margin-top: 4px; background: var(--muted); }
-  .status.watching .dot { background: var(--acc); }
-  .status.in_position { border-color: var(--up); }
-  .status.in_position .dot { background: var(--up); }
-  .status.warming_up .dot { background: var(--muted); }
-  .status .txt { flex: 1; }
-  h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin: 24px 0 8px; display: flex; align-items: center; gap: 10px; }
-  #log-filter { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; font: inherit; font-size: 12px; }
-  #log { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 6px 12px; max-height: 420px; overflow: auto; }
-  .ll { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
+  body { margin: 0; background: var(--page); color: var(--text); font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding-bottom: 60px; }
+  a { color: inherit; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 18px; }
+  .up { color: var(--up); } .down { color: var(--down); } .muted { color: var(--muted); } .acc { color: var(--acc); }
+
+  /* ---------- hero ---------- */
+  .hero { position: sticky; top: 0; z-index: 5; background: linear-gradient(180deg, var(--page) 70%, transparent); backdrop-filter: blur(6px); padding: 16px 0 10px; border-bottom: 1px solid var(--line); }
+  .hero-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 17px; letter-spacing: -.2px; }
+  .livedot { width: 9px; height: 9px; border-radius: 50%; background: var(--up); box-shadow: 0 0 0 0 rgba(52,211,153,.6); animation: pulse 2s infinite; flex: none; }
+  .livedot.stale { background: var(--warn); animation: pulse-warn 2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(52,211,153,.55); } 70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); } 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); } }
+  @keyframes pulse-warn { 0% { box-shadow: 0 0 0 0 rgba(245,185,66,.55); } 70% { box-shadow: 0 0 0 8px rgba(245,185,66,0); } 100% { box-shadow: 0 0 0 0 rgba(245,185,66,0); } }
+  .hero-stat { display: flex; flex-direction: column; }
+  .hero-stat .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+  .hero-stat .val { font-size: 27px; font-weight: 700; letter-spacing: -.5px; font-variant-numeric: tabular-nums; transition: color .3s; }
+  .hero-meta { margin-left: auto; display: flex; align-items: center; gap: 12px; font-size: 12.5px; color: var(--text-2); }
+  #refresh, .ghost-btn { background: var(--panel-2); color: var(--text); border: 1px solid var(--line-2); border-radius: 9px; padding: 8px 14px; cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+  #refresh:hover, .ghost-btn:hover { border-color: var(--acc); }
+  .hero-sub { margin: 10px 0 2px; font-size: 12.5px; color: var(--muted); max-width: 900px; }
+  .hero-sub b { color: var(--text-2); font-weight: 600; }
+
+  /* ---------- generic panel ---------- */
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; margin-top: 16px; }
+  .panel h4 { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); display: flex; align-items: center; gap: 8px; font-weight: 700; }
+  .panel .sub { font-size: 12px; color: var(--muted); margin: -6px 0 12px; }
+  #stale-banner { margin-top: 16px; padding: 12px 16px; border-radius: var(--radius); background: var(--warn-dim); border: 1px solid var(--warn); color: var(--warn); font-size: 13px; font-weight: 600; }
+  #stale-banner[hidden] { display: none; }
+
+  /* ---------- live feed ---------- */
+  #feed { display: flex; flex-direction: column; }
+  .feed-row { display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top: 1px solid var(--line); font-size: 13px; }
+  .feed-row:first-child { border-top: 0; }
+  .feed-ico { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex: none; margin-top: 1px; }
+  .feed-ico.buy { background: var(--acc-dim); color: var(--acc); } .feed-ico.close.win { background: var(--up-dim); color: var(--up); }
+  .feed-ico.close.loss { background: var(--down-dim); color: var(--down); } .feed-ico.alert { background: var(--warn-dim); color: var(--warn); }
+  .feed-body { flex: 1; min-width: 0; }
+  .feed-title { font-weight: 600; }
+  .feed-time { color: var(--muted); font-size: 11.5px; margin-left: 6px; font-weight: 400; }
+  .feed-empty { color: var(--muted); padding: 6px 0; }
+
+  /* ---------- readiness ---------- */
+  .wrow { display: grid; grid-template-columns: 150px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; }
+  .wrow:first-child { border-top: 0; }
+  .wrow .nm { font-weight: 600; }
+  .wrow .nm small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .3px; }
+  .bar { height: 8px; border-radius: 5px; background: var(--panel-2); border: 1px solid var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 5px; background: var(--acc); transition: width .4s ease; }
+  .wrow .d { font-size: 12px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .wrow.hot .bar i { background: var(--warn); } .wrow.hot .d { color: var(--warn); font-weight: 700; }
+  .wrow.crossed .bar i { background: var(--muted); opacity: .5; }
+  .wrow.pos .bar i { background: var(--up); } .wrow.pos .d { color: var(--up); font-weight: 700; }
+
+  /* ---------- chart ---------- */
+  #chart-panel .row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  select { background: var(--panel-2); color: var(--text); border: 1px solid var(--line-2); border-radius: 8px; padding: 7px 10px; font: inherit; font-size: 13px; }
+  #chart-box { width: 100%; height: 340px; }
+  #chart-legend { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+  #chart-legend b { color: var(--text); }
+
+  /* ---------- filter chips ---------- */
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 2px; }
+  .chip { background: var(--panel); border: 1px solid var(--line-2); color: var(--text-2); border-radius: 999px; padding: 7px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+  .chip.active { background: var(--acc-dim); border-color: var(--acc); color: var(--acc); }
+  .chip .n { color: var(--muted); margin-left: 3px; }
+  .chip.active .n { color: var(--acc); opacity: .8; }
+
+  /* ---------- bot cards ---------- */
+  #bots { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 14px; margin-top: 14px; }
+  .bot { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 15px 16px; display: flex; flex-direction: column; gap: 11px; transition: border-color .25s; }
+  .bot.state-in_position { border-color: rgba(52,211,153,.35); }
+  .bot.state-triggering { border-color: rgba(245,185,66,.4); }
+  .bot-head { display: flex; align-items: center; gap: 9px; }
+  .bot-head h2 { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: -.1px; }
+  .bot-head .sym { font-size: 11.5px; color: var(--muted); }
+  .mode-pill { margin-left: auto; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: .4px; }
+  .mode-pill.paper { background: var(--warn-dim); color: var(--warn); }
+  .mode-pill.signal { background: var(--acc-dim); color: var(--acc); }
+
+  .status-pill { display: flex; align-items: center; gap: 8px; font-size: 12.5px; padding: 9px 11px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--line); }
+  .status-pill .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--muted); }
+  .status-pill.in_position .dot { background: var(--up); }
+  .status-pill.triggering .dot { background: var(--warn); animation: pulse-warn 1.5s infinite; }
+  .status-pill.watching .dot, .status-pill.approaching .dot { background: var(--acc); }
+  .status-pill .txt { flex: 1; color: var(--text-2); }
+
+  .hero-nums { display: flex; align-items: baseline; gap: 10px; }
+  .hero-nums .price { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.3px; }
+  .hero-nums .gap { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .hero-nums .arrow { font-size: 12px; }
+
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat small { color: var(--muted); font-size: 10.5px; text-transform: uppercase; letter-spacing: .4px; }
+  .stat b { font-size: 14px; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: 11px; color: var(--muted); }
+
+  .risk-flag { padding: 7px 9px; border-radius: 8px; background: var(--down-dim); color: var(--down); font-size: 11.5px; font-weight: 600; }
+
+  details.more { margin-top: 2px; }
+  details.more summary { cursor: pointer; font-size: 12px; color: var(--acc); font-weight: 600; list-style: none; display: flex; align-items: center; gap: 4px; user-select: none; }
+  details.more summary::-webkit-details-marker { display: none; }
+  details.more summary::after { content: "details ›"; }
+  details.more[open] summary::after { content: "hide details ‹"; }
+  .more-body { margin-top: 10px; display: flex; flex-direction: column; gap: 9px; font-size: 12.5px; }
+  .odds-line { color: var(--text-2); line-height: 1.55; }
+  .odds-line b { font-weight: 700; }
+  .sig-box { font-size: 12px; padding: 8px 10px; border-radius: 8px; background: var(--panel-2); border: 1px solid var(--line); }
+  .sig-box.buy { border-left: 3px solid var(--acc); } .sig-box.close { border-left: 3px solid var(--down); }
+  .sig-box .t { color: var(--muted); margin-right: 6px; }
+  .src-line { font-size: 11px; color: var(--muted); }
+  .src-line.kraken { color: var(--warn); }
+
+  /* ---------- calls ---------- */
+  #calls .c { font-size: 13px; padding: 8px 0; border-top: 1px solid rgba(110,168,254,.2); }
+  #calls .c:first-of-type { border-top: 0; }
+  #calls .c .t { color: var(--muted); margin-right: 8px; font-size: 11.5px; }
+
+  /* ---------- journal ---------- */
+  #journal-toggle { cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); font-weight: 700; margin: 22px 0 0; user-select: none; }
+  #journal-toggle .car { transition: transform .2s; }
+  #journal-toggle.open .car { transform: rotate(90deg); }
+  #log-filter { margin-left: auto; text-transform: none; letter-spacing: 0; font-size: 12px; }
+  #log-wrap[hidden] { display: none; }
+  #log { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 4px 16px; max-height: 420px; overflow: auto; margin-top: 10px; }
+  .ll { padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
   .ll:last-child { border-bottom: 0; }
   .ll .t { color: var(--muted); margin-right: 8px; }
   .ll.signal b { color: var(--acc); } .ll.trade b { color: var(--up); } .ll.alert b { color: var(--down); }
-  .ll pre { margin: 4px 0 0; white-space: pre-wrap; color: var(--muted); font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  .note { font-size: 12px; color: var(--muted); margin: 10px 0 0; }
-  .err { color: var(--down); font-size: 13px; margin-top: 8px; }
-  #stale { margin: 12px 0 0; padding: 10px 12px; border-radius: 8px; background: rgba(245, 185, 66, .14); border: 1px solid var(--warn); color: var(--warn); font-size: 13px; font-weight: 600; }
-  #stale[hidden] { display: none; }
-  #watch { margin: 16px 0 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
-  #watch[hidden] { display: none; }
-  #watch h4 { margin: 0 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
-  #watch .sub { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
-  .wrow { display: grid; grid-template-columns: 150px 1fr auto; gap: 12px; align-items: center; padding: 7px 0; border-top: 1px solid var(--line); font-size: 13px; }
-  .wrow .nm { font-weight: 600; }
-  .wrow .nm small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .3px; }
-  .bar { height: 7px; border-radius: 4px; background: var(--bg); border: 1px solid var(--line); overflow: hidden; }
-  .bar i { display: block; height: 100%; background: var(--acc); }
-  .wrow .d { font-size: 12px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
-  .wrow.hot .bar i { background: var(--warn); } .wrow.hot .d { color: var(--warn); font-weight: 600; }
-  /* "already crossed" needs its gap to reverse direction before it can fire again — a much weaker kind of
-     close than simply approaching the threshold, so it must not look identical to it on the bar. */
-  .wrow.crossed .bar i { background: var(--muted); opacity: .5; }
-  .wrow.pos .bar i { background: var(--up); } .wrow.pos .d { color: var(--up); font-weight: 600; }
-  #calls { margin: 16px 0 0; padding: 12px 14px; border-radius: 12px; background: rgba(110, 168, 254, .12); border: 1px solid var(--acc); }
-  #calls[hidden] { display: none; }
-  #calls h4 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--acc); }
-  #calls .c { font-size: 13px; padding: 6px 0; border-top: 1px solid rgba(110, 168, 254, .25); }
-  #calls .c:first-of-type { border-top: 0; }
-  #calls .c .t { color: var(--muted); margin-right: 8px; font-size: 12px; }
-  .src { font-size: 11px; color: var(--muted); }
-  .src.kraken { color: var(--warn); }
-  .odds { margin-top: 8px; font-size: 12px; color: var(--muted); }
-  .odds b { font-weight: 600; }
-  .missed { margin-top: 8px; font-size: 11.5px; color: var(--muted); }
-  #chart-panel { margin: 16px 0 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
-  #chart-panel h4 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
-  #chart-panel .row { margin-bottom: 10px; }
-  #chart-box { width: 100%; height: 360px; }
-  #chart-legend { font-size: 12px; color: var(--muted); margin-top: 8px; }
-  #chart-legend b { color: var(--text); }
-  @media (max-width: 520px) { #bots { grid-template-columns: 1fr; } .grid { grid-template-columns: repeat(2, 1fr); } #chart-box { height: 260px; } }
+  .ll pre { margin: 4px 0 0; white-space: pre-wrap; color: var(--text-2); font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  /* ---------- setup (tucked away) ---------- */
+  #setup { margin-top: 16px; }
+  #setup summary { cursor: pointer; font-size: 12px; color: var(--muted); user-select: none; }
+  #setup .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+  #setup input { background: var(--panel-2); color: var(--text); border: 1px solid var(--line-2); border-radius: 8px; padding: 8px 10px; font: inherit; width: min(420px, 100%); }
+
+  .err { color: var(--down); font-size: 13px; }
+
+  @media (max-width: 640px) {
+    #bots { grid-template-columns: 1fr; }
+    .hero-stat .val { font-size: 22px; }
+    #chart-box { height: 260px; }
+    .wrow { grid-template-columns: 110px 1fr auto; }
+  }
 </style>
 </head>
 <body>
-<div class="top">
-  <h1>cryptobots — live</h1>
-  <span class="muted" id="last-cycle">loading…</span>
-  <span class="muted">paper total <span id="total">$0.00</span></span>
-  <button id="refresh">Refresh now</button>
-</div>
-<p class="note">Read-only view of bots running on a schedule in GitHub Actions — they keep checking the market roughly every 5 minutes whether or not your computer is on. <b>signal</b> mode = it only tells you what it would do; <b>paper</b> mode = it executes with fake money. There is no real-money mode anywhere in this project. Sentiment is shown but does not block trades (the strategies were validated without it). Every trade a bot takes already has a stop-loss, a take-profit, and a capped size (1% of equity risked per trade, 25% max in one position, trading pauses for the day after a 3% loss) — that's built into the risk engine, not something you have to turn on. Each bot card also shows its real backtested win rate, so "likely to go up or down" is an actual measured number, not a guess. To change a bot's settings, ask Claude, or edit config.json in the repo directly.</p>
-<div id="stale" hidden></div>
-<div id="calls" hidden><h4>Needs your call</h4><div id="calls-rows"></div></div>
-<div id="watch" hidden>
-  <h4>Closest to firing</h4>
-  <p class="sub">How far each bot's gap still has to travel before its trigger condition is met. A full bar means it is at the trigger — not that it will fire, and not a prediction.</p>
-  <div id="watch-rows"></div>
-</div>
-<div id="chart-panel">
-  <h4>Chart</h4>
-  <div class="row">
-    <label class="muted" for="chart-bot">bot:</label>
-    <select id="chart-bot"></select>
-  </div>
-  <div id="chart-box"></div>
-  <div id="chart-legend" class="muted">loading…</div>
-</div>
-<div id="setup">
-  <div class="row">
-    <label class="muted" for="repo">GitHub repo (owner/name):</label>
-    <input id="repo" placeholder="e.g. rafael/cryptobots-live">
-    <button id="save-repo">Save</button>
-    <span class="muted" id="repo-status"></span>
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-row">
+      <div class="brand"><span class="livedot" id="livedot"></span>cryptobots</div>
+      <div class="hero-stat">
+        <span class="lbl">paper total</span>
+        <span class="val" id="total">$0.00</span>
+      </div>
+      <div class="hero-meta">
+        <span id="last-cycle">loading…</span>
+        <button id="refresh">Refresh</button>
+      </div>
+    </div>
+    <p class="hero-sub">Bots run on a schedule in the cloud, checking the market every ~5 minutes whether or not your computer is on. <b>Signal</b> bots tell you what they'd do; <b>paper</b> bots execute with fake money — there is no real-money mode anywhere in this project. Every trade already has a stop-loss, take-profit, and capped size built in. Each card's real backtested win rate is one tap away.</p>
   </div>
 </div>
-<div id="bots"></div>
-<h3>Journal <select id="log-filter"><option value="important" selected>signals, trades, alerts</option><option value="signal">signals</option><option value="trade">trades</option><option value="alert">alerts</option><option value="all">everything</option></select></h3>
-<div id="log"></div>
+
+<div class="wrap">
+  <div id="stale-banner" hidden></div>
+
+  <div class="panel" id="feed-panel">
+    <h4>🟢 Live activity</h4>
+    <div id="feed"></div>
+  </div>
+
+  <div class="panel" id="calls" hidden><h4>📣 Needs your call</h4><div id="calls-rows"></div></div>
+
+  <div class="panel" id="watch" hidden>
+    <h4>Closest to firing</h4>
+    <p class="sub">How far each bot's gap still has to travel before its trigger condition is met. A full bar means it's at the trigger — not that it will fire, and not a prediction.</p>
+    <div id="watch-rows"></div>
+  </div>
+
+  <div class="panel" id="chart-panel">
+    <h4>Chart</h4>
+    <div class="row">
+      <label class="muted" for="chart-bot">bot</label>
+      <select id="chart-bot"></select>
+    </div>
+    <div id="chart-box"></div>
+    <div id="chart-legend" class="muted">loading…</div>
+  </div>
+
+  <div class="chips" id="chips"></div>
+  <div id="bots"></div>
+
+  <div id="journal-toggle"><span class="car">›</span> Journal <select id="log-filter" onclick="event.stopPropagation()"><option value="important" selected>signals, trades, alerts</option><option value="signal">signals</option><option value="trade">trades</option><option value="alert">alerts</option><option value="all">everything</option></select></div>
+  <div id="log-wrap" hidden><div id="log"></div></div>
+
+  <details id="setup"><summary>GitHub repo settings</summary>
+    <div class="row">
+      <label class="muted" for="repo">owner/name:</label>
+      <input id="repo" placeholder="e.g. rafael/cryptobots-live">
+      <button class="ghost-btn" id="save-repo">Save</button>
+      <span class="muted" id="repo-status"></span>
+    </div>
+  </details>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
 <script>
 const $ = s => document.querySelector(s);
@@ -133,12 +229,20 @@ const money = x => (x < 0 ? "-$" : "$") + Math.abs(x).toFixed(2);
 const fmt = (x, d = 6) => x == null ? "—" : (+x).toPrecision(d);
 const tstr = ts => new Date(ts).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
 const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+function agoStr(ts) {
+  const m = Math.max(0, Math.round((Date.now() - ts) / 60000));
+  if (m < 1) return "just now";
+  if (m < 60) return m + "m ago";
+  const h = Math.floor(m / 60);
+  if (h < 24) return h + "h " + (m % 60) + "m ago";
+  return Math.floor(h / 24) + "d ago";
+}
 
 let repo = localStorage.getItem("cb.repo") || "RAFAEL14741/cryptobots-live";
 $("#repo").value = repo;
 $("#save-repo").onclick = () => { repo = $("#repo").value.trim().replace(/^https?:\/\/github\.com\//, "").replace(/\.git$/, ""); localStorage.setItem("cb.repo", repo); load(); };
 
-let config = null, state = null, logLines = [];
+let config = null, state = null, logLines = [], lastCycleTs = 0, botFilter = "all";
 
 async function fetchJson(path) {
   const url = `https://raw.githubusercontent.com/${repo}/main/${path}?_=${Date.now()}`;
@@ -148,71 +252,126 @@ async function fetchJson(path) {
 }
 
 async function load() {
-  if (!repo) { $("#repo-status").textContent = "enter your repo above (e.g. yourname/cryptobots-live) and click Save"; return; }
+  if (!repo) { $("#repo-status").textContent = "enter your repo above and click Save"; return; }
   $("#repo-status").textContent = "loading…";
   try {
     [config, state, logLines] = await Promise.all([fetchJson("config.json"), fetchJson("state.json"), fetchJson("log.json")]);
     $("#repo-status").textContent = "";
-    render(); renderLog(); renderCalls(); renderChart();
+    render(); renderFeed(); renderLog(); renderCalls(); renderChart(); renderChips();
   } catch (e) {
-    $("#repo-status").innerHTML = `<span class="err">couldn't load — check the repo name is right, it's public, and the first bot cycle has run (Actions tab → Run bots → Run workflow). (${esc(e.message)})</span>`;
+    $("#repo-status").innerHTML = `<span class="err">couldn't load — check the repo name is right, it's public, and the first bot cycle has run. (${esc(e.message)})</span>`;
   }
 }
 
+function botsWithState() { return config.bots.map(cfg => ({ cfg, st: state[cfg.name] || {} })); }
+
 function render() {
   if (!config || !state) return;
-  const bots = config.bots.map(cfg => ({ cfg, st: state[cfg.name] || {} }));
-  $("#bots").innerHTML = bots.map(({ cfg: c, st }) => {
+  const bots = botsWithState();
+  const total = bots.reduce((a, { cfg: c, st }) => { const price = st.last?.price, broker = st.broker || { cash: c.broker?.starting_cash ?? 10000, positions: {} }, pos = (broker.positions || {})[c.symbol]; return a + (price && pos ? broker.cash + pos.qty * price : broker.cash); }, 0);
+  $("#total").textContent = money(total);
+
+  lastCycleTs = state.__meta?.lastCycleTs || Math.max(0, ...bots.map(({ st }) => st.last?.ts || 0));
+  const ageMin = lastCycleTs ? Math.round((Date.now() - lastCycleTs) / 60000) : null;
+  const dot = $("#livedot");
+  const stale = $("#stale-banner");
+  if (ageMin != null && ageMin >= 20) {
+    dot.classList.add("stale");
+    stale.hidden = false;
+    stale.textContent = `⚠ The bots haven't checked in for ~${ageMin} minutes (they should run every ~5). Open the repo's Actions tab — the workflow may have failed or been paused (GitHub auto-pauses scheduled jobs after 60 days of repo inactivity; it emails you a one-click re-enable).`;
+  } else { dot.classList.remove("stale"); stale.hidden = true; }
+  updateLastCheck();
+
+  renderWatch(bots);
+  renderBots(bots);
+}
+
+function updateLastCheck() { $("#last-cycle").textContent = lastCycleTs ? "checked " + agoStr(lastCycleTs) : "no data yet"; }
+setInterval(updateLastCheck, 15000);
+
+function statusMeta(state) {
+  if (state === "in_position") return { cls: "in_position", label: "in a trade" };
+  if (state === "triggering") return { cls: "triggering", label: "conditions met — ready" };
+  if (state === "already_crossed") return { cls: "approaching", label: "cooling down, needs a re-cross" };
+  if (state === "approaching") return { cls: "approaching", label: "approaching trigger" };
+  return { cls: "watching", label: "watching" };
+}
+
+function renderChips() {
+  const bots = botsWithState();
+  const counts = { all: bots.length, paper: bots.filter(b => b.cfg.mode === "paper").length, signal: bots.filter(b => b.cfg.mode === "signal").length, active: bots.filter(b => b.st.readiness?.state === "in_position" || b.st.readiness?.state === "triggering").length };
+  const defs = [["all", "All bots"], ["active", "Active now"], ["paper", "Paper"], ["signal", "Signal"]];
+  $("#chips").innerHTML = defs.map(([k, label]) => `<span class="chip ${botFilter === k ? "active" : ""}" data-f="${k}">${label}<span class="n">${counts[k]}</span></span>`).join("");
+  $("#chips").querySelectorAll(".chip").forEach(el => el.onclick = () => { botFilter = el.dataset.f; renderChips(); renderBots(botsWithState()); });
+}
+
+function renderBots(bots) {
+  let list = bots.slice();
+  if (botFilter === "paper") list = list.filter(b => b.cfg.mode === "paper");
+  else if (botFilter === "signal") list = list.filter(b => b.cfg.mode === "signal");
+  else if (botFilter === "active") list = list.filter(b => b.st.readiness?.state === "in_position" || b.st.readiness?.state === "triggering");
+  // Closest-to-firing first, so the bot most worth watching is always top-left — reinforces "these are working."
+  list.sort((a, b) => {
+    const ra = a.st.readiness, rb = b.st.readiness;
+    const da = ra?.state === "in_position" ? -1 : (typeof ra?.distance === "number" ? ra.distance : 999);
+    const db = rb?.state === "in_position" ? -1 : (typeof rb?.distance === "number" ? rb.distance : 999);
+    return da - db;
+  });
+
+  $("#bots").innerHTML = list.map(({ cfg: c, st }) => {
     const last = st.last || {}, price = last.price, broker = st.broker || { cash: c.broker?.starting_cash ?? 10000, positions: {}, trades: [] };
     const pos = (broker.positions || {})[c.symbol];
     const trades = broker.trades || [], wins = trades.filter(t => t.pnl > 0).length, realized = trades.reduce((a, t) => a + t.pnl, 0);
     const eq = price && pos ? broker.cash + pos.qty * price : broker.cash;
     const unreal = pos && price ? (price - pos.entry_price) * pos.qty : 0;
     const gap = last.fast != null && last.slow != null ? ((last.fast - last.slow) / last.slow * 100) : null;
-    const stratLabel = c.strategy === "scalper" ? `scalp · ema${c.params.ema_len}, ${c.params.max_hold_bars}-bar exit` : `${c.params.ma_type} ${c.params.fast}/${c.params.slow}`;
+    const stratLabel = c.strategy === "scalper" ? `scalp · ema${c.params.ema_len}` : `${c.params.ma_type} ${c.params.fast}/${c.params.slow}`;
     const explain = st.explain, sig = st.lastSignal, sent = st.sentiment;
-    return `<section class="bot">
-      <header><h2>${esc(c.name)}</h2><span class="sym">${esc(c.symbol)} · ${esc(c.timeframe)} · ${esc(stratLabel)}</span>
-        <span class="mode ${esc(c.mode)}">${esc(c.mode)}</span></header>
-      <div class="grid">
-        <div><small>price</small><b>${fmt(price)}</b><span class="muted">${last.ts ? tstr(last.ts) : "not yet"}</span></div>
-        <div><small>${esc(last.label || "MA gap")}</small><b class="${gap > 0 ? "up" : gap < 0 ? "down" : ""}">${gap == null ? "—" : gap.toFixed(2) + "%"}</b></div>
-        <div><small>paper equity</small><b>${money(eq)}</b><span class="muted">cash ${money(broker.cash)}</span></div>
-        <div><small>realized</small><b class="${realized >= 0 ? "up" : "down"}">${money(realized)}</b><span class="muted">${trades.length} trades · ${trades.length ? Math.round(wins / trades.length * 100) : 0}% win</span></div>
-        <div><small>position</small><b>${pos ? pos.qty.toPrecision(4) + " @ " + fmt(pos.entry_price) : "flat"}</b><span class="muted">${pos ? `stop ${fmt(pos.stop_loss)} · target ${fmt(pos.take_profit)} · ${money(unreal)}` : ""}</span></div>
-        <div><small>sentiment</small><b class="${sent?.risk_flag ? "down" : ""}">${sent ? (sent.risk_flag ? "RISK" : sent.polarity.toFixed(2)) : c.sentiment?.enabled ? "…" : "off"}</b><span class="muted">${sent ? `${sent.n_mentions} mentions · shown only` : ""}</span></div>
+    const sm = statusMeta(st.readiness?.state);
+    const v = c.validated;
+
+    return `<section class="bot state-${sm.cls}">
+      <div class="bot-head">
+        <h2>${esc(c.name)}</h2>
+        <span class="mode-pill ${esc(c.mode)}">${esc(c.mode)}</span>
       </div>
-      ${sent?.risk_flag ? `<div class="risk">${esc(sent.risk_reasons[0] || "")}</div>` : ""}
-      <div class="status ${esc(explain?.state || "watching")}"><span class="dot"></span><span class="txt">${explain ? esc(explain.text) : "waiting on the first cycle…"}</span></div>
-      ${sig ? `<div class="sig ${esc(sig.action)}"><span class="t">${tstr(sig.ts)} last action</span> <b>${esc(sig.action)}</b> ${esc(sig.reason)}</div>` : ""}
-      ${c.validated ? `<div class="odds">historically: <b class="${c.validated.test.win_rate_pct >= 50 ? "up" : "down"}">${c.validated.test.win_rate_pct}% right</b> on ${c.validated.test.n_trades} trades it hadn't seen when tuned (${c.validated.train.win_rate_pct}% on the ${c.validated.train.n_trades} it was tuned on) — a real backtest, not a forecast for the next trade</div>
-      ${c.validated.test.profit_factor != null ? `<div class="odds">profit factor <b class="${c.validated.test.profit_factor >= 1 ? "up" : "down"}">${c.validated.test.profit_factor >= 99 ? "no losses" : c.validated.test.profit_factor + "x"}</b>${c.validated.test.profit_factor < 99 ? ` (won $${c.validated.test.profit_factor} for every $1 lost)` : ""} · max drawdown <b class="down">-${c.validated.test.max_drawdown_pct}%</b> · buy-and-hold over the same window: ${c.validated.test.buy_hold_pct >= 0 ? "+" : ""}${c.validated.test.buy_hold_pct}%</div>` : ""}` : ""}
-      <div class="missed"><span class="src ${esc(st.source || "")}">prices: ${esc(st.source || "—")}</span>${st.missedEntries ? ` · ${st.missedEntries} entry signal(s) skipped since launch (fired between checks — taking them at a price that already passed would be fake)` : ""}</div>
+      <div class="bot-head" style="margin-top:-7px"><span class="sym">${esc(c.symbol)} · ${esc(c.timeframe)} · ${esc(stratLabel)}</span></div>
+
+      <div class="hero-nums">
+        <span class="price">${fmt(price)}</span>
+        ${gap != null ? `<span class="gap ${gap > 0 ? "up" : gap < 0 ? "down" : ""}">${gap > 0 ? "▲" : gap < 0 ? "▼" : ""} ${Math.abs(gap).toFixed(2)}%</span>` : ""}
+      </div>
+
+      <div class="status-pill ${sm.cls}"><span class="dot"></span><span class="txt">${esc(sm.label)}${explain?.text ? " — " + esc(explain.text) : ""}</span></div>
+      ${sent?.risk_flag ? `<div class="risk-flag">⚠ ${esc(sent.risk_reasons[0] || "sentiment risk flagged")}</div>` : ""}
+
+      <div class="stat-row">
+        <div class="stat"><small>paper equity</small><b>${money(eq)}</b><span>cash ${money(broker.cash)}</span></div>
+        <div class="stat"><small>realized</small><b class="${realized >= 0 ? "up" : "down"}">${money(realized)}</b><span>${trades.length} trades · ${trades.length ? Math.round(wins / trades.length * 100) : 0}% win</span></div>
+        ${pos ? `<div class="stat"><small>position</small><b>${pos.qty.toPrecision(4)}</b><span>@ ${fmt(pos.entry_price)}</span></div>
+        <div class="stat"><small>unrealized</small><b class="${unreal >= 0 ? "up" : "down"}">${money(unreal)}</b><span>stop ${fmt(pos.stop_loss)} · tgt ${fmt(pos.take_profit)}</span></div>` : ""}
+      </div>
+
+      <details class="more">
+        <summary></summary>
+        <div class="more-body">
+          ${sig ? `<div class="sig-box ${esc(sig.action)}"><span class="t">${tstr(sig.ts)}</span><b>${esc(sig.action)}</b> — ${esc(sig.reason)}</div>` : ""}
+          ${v ? `<div class="odds-line">historically: <b class="${v.test.win_rate_pct >= 50 ? "up" : "down"}">${v.test.win_rate_pct}% right</b> on ${v.test.n_trades} trades it hadn't seen when tuned (${v.train.win_rate_pct}% on the ${v.train.n_trades} it was tuned on)</div>
+          ${v.test.profit_factor != null ? `<div class="odds-line">profit factor <b class="${v.test.profit_factor >= 1 ? "up" : "down"}">${v.test.profit_factor >= 99 ? "no losses" : v.test.profit_factor + "x"}</b> · max drawdown <b class="down">-${v.test.max_drawdown_pct}%</b> · buy-and-hold: ${v.test.buy_hold_pct >= 0 ? "+" : ""}${v.test.buy_hold_pct}%</div>` : ""}` : ""}
+          <div class="odds-line">sentiment: ${sent ? (sent.risk_flag ? "RISK flagged" : sent.polarity.toFixed(2) + " polarity, " + sent.n_mentions + " mentions") : (c.sentiment?.enabled ? "loading…" : "off")} <span class="muted">(shown only — never blocks a trade)</span></div>
+          <div class="src-line ${esc(st.source || "")}">prices: ${esc(st.source || "—")}${st.missedEntries ? ` · ${st.missedEntries} signal(s) skipped between checks` : ""}</div>
+        </div>
+      </details>
     </section>`;
   }).join("");
-  const total = bots.reduce((a, { cfg: c, st }) => { const price = st.last?.price, broker = st.broker || { cash: c.broker?.starting_cash ?? 10000, positions: {} }, pos = (broker.positions || {})[c.symbol]; return a + (price && pos ? broker.cash + pos.qty * price : broker.cash); }, 0);
-  $("#total").textContent = money(total);
-  // "last check" is when the cloud job last ran — not the last bar timestamp, which always lags by design.
-  const cycleTs = state.__meta?.lastCycleTs || Math.max(0, ...bots.map(({ st }) => st.last?.ts || 0));
-  $("#last-cycle").textContent = cycleTs ? "last check " + tstr(cycleTs) : "no data yet";
-  // A silent failure (workflow disabled, data source blocked, push failing) would otherwise look identical to
-  // a quiet market. Say so plainly instead.
-  const ageMin = cycleTs ? Math.round((Date.now() - cycleTs) / 60000) : null;
-  const stale = $("#stale");
-  if (ageMin != null && ageMin >= 20) {
-    stale.hidden = false;
-    stale.textContent = `⚠ The bots haven't checked in for ~${ageMin} minutes (they should run every ~5). Open the repo's Actions tab: the workflow may have failed, or GitHub may have paused it — scheduled jobs get switched off after 60 days of no activity in the repo, and GitHub emails you a one-click re-enable.`;
-  } else stale.hidden = true;
-  renderWatch(bots);
 }
-// Ranked "how close is each bot to actually doing something". Ten cards all reading "waiting" hide the
-// difference between a bot one candle away and one nowhere near; readiness (computed in run.mjs, where the
-// strategy's own thresholds live) is the number that separates them.
-const READY_SCALE = 3; // percentage points of gap; anything further out is simply "far", no need to scale for it
+
+// Ranked "how close is each bot to actually doing something."
+const READY_SCALE = 3;
 function renderWatch(bots) {
   const rows = bots.map(({ cfg, st }) => ({ cfg, r: st.readiness })).filter(x => x.r && typeof x.r.distance === "number");
   const panel = $("#watch");
-  if (!rows.length) { panel.hidden = true; return; } // older state.json, written before readiness existed
+  if (!rows.length) { panel.hidden = true; return; }
   panel.hidden = false;
   rows.sort((a, b) => a.r.distance - b.r.distance);
   $("#watch-rows").innerHTML = rows.map(({ cfg, r }) => {
@@ -232,8 +391,20 @@ function renderWatch(bots) {
   }).join("");
 }
 
-// Signal-mode bots don't trade — they ask. Those asks are the one thing on this page that is actually addressed
-// to Rafael, so they get pulled out of the journal instead of being buried 40 lines down in it.
+// Live activity feed: the most recent real things that happened across every bot, front and center —
+// this is the "I can see them working" view, distinct from the full journal further down.
+function renderFeed() {
+  const recent = logLines.filter(l => l.level === "signal" || l.level === "trade").slice(-8).reverse();
+  const panel = $("#feed");
+  if (!recent.length) { panel.innerHTML = `<div class="feed-empty">Nothing yet — the first bot cycle hasn't produced a signal or trade. Checking every ~5 minutes.</div>`; return; }
+  panel.innerHTML = recent.map(l => {
+    const isTrade = l.level === "trade", isBuy = /buy|open/i.test(l.title), isLoss = /-\$/.test(l.title);
+    const icoCls = isBuy ? "buy" : isTrade ? (isLoss ? "close loss" : "close win") : "alert";
+    const ico = isBuy ? "↑" : isTrade ? (isLoss ? "↓" : "✓") : "!";
+    return `<div class="feed-row"><span class="feed-ico ${icoCls}">${ico}</span><div class="feed-body"><span class="feed-title">${esc(l.title)}</span><span class="feed-time">${agoStr(l.ts)}</span></div></div>`;
+  }).join("");
+}
+
 function renderCalls() {
   const cutoff = Date.now() - 24 * 36e5;
   const calls = logLines.filter(l => l.level === "signal" && l.ts >= cutoff).slice(-5).reverse();
@@ -243,21 +414,18 @@ function renderCalls() {
   $("#calls-rows").innerHTML = calls.map(l => `<div class="c"><span class="t">${tstr(l.ts)}</span><b>${esc(l.title)}</b></div>`).join("");
 }
 
-// A real candlestick chart with the bot's actual trades marked on it — the same real data everything else
-// on this page reads, just drawn the way a trading platform draws it, since a number-only card doesn't read
-// as "this bot is actually trading" the way a chart with marks on it does.
 let chart = null, candleSeries = null, priceLines = [];
 function ensureChart() {
   if (chart || typeof LightweightCharts === "undefined") return;
   const box = $("#chart-box");
   chart = LightweightCharts.createChart(box, {
-    width: box.clientWidth || 600, height: 360,
-    layout: { background: { color: "#171a21" }, textColor: "#8b93a7" },
-    grid: { vertLines: { color: "#262b36" }, horzLines: { color: "#262b36" } },
-    rightPriceScale: { borderColor: "#262b36" },
-    timeScale: { borderColor: "#262b36", timeVisible: true, secondsVisible: false },
+    width: box.clientWidth || 600, height: 340,
+    layout: { background: { color: "#15171d" }, textColor: "#a7afc0" },
+    grid: { vertLines: { color: "rgba(255,255,255,.06)" }, horzLines: { color: "rgba(255,255,255,.06)" } },
+    rightPriceScale: { borderColor: "rgba(255,255,255,.08)" },
+    timeScale: { borderColor: "rgba(255,255,255,.08)", timeVisible: true, secondsVisible: false },
   });
-  candleSeries = chart.addCandlestickSeries({ upColor: "#3ecf8e", downColor: "#f0616d", borderVisible: false, wickUpColor: "#3ecf8e", wickDownColor: "#f0616d" });
+  candleSeries = chart.addCandlestickSeries({ upColor: "#34d399", downColor: "#f4636f", borderVisible: false, wickUpColor: "#34d399", wickDownColor: "#f4636f" });
   if (window.ResizeObserver) new ResizeObserver(es => { const w = es[0].contentRect.width; if (w > 0) chart.applyOptions({ width: w }); }).observe(box);
 }
 function renderChart() {
@@ -286,12 +454,12 @@ function renderChart() {
   const markers = [];
   for (const t of trades) {
     markers.push({ time: Math.floor(t.entry_ts / 1000), position: "belowBar", color: "#6ea8fe", shape: "arrowUp", text: "buy " + fmt(t.entry_price) });
-    markers.push({ time: Math.floor(t.exit_ts / 1000), position: "aboveBar", color: t.pnl >= 0 ? "#3ecf8e" : "#f0616d", shape: "arrowDown", text: (t.pnl >= 0 ? "+" : "") + money(t.pnl) });
+    markers.push({ time: Math.floor(t.exit_ts / 1000), position: "aboveBar", color: t.pnl >= 0 ? "#34d399" : "#f4636f", shape: "arrowDown", text: (t.pnl >= 0 ? "+" : "") + money(t.pnl) });
   }
   if (pos) {
     markers.push({ time: Math.floor((pos.entry_ts || windowStart) / 1000), position: "belowBar", color: "#6ea8fe", shape: "arrowUp", text: "open " + fmt(pos.entry_price) });
-    if (pos.stop_loss != null) priceLines.push(candleSeries.createPriceLine({ price: pos.stop_loss, color: "#f0616d", lineWidth: 1, lineStyle: 2, title: "stop" }));
-    if (pos.take_profit != null) priceLines.push(candleSeries.createPriceLine({ price: pos.take_profit, color: "#3ecf8e", lineWidth: 1, lineStyle: 2, title: "target" }));
+    if (pos.stop_loss != null) priceLines.push(candleSeries.createPriceLine({ price: pos.stop_loss, color: "#f4636f", lineWidth: 1, lineStyle: 2, title: "stop" }));
+    if (pos.take_profit != null) priceLines.push(candleSeries.createPriceLine({ price: pos.take_profit, color: "#34d399", lineWidth: 1, lineStyle: 2, title: "target" }));
     priceLines.push(candleSeries.createPriceLine({ price: pos.entry_price, color: "#6ea8fe", lineWidth: 1, lineStyle: 3, title: "entry" }));
   }
   candleSeries.setMarkers(markers.sort((a, b) => a.time - b.time));
@@ -307,9 +475,10 @@ function renderLog() {
     .map(l => `<div class="ll ${esc(l.level)}"><span class="t">${tstr(l.ts)}</span><b>${esc(l.title)}</b><pre>${esc(l.body)}</pre></div>`).join("") || `<div class="muted">nothing yet</div>`;
 }
 $("#log-filter").onchange = renderLog;
+$("#journal-toggle").onclick = () => { const w = $("#log-wrap"); w.hidden = !w.hidden; $("#journal-toggle").classList.toggle("open", !w.hidden); };
 $("#refresh").onclick = load;
 load();
-setInterval(load, 30000); // GitHub's raw CDN can lag a minute or two behind the latest commit; refreshing every 30s catches it as soon as it's there
+setInterval(load, 30000);
 </script>
 </body>
 </html>
