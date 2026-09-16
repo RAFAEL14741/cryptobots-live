@@ -96,6 +96,48 @@
       }
     },
     {
+      "name": "btc_1h",
+      "symbol": "BTCUSDT",
+      "timeframe": "1h",
+      "strategy": "ma_break",
+      "mode": "signal",
+      "lookback_bars": 300,
+      "params": {
+        "fast": 10,
+        "slow": 25,
+        "ma_type": "sma",
+        "break_pct": 0.05,
+        "tp_atr": 2,
+        "sl_atr": 1.5,
+        "atr_len": 14,
+        "trend_filter_len": 0,
+        "trail_atr": 0
+      },
+      "broker": {
+        "starting_cash": 10000,
+        "fee_pct": 0.1,
+        "slippage_pct": 0.05
+      },
+      "risk": {},
+      "sentiment": {
+        "enabled": true,
+        "keywords": [
+          "btc",
+          "bitcoin",
+          "$btc"
+        ],
+        "subreddits": [
+          "Bitcoin",
+          "CryptoCurrency",
+          "CryptoMarkets"
+        ],
+        "window_hours": 6,
+        "min_polarity": -0.2,
+        "min_attention_z": -1,
+        "block_on_risk_flag": true
+      }
+    },
+    {
       "name": "btc_4h",
       "symbol": "BTCUSDT",
       "timeframe": "4h",
