@@ -27,7 +27,7 @@
 // ---------------------------------------------------------------------------------------------------------
 
 import { readFileSync, writeFileSync, existsSync, unlinkSync } from "fs";
-import { MABreak, Scalper, PaperBroker, RiskManager, ExposureRegistry, SentimentEngine, TIMEFRAME_MS, ema, sma } from "./engine.mjs";
+import { MABreak, Scalper, PaperBroker, RiskManager, ExposureRegistry, SentimentEngine, TIMEFRAME_MS, ema, sma, atr } from "./engine.mjs";
 
 const STRATEGIES = { ma_break: MABreak, scalper: Scalper };
 const money = x => (x < 0 ? "-$" : "$") + Math.abs(x).toFixed(2);
@@ -223,10 +223,43 @@ const bots = config.bots.filter(b => b.enabled !== false).map(makeBot);
 const parked = config.bots.filter(b => b.enabled === false).map(b => b.name);
 if (parked.length) console.log(`parked (not running): ${parked.join(", ")}`);
 
+// ---- "what usually happened next" ----------------------------------------------------------------
+// patterns.json is built offline by build_patterns.mjs from years of real candles. It answers one
+// question per chart shape: every other time this coin looked like this, what did price actually do over
+// the following 12 candles? Nothing here forecasts anything -- it reports a historical frequency, with the
+// sample size attached, measured against how the coin behaves normally. Read-only: it can never trade.
+const PATTERNS = existsSync("patterns.json") ? JSON.parse(readFileSync("patterns.json", "utf8")) : {};
+
+function outlookFor(cfg, bars) {
+  const pat = PATTERNS[cfg.name];
+  if (!pat || cfg.strategy === "scalper") return null;
+  const closes = bars.map(x => x.close);
+  const f = cfg.params.ma_type === "ema" ? ema : sma;
+  const fast = f(closes, +cfg.params.fast).at(-1);
+  const slow = f(closes, +cfg.params.slow).at(-1);
+  const a = atr(bars, +cfg.params.atr_len).at(-1);
+  const trend = sma(closes, pat.trend_len).at(-1);
+  if ([fast, slow, a, trend].some(x => x == null) || !a) return null;
+  const gapAtr = (fast - slow) / a;
+  const edges = pat.gap_edges;
+  let i = 0; while (i < edges.length && gapAtr >= edges[i]) i++;
+  const key = `g${i}_${closes.at(-1) > trend ? "up" : "dn"}`;
+  const b = pat.buckets[key];
+  if (!b) return { key, matched: false, baseline_pct_up: pat.baseline_pct_up, horizon_bars: pat.horizon_bars,
+                   text: "this exact chart shape hasn't shown up enough times in this coin's history to say anything honest about it." };
+  const bars_word = `${pat.horizon_bars} candles`;
+  return {
+    key, matched: true, label: b.label, n: b.n, pct_up: b.pct_up, lo: b.lo, hi: b.hi,
+    median_fwd: b.median_fwd, lean: b.lean, baseline_pct_up: pat.baseline_pct_up,
+    horizon_bars: pat.horizon_bars, days_studied: pat.days_studied,
+    text: `This chart has looked like this ${b.n} times before. ${bars_word} later, price was higher ${b.pct_up}% of the time (this coin is higher ${pat.baseline_pct_up}% of the time in general), median move ${b.median_fwd >= 0 ? "+" : ""}${b.median_fwd}%.`,
+  };
+}
+
 function persist(cycleTs) {
   const out = { __meta: { ...nextMeta, notified: nextNotified, lastCycleTs: cycleTs, sentiment_gates_trades: GATES } };
   for (const b of bots) out[b.cfg.name] = {
-    lastBarTs: b.lastBarTs, last: b.last, explain: b.explain, lastSignal: b.lastSignal, source: b.source, missedEntries: b.missed, readiness: b.readiness, bars: b.bars || [],
+    lastBarTs: b.lastBarTs, last: b.last, explain: b.explain, outlook: b.outlook, lastSignal: b.lastSignal, source: b.source, missedEntries: b.missed, readiness: b.readiness, bars: b.bars || [],
     sentiment: b.snap ? { polarity: b.snap.polarity, n_mentions: b.snap.n_mentions, attention_z: b.snap.attention_z, risk_flag: b.snap.risk_flag, risk_reasons: b.snap.risk_reasons } : null,
     broker: { cash: b.broker.cash, starting_cash: b.broker.starting_cash, positions: b.broker.positions, trades: b.broker.trades.slice(-200) },
     risk: { daily: b.risk.daily, cooldownUntil: b.risk.cooldownUntil },
@@ -287,6 +320,7 @@ async function stepBot(b, nowMs) {
     try { b.explain = { ...b.strategy.explain(bars, ctxFor(b, cfg, sc)), ts: nowMs }; }
     catch (e) { b.explain = { state: "watching", text: "(status unavailable: " + (e.message || e) + ")", ts: nowMs }; }
   }
+  try { b.outlook = outlookFor(cfg, bars); } catch (e) { b.outlook = null; }
 
   if (last.ts === b.lastBarTs) return;
   const newBars = b.lastBarTs ? bars.filter(x => x.ts > b.lastBarTs) : [last];

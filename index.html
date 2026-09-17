@@ -143,6 +143,23 @@
   .stat span { font-size: 11px; color: var(--muted); }
   .risk-flag { padding: 7px 9px; border-radius: 8px; background: var(--down-dim); color: var(--down); font-size: 11.5px; font-weight: 600; }
 
+  /* ---------- what usually happened next ---------- */
+  .outlook { border-radius: 10px; padding: 10px 11px; border: 1px solid var(--line); background: var(--panel-2); }
+  .outlook.up { background: var(--up-dim); border-color: rgba(52,211,153,.28); }
+  .outlook.down { background: var(--down-dim); border-color: rgba(244,99,111,.28); }
+  .ol-head { display: flex; align-items: center; gap: 7px; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 700; margin-bottom: 8px; }
+  .ol-badge { font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: 5px; letter-spacing: .3px; background: var(--panel-3); color: var(--text-2); }
+  .outlook.up .ol-badge { background: rgba(52,211,153,.2); color: var(--up); }
+  .outlook.down .ol-badge { background: rgba(244,99,111,.2); color: var(--down); }
+  .ol-row { display: grid; grid-template-columns: 62px 1fr 44px; gap: 8px; align-items: center; font-size: 11px; margin-bottom: 4px; }
+  .ol-row .k { color: var(--muted); }
+  .ol-row .v { font-variant-numeric: tabular-nums; text-align: right; font-weight: 700; font-size: 11.5px; }
+  .ol-track { height: 7px; border-radius: 4px; background: var(--page); border: 1px solid var(--line); overflow: hidden; }
+  .ol-track i { display: block; height: 100%; background: var(--acc); }
+  .ol-row.base .ol-track i { background: var(--muted); opacity: .6; }
+  .ol-text { font-size: 11.5px; line-height: 1.5; color: var(--text-2); margin-top: 7px; }
+  .ol-foot { font-size: 10.5px; color: var(--muted); margin-top: 5px; line-height: 1.45; }
+
   /* ---------- evidence / odds ---------- */
   .ev { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; }
   .ev-head { display: flex; align-items: center; gap: 7px; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 700; margin-bottom: 7px; }
@@ -259,6 +276,16 @@
       <p>At 1 and 5 minutes it's worse than that: even with <b>zero fees</b> there's no edge to begin with (−0.019%, −0.049%). So speeding up doesn't just cost more, there's nothing there to collect.</p>
       <p>Your own parked <code>doge_scalp_1m</code> bot is the real-world version: on 38 trades it had never seen, it won 15.8% and lost 0.29% per trade. That's the biggest test sample of any bot here — so that's not bad luck, it's the arithmetic above showing up in practice.</p>
       <p>The honest way to get more trades is <b>more coins on the slower candles</b>, not faster candles on one coin. That's what the bot list below does.</p>
+      <h4 style="margin-top:18px">"They're green — why aren't they buying?"</h4>
+      <p>Fair question, and it got tested rather than argued about. Three entry rules, same exits, same fees, every bot, on data none of them had seen:</p>
+      <table class="ev-table">
+        <tr><th>Rule</th><th>Trades</th><th>Avg return</th><th>Per trade</th><th>Bots that made money</th></tr>
+        <tr class="good"><td>Only on the crossing candle (what runs now)</td><td>146</td><td>+1.88%</td><td>+1.29%</td><td>15 of 16</td></tr>
+        <tr class="bad"><td>Buy whenever it's above (green = in)</td><td>951</td><td>−3.51%</td><td>−0.34%</td><td>3 of 16</td></tr>
+        <tr class="bad"><td>Buy whenever price is over its line</td><td>1082</td><td>−5.13%</td><td>−0.36%</td><td>5 of 16</td></tr>
+      </table>
+      <p>Buying whenever it's green takes <b>6.5× more trades</b> and turns a profit into a loss. It's the same arithmetic as above — 805 extra trades × 0.30% a trade is most of the damage, and the rest is entering after the move already happened. The strict rule is annoying to watch, and it's earning that patience.</p>
+      <p class="muted" style="font-size:12px">The uncomfortable number from that same test: simply buying the coins and holding them returned <b>+10.97%</b> on average over that stretch, which beat all three rules. Worth knowing.</p>
       <p class="muted" style="font-size:12px">Outside evidence agrees: a study of 19,646 Brazilian day traders found 97% of those who kept at it for 300+ days lost money, and Barber &amp; Odean's study of 66,465 households found the highest-turnover traders earned 11.4%/yr versus 18.5% for the lowest — a 7-point penalty for simply trading more. Honest caveat on the table above: 90 days isn't enough history for the 1h and 4h rows to produce a meaningful number of trades, so those two are left blank rather than filled with noise. Each bot's own card below carries its real record over a much longer window.</p>
     </div>
   </div>
@@ -609,6 +636,29 @@ function botSort(a, b) {
 // Every bot, in the order they'd appear with no filters — the correct seed for a first drag.
 function displayOrder() { return botsWithState().sort(botSort).map(b => b.cfg.name); }
 
+// "What usually happened next" — the honest version of a prediction. Every number here is a count of
+// what REALLY happened in this coin's own history when the chart was shaped the way it is right now.
+// It is deliberately shown next to the coin's normal behaviour, because a setup that goes up 48% of the
+// time on a coin that goes up 47% of the time anyway is telling you nothing, and should look like nothing.
+function outlookHtml(o) {
+  if (!o) return "";
+  if (!o.matched) {
+    return `<div class="outlook"><div class="ol-head">What usually happened next <span class="ol-badge">no read</span></div>
+      <div class="ol-text">${esc(o.text)}</div></div>`;
+  }
+  const cls = o.lean === "leans up" ? "up" : o.lean === "leans down" ? "down" : "";
+  const pu = Math.max(0, Math.min(100, o.pct_up)), base = Math.max(0, Math.min(100, o.baseline_pct_up));
+  return `<div class="outlook ${cls}">
+    <div class="ol-head">What usually happened next <span class="ol-badge">${esc(o.lean)}</span></div>
+    <div class="ol-row"><span class="k">this setup</span><span class="ol-track"><i style="width:${pu}%"></i></span><span class="v">${o.pct_up}%</span></div>
+    <div class="ol-row base"><span class="k">normally</span><span class="ol-track"><i style="width:${base}%"></i></span><span class="v">${o.baseline_pct_up}%</span></div>
+    <div class="ol-text">Chart has looked like this <b>${esc(o.n)}</b> times before. ${esc(o.horizon_bars)} candles later price was higher <b>${o.pct_up}%</b> of the time, median move <b class="${o.median_fwd >= 0 ? "up" : "down"}">${o.median_fwd >= 0 ? "+" : ""}${o.median_fwd}%</b>.</div>
+    <div class="ol-foot">${o.lean === "no different from usual"
+      ? "That's within the range this coin does anyway — this setup is not telling you anything."
+      : `Outside this coin's normal range, so the shape itself carries some signal. Still a tendency across ${esc(o.n)} past cases, never a forecast of the next one.`}</div>
+  </div>`;
+}
+
 function renderBots(bots) {
   let list = bots.filter(b => !hiddenBots.has(b.cfg.name));
   if (botFilter === "paper") list = list.filter(b => b.cfg.mode === "paper");
@@ -653,6 +703,8 @@ function renderBots(bots) {
       <div class="status-pill ${sm.cls}"><span class="dot"></span><span class="txt">${parked ? "parked" : esc(sm.label)}</span></div>
       ${!parked && explain?.text ? `<div class="bot-voice"><span class="ic">${sm.cls === "in_position" ? "💰" : sm.cls === "triggering" ? "⚡" : "🔍"}</span><div class="body"><span class="line">"${esc(explain.text)}"</span><span class="age">${explain.ts ? agoStr(explain.ts) : ""}</span></div></div>` : ""}
       ${sent?.risk_flag ? `<div class="risk-flag">⚠ ${esc(sent.risk_reasons?.[0] || "sentiment risk flagged")}</div>` : ""}
+
+      ${parked ? "" : outlookHtml(st.outlook)}
 
       ${evidenceHtml(c.validated)}
 
