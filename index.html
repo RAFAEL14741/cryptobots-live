@@ -142,6 +142,10 @@
   .stat b { font-size: 14px; font-variant-numeric: tabular-nums; }
   .stat span { font-size: 11px; color: var(--muted); }
   .risk-flag { padding: 7px 9px; border-radius: 8px; background: var(--down-dim); color: var(--down); font-size: 11.5px; font-weight: 600; }
+  .brake { padding: 9px 10px; border-radius: 9px; background: var(--warn-dim); border: 1px solid rgba(245,185,66,.3); font-size: 11.5px; line-height: 1.5; color: var(--text-2); }
+  .brake b { color: var(--warn); }
+  .brake .why { display: block; margin-top: 3px; color: var(--text); }
+  .brake .caveat { display: block; margin-top: 4px; font-size: 10.5px; color: var(--muted); }
 
   /* ---------- what usually happened next ---------- */
   .outlook { border-radius: 10px; padding: 10px 11px; border: 1px solid var(--line); background: var(--panel-2); }
@@ -702,7 +706,8 @@ function renderBots(bots) {
       ${parked ? `<div class="parked-note"><b>Parked — not trading.</b> ${esc(c.parked_reason || "Turned off in config.json.")}</div>` : ""}
       <div class="status-pill ${sm.cls}"><span class="dot"></span><span class="txt">${parked ? "parked" : esc(sm.label)}</span></div>
       ${!parked && explain?.text ? `<div class="bot-voice"><span class="ic">${sm.cls === "in_position" ? "💰" : sm.cls === "triggering" ? "⚡" : "🔍"}</span><div class="body"><span class="line">"${esc(explain.text)}"</span><span class="age">${explain.ts ? agoStr(explain.ts) : ""}</span></div></div>` : ""}
-      ${sent?.risk_flag ? `<div class="risk-flag">⚠ ${esc(sent.risk_reasons?.[0] || "sentiment risk flagged")}</div>` : ""}
+      ${st.brake ? `<div class="brake">🛑 <b>New buys blocked — risk news.</b><span class="why">${esc(st.brake.reason)}</span><span class="caveat">Found in ${esc(st.brake.mentions)} recent stories naming this coin. This only blocks new entries — it never sells anything you already hold. Keyword-based, so it does get false positives; a lawsuit against an exchange can look like a lawsuit about the coin.</span></div>` : ""}
+      ${sent?.risk_flag && !st.brake ? `<div class="risk-flag">⚠ ${esc(sent.risk_reasons?.[0] || "sentiment risk flagged")}</div>` : ""}
 
       ${parked ? "" : outlookHtml(st.outlook)}
 

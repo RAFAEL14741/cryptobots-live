@@ -154,6 +154,24 @@ async function fetchRss(url) {
   const r = await fetch(url, { headers: { "User-Agent": "cryptobots-cloud/1.0" } }); if (!r.ok) throw new Error(`rss ${r.status}`);
   return parseRss(await r.text(), "rss:" + url.replace(/^https?:\/\/(www\.)?/, "").split("/")[0]);
 }
+// Google News search feeds, built from the coins actually being traded. The general crypto press
+// rarely names a specific altcoin -- before this, DOGE and SOL were matching 0 stories per cycle while
+// the three news sites happily returned 90 items about Bitcoin. A per-coin search fixes that. Coins are
+// batched a few per query because one request per coin every 5 minutes would get rate-limited.
+function newsSearchUrls() {
+  const ns = config.news_search;
+  if (!ns?.enabled) return [];
+  const terms = [...new Set(config.bots.filter(b => b.enabled !== false).flatMap(b => b.sentiment?.keywords || []))]
+    .filter(Boolean).map(k => k.replace(/[^a-z0-9 ]/gi, "")).filter(k => k.length > 2);
+  const per = ns.coins_per_query || 5, urls = [];
+  for (let i = 0; i < terms.length; i += per) {
+    const q = terms.slice(i, i + per).map(t => `"${t}"`).join(" OR ");
+    urls.push(ns.template.replace("{q}", encodeURIComponent(q)));
+  }
+  if (ns.risk_query) urls.push(ns.template.replace("{q}", encodeURIComponent(ns.risk_query)));
+  return urls;
+}
+
 async function refreshText() {
   const subs = [...new Set(config.bots.filter(b => b.sentiment?.enabled).flatMap(b => b.sentiment.subreddits || []))];
   let added = 0, sources = 0;
@@ -162,7 +180,7 @@ async function refreshText() {
     try { (await fetchReddit(s)).forEach(push); sources++; logOnChange(`reddit:${s}`, "ok", "info", `reddit r/${s} reachable again`, ""); }
     catch (e) { logOnChange(`reddit:${s}`, String(e.message || e), "info", `reddit r/${s} unavailable from this server`, `${e.message || e} — Reddit blocks most datacenter IPs. Sentiment is display-only, so this does not block any trade. Logged once, not every cycle.`); }
   }
-  for (const u of config.news_feeds || []) {
+  for (const u of [...(config.news_feeds || []), ...newsSearchUrls()]) {
     try { (await fetchRss(u)).forEach(push); sources++; logOnChange(`rss:${u}`, "ok", "info", "news feed reachable again", u); }
     catch (e) { logOnChange(`rss:${u}`, String(e.message || e), "info", "news feed unavailable", `${u}: ${e.message || e} — logged once, not every cycle.`); }
   }
@@ -194,6 +212,23 @@ function readinessOf(cfg, last, inPosition) {
 // ---------- bots ----------
 const registry = new ExposureRegistry();
 const GATES = config.sentiment_gates_trades === true; // default: sentiment is display-only (see header note 3)
+
+// The risk brake. Separate from GATES on purpose: GATES would let crude keyword *sentiment* (bullish/
+// bearish word counts) decide trades, which is not backtested and not defensible. This reacts only to
+// explicit risk words -- hack, exploit, rug, delist, halted, lawsuit -- appearing in RECENT news that
+// names the coin, and only ever BLOCKS A NEW ENTRY. It never force-sells: a false positive that skips
+// one trade costs almost nothing, while a false positive that dumps a healthy position costs real money.
+// Honest caveat, and it is written on the dashboard too: unlike every strategy rule in this project,
+// this one is NOT backtested. There is no archive of historical news to test it against. It is a
+// deliberately conservative brake, not a validated edge.
+const BRAKE = config.risk_brake || {};
+function riskBrakeFor(b) {
+  if (!BRAKE.enabled || !BRAKE.block_new_entries) return null;
+  const s = b.snap;
+  if (!s || !s.risk_flag) return null;
+  if ((s.n_mentions || 0) < (BRAKE.min_mentions ?? 2)) return null;   // one stray headline is not news
+  return { reason: (s.risk_reasons || [])[0] || "risk terms in recent news", mentions: s.n_mentions };
+}
 function makeBot(cfg) {
   const st = saved[cfg.name] || {};
   const StratClass = STRATEGIES[cfg.strategy] || MABreak;
@@ -259,7 +294,7 @@ function outlookFor(cfg, bars) {
 function persist(cycleTs) {
   const out = { __meta: { ...nextMeta, notified: nextNotified, lastCycleTs: cycleTs, sentiment_gates_trades: GATES } };
   for (const b of bots) out[b.cfg.name] = {
-    lastBarTs: b.lastBarTs, last: b.last, explain: b.explain, outlook: b.outlook, lastSignal: b.lastSignal, source: b.source, missedEntries: b.missed, readiness: b.readiness, bars: b.bars || [],
+    lastBarTs: b.lastBarTs, last: b.last, explain: b.explain, outlook: b.outlook, brake: b.brake || null, lastSignal: b.lastSignal, source: b.source, missedEntries: b.missed, readiness: b.readiness, bars: b.bars || [],
     sentiment: b.snap ? { polarity: b.snap.polarity, n_mentions: b.snap.n_mentions, attention_z: b.snap.attention_z, risk_flag: b.snap.risk_flag, risk_reasons: b.snap.risk_reasons } : null,
     broker: { cash: b.broker.cash, starting_cash: b.broker.starting_cash, positions: b.broker.positions, trades: b.broker.trades.slice(-200) },
     risk: { daily: b.risk.daily, cooldownUntil: b.risk.cooldownUntil },
@@ -321,6 +356,7 @@ async function stepBot(b, nowMs) {
     catch (e) { b.explain = { state: "watching", text: "(status unavailable: " + (e.message || e) + ")", ts: nowMs }; }
   }
   try { b.outlook = outlookFor(cfg, bars); } catch (e) { b.outlook = null; }
+  b.brake = riskBrakeFor(b);
 
   if (last.ts === b.lastBarTs) return;
   const newBars = b.lastBarTs ? bars.filter(x => x.ts > b.lastBarTs) : [last];
@@ -365,6 +401,15 @@ function act(b, sig, price, nowMs, staleBarTs = null) {
   if (sig.action === "skip") log("info", `[${cfg.name}] setup skipped`, `${cfg.symbol} @ ${fmt(price)} — ${sig.reason}${sent}`);
   else if (sig.action === "update_stop") { const pos = b.broker.position(cfg.symbol); if (pos && sig.stop_loss != null) { if (cfg.mode === "paper") { pos.stop_loss = sig.stop_loss; log("info", `[${cfg.name}] stop moved`, sig.reason); } else log("signal", `[${cfg.name}] MOVE STOP (your call)`, sig.reason); } }
   else if (sig.action === "buy") {
+    const brake = riskBrakeFor(b);
+    if (brake) {
+      b.brake = brake;
+      log("alert", `[${cfg.name}] entry blocked by risk news`,
+        `${cfg.symbol} @ ${fmt(price)} — the setup fired, but recent news about this coin contains risk terms (${brake.mentions} mention(s)): ${brake.reason}\n\nNo position was opened. Open positions are left alone; this brake only blocks new entries.`);
+      notify(cfg.name, "brake", b.lastBarTs, `${cfg.name}: skipped a buy because of risk news`,
+        `**${cfg.symbol}** triggered a buy, but it was skipped.\n\n- risk found: ${brake.reason}\n- mentions in recent news: ${brake.mentions}\n\nThis only blocks new entries — nothing was sold.`);
+      return;
+    }
     const [ok, why] = b.risk.canOpen(nowMs, eq), [qty, note] = ok ? b.risk.size(eq, price, sig.stop_loss, sig.confidence) : [0, why];
     const plan = `${cfg.symbol} @ ${fmt(price)} · stop ${fmt(sig.stop_loss)} · target ${fmt(sig.take_profit)} · size ${qty.toPrecision(4)} (~${money(qty * price)})\nwhy: ${sig.reason}${sent}\nsizing: ${note}`;
     if (cfg.mode === "paper" && ok && qty > 0) {

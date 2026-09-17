@@ -3,7 +3,13 @@
   "news_feeds": [
     "https://www.coindesk.com/arc/outboundfeeds/rss/",
     "https://cointelegraph.com/rss",
-    "https://decrypt.co/feed"
+    "https://decrypt.co/feed",
+    "https://u.today/rss",
+    "https://thedefiant.io/api/feed",
+    "https://cryptoslate.com/feed/",
+    "https://ambcrypto.com/feed/",
+    "https://coinjournal.net/feed/",
+    "https://zycrypto.com/feed/"
   ],
   "bots": [
     {
@@ -1247,5 +1253,18 @@
         "verdict_text": "made money on 7 trades it had never seen, average +1.80% per trade"
       }
     }
-  ]
+  ],
+  "news_search": {
+    "enabled": true,
+    "template": "https://news.google.com/rss/search?q={q}&hl=en-US&gl=US&ceid=US:en",
+    "coins_per_query": 5,
+    "risk_query": "crypto hack OR exploit OR rugpull OR delisting OR \"trading halted\""
+  },
+  "risk_brake": {
+    "enabled": true,
+    "block_new_entries": true,
+    "close_open_positions": false,
+    "min_mentions": 2,
+    "window_hours": 12
+  }
 }
