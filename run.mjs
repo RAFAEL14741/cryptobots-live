@@ -217,7 +217,11 @@ function makeBot(cfg) {
   if (st.attention) b.sentiment.attention.h[cfg.symbol] = st.attention;
   return b;
 }
-const bots = config.bots.map(makeBot);
+// A bot can be parked with "enabled": false in config.json instead of being deleted — that keeps its
+// settings and its validated track record on file so it can be switched back on with one word.
+const bots = config.bots.filter(b => b.enabled !== false).map(makeBot);
+const parked = config.bots.filter(b => b.enabled === false).map(b => b.name);
+if (parked.length) console.log(`parked (not running): ${parked.join(", ")}`);
 
 function persist(cycleTs) {
   const out = { __meta: { ...nextMeta, notified: nextNotified, lastCycleTs: cycleTs, sentiment_gates_trades: GATES } };
