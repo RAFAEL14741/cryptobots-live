@@ -21,13 +21,13 @@
       "rss:https://ambcrypto.com/feed/": "ok",
       "rss:https://coinjournal.net/feed/": "ok",
       "rss:https://zycrypto.com/feed/": "ok",
-      "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22btc%22%20OR%20%22eth%22%20OR%20%22ethereum%22%20OR%20%22eth%22%20OR%20%22sol%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22solana%22%20OR%20%22sol%22%20OR%20%22ada%22%20OR%20%22cardano%22%20OR%20%22ada%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22xrp%22%20OR%20%22ripple%22%20OR%20%22xrp%22%20OR%20%22ltc%22%20OR%20%22litecoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22ltc%22%20OR%20%22avax%22%20OR%20%22avalanche%22%20OR%20%22avax%22%20OR%20%22shib%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22pepe%22%20OR%20%22bonk%22%20OR%20%22mew%22%20OR%20%22brett%22%20OR%20%22toshi%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=crypto%20hack%20OR%20exploit%20OR%20rugpull%20OR%20delisting%20OR%20%22trading%20halted%22&hl=en-US&gl=US&ceid=US:en": "ok",
+      "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22btc%22%20OR%20%22eth%22%20OR%20%22ethereum%22%20OR%20%22eth%22%20OR%20%22sol%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22solana%22%20OR%20%22sol%22%20OR%20%22ada%22%20OR%20%22cardano%22%20OR%20%22ada%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22xrp%22%20OR%20%22ripple%22%20OR%20%22xrp%22%20OR%20%22ltc%22%20OR%20%22litecoin%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22ltc%22%20OR%20%22avax%22%20OR%20%22avalanche%22%20OR%20%22avax%22%20OR%20%22shib%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22pepe%22%20OR%20%22bonk%22%20OR%20%22mew%22%20OR%20%22brett%22%20OR%20%22toshi%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=crypto%20hack%20OR%20exploit%20OR%20rugpull%20OR%20delisting%20OR%20%22trading%20halted%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
       "data:doge_1h": "ok:binance.us",
       "data:doge_1d": "ok:binance.us",
       "data:btc_1h": "ok:binance.us",
@@ -125,7 +125,7 @@
         "ts": 1790096439548
       }
     },
-    "lastCycleTs": 1790213425209,
+    "lastCycleTs": 1790213720102,
     "sentiment_gates_trades": false
   },
   "doge_1h": {
@@ -142,7 +142,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 3.80% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g1_up",
@@ -1436,9 +1436,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0573,
-      "n_mentions": 4,
-      "attention_z": -2.249,
+      "polarity": 0.2425,
+      "n_mentions": 1,
+      "attention_z": -3.695,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -1453,7 +1453,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      9,
       8,
       8,
       8,
@@ -1548,7 +1547,8 @@
       6,
       6,
       4,
-      4
+      4,
+      1
     ]
   },
   "doge_1d": {
@@ -1565,7 +1565,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.30% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g5_up",
@@ -2859,9 +2859,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0451,
-      "n_mentions": 11,
-      "attention_z": -0.664,
+      "polarity": 0.2425,
+      "n_mentions": 1,
+      "attention_z": -4.693,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -2892,7 +2892,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      12,
       11,
       11,
       11,
@@ -2987,7 +2986,8 @@
       11,
       11,
       11,
-      11
+      11,
+      1
     ]
   },
   "btc_1h": {
@@ -3004,7 +3004,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.25% below slow MA — needs to cross above first, then clear 0.05%.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g1_up",
@@ -3015,7 +3015,7 @@
     },
     "brake": {
       "reason": "exploit: White hats recover 52 Bitcoin from Coldcard exploit, and a new public portal lets victims ",
-      "mentions": 40
+      "mentions": 9
     },
     "lastSignal": {
       "ts": 1790096431916,
@@ -4293,13 +4293,11 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0433,
-      "n_mentions": 40,
-      "attention_z": -1.193,
+      "polarity": 0.0041,
+      "n_mentions": 9,
+      "attention_z": -3.29,
       "risk_flag": true,
       "risk_reasons": [
-        "exploit: White hats recover 52 Bitcoin from Coldcard exploit, and a new public portal lets victims ",
-        "hack: Liquid Hack Leaves Bull Bitcoin Users Facing 30-Day Wait to Reclaim BTC - Cryptonews.net. ",
         "exploit: White hats recover 52 Bitcoin from Coldcard exploit, and a new public portal lets victims "
       ]
     },
@@ -4314,7 +4312,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      81,
       83,
       81,
       83,
@@ -4409,7 +4406,8 @@
       42,
       41,
       39,
-      40
+      40,
+      9
     ]
   },
   "btc_4h": {
@@ -4426,7 +4424,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 3.44% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses. Price is above the 200-bar trend filter (ok).",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g8_up",
@@ -4445,7 +4443,7 @@
     },
     "brake": {
       "reason": "exploit: White hats recover 52 Bitcoin from Coldcard exploit, and a new public portal lets victims ",
-      "mentions": 84
+      "mentions": 19
     },
     "lastSignal": {
       "ts": 1789732829555,
@@ -5723,13 +5721,11 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0522,
-      "n_mentions": 84,
-      "attention_z": -1.011,
+      "polarity": 0.0336,
+      "n_mentions": 19,
+      "attention_z": -4.387,
       "risk_flag": true,
       "risk_reasons": [
-        "exploit: White hats recover 52 Bitcoin from Coldcard exploit, and a new public portal lets victims ",
-        "hack: Liquid Hack Leaves Bull Bitcoin Users Facing 30-Day Wait to Reclaim BTC - Cryptonews.net. ",
         "exploit: White hats recover 52 Bitcoin from Coldcard exploit, and a new public portal lets victims "
       ]
     },
@@ -5744,7 +5740,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      121,
       123,
       123,
       124,
@@ -5839,7 +5834,8 @@
       85,
       84,
       83,
-      84
+      84,
+      19
     ]
   },
   "eth_4h": {
@@ -5856,7 +5852,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.01% above slow MA — needs a cross with the gap over 0.2% (0.19pts short).",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g5_up",
@@ -7146,9 +7142,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.059,
-      "n_mentions": 41,
-      "attention_z": 0.315,
+      "polarity": 0.0447,
+      "n_mentions": 3,
+      "attention_z": -4.733,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -7163,7 +7159,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      38,
       39,
       38,
       37,
@@ -7258,7 +7253,8 @@
       41,
       41,
       41,
-      41
+      41,
+      3
     ]
   },
   "sol_1h": {
@@ -7275,7 +7271,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.46% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g2_up",
@@ -7294,7 +7290,7 @@
     },
     "brake": {
       "reason": "hack: Former Hack VC partner Hsin-Ju Chuang found dead at 37. The crypto executive and Dystopia ",
-      "mentions": 16
+      "mentions": 2
     },
     "lastSignal": {
       "ts": 1789934428492,
@@ -8572,9 +8568,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0591,
-      "n_mentions": 16,
-      "attention_z": -0.055,
+      "polarity": -0.1301,
+      "n_mentions": 2,
+      "attention_z": -4.495,
       "risk_flag": true,
       "risk_reasons": [
         "hack: Former Hack VC partner Hsin-Ju Chuang found dead at 37. The crypto executive and Dystopia "
@@ -8621,7 +8617,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      22,
       20,
       19,
       19,
@@ -8716,7 +8711,8 @@
       17,
       17,
       16,
-      16
+      16,
+      2
     ]
   },
   "ada_4h": {
@@ -8733,7 +8729,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 10.45% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g9_up",
@@ -10027,9 +10023,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0496,
-      "n_mentions": 21,
-      "attention_z": -0.413,
+      "polarity": 0,
+      "n_mentions": 0,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -10044,7 +10040,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      22,
       23,
       24,
       23,
@@ -10139,7 +10134,8 @@
       21,
       21,
       21,
-      21
+      21,
+      0
     ]
   },
   "xrp_4h": {
@@ -10156,7 +10152,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 4.54% above slow (past the 0.1% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g7_up",
@@ -11450,9 +11446,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.1341,
-      "n_mentions": 56,
-      "attention_z": -0.466,
+      "polarity": 0.3307,
+      "n_mentions": 7,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -11467,7 +11463,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      61,
       61,
       61,
       62,
@@ -11562,7 +11557,8 @@
       57,
       57,
       57,
-      56
+      56,
+      7
     ]
   },
   "ltc_4h": {
@@ -11579,7 +11575,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 1.21% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses. Price is above the 200-bar trend filter (ok).",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g5_up",
@@ -12874,8 +12870,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 1,
-      "attention_z": -0.952,
+      "n_mentions": 0,
+      "attention_z": -2.379,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -12910,7 +12906,6 @@
       2,
       2,
       2,
-      2,
       3,
       3,
       3,
@@ -13001,7 +12996,8 @@
       1,
       1,
       1,
-      1
+      1,
+      0
     ]
   },
   "avax_4h": {
@@ -13018,7 +13014,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.76% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g5_up",
@@ -14308,9 +14304,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0791,
-      "n_mentions": 42,
-      "attention_z": 0.908,
+      "polarity": 0.2244,
+      "n_mentions": 2,
+      "attention_z": -3.523,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -14325,7 +14321,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      25,
       25,
       25,
       25,
@@ -14420,7 +14415,8 @@
       42,
       42,
       42,
-      42
+      42,
+      2
     ]
   },
   "shib_1h": {
@@ -14437,7 +14433,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 3.60% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g0_up",
@@ -15723,9 +15719,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.4526,
-      "n_mentions": 2,
-      "attention_z": 1.529,
+      "polarity": 0.3872,
+      "n_mentions": 1,
+      "attention_z": -0.261,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -15745,7 +15741,6 @@
       2,
       2,
       2,
-      2,
       0,
       0,
       1,
@@ -15835,7 +15830,8 @@
       2,
       2,
       2,
-      2
+      2,
+      1
     ]
   },
   "pepe_4h": {
@@ -15852,7 +15848,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 8.50% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g7_up",
@@ -17147,8 +17143,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 1,
-      "attention_z": -1.131,
+      "n_mentions": 0,
+      "attention_z": -1.654,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -17164,7 +17160,6 @@
     },
     "attention": [
       3,
-      3,
       4,
       4,
       4,
@@ -17258,7 +17253,8 @@
       1,
       1,
       1,
-      1
+      1,
+      0
     ]
   },
   "bonk_4h": {
@@ -17275,7 +17271,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 6.33% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g7_up",
@@ -18599,7 +18595,6 @@
       0,
       0,
       0,
-      0,
       1,
       0,
       0,
@@ -18629,6 +18624,7 @@
       0,
       1,
       1,
+      0,
       0,
       0,
       0,
@@ -18698,7 +18694,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 8.34% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g9_up",
@@ -20121,7 +20117,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 7.94% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g0_up",
@@ -21408,8 +21404,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 6,
-      "attention_z": -1.048,
+      "n_mentions": 0,
+      "attention_z": -3.138,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -21424,7 +21420,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      11,
       11,
       11,
       11,
@@ -21519,7 +21514,8 @@
       6,
       6,
       6,
-      6
+      6,
+      0
     ]
   },
   "toshi_1h": {
@@ -21536,7 +21532,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.64% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1790213425209
+      "ts": 1790213720102
     },
     "outlook": {
       "key": "g0_up",
