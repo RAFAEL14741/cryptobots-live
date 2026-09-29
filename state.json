@@ -21,13 +21,13 @@
       "rss:https://ambcrypto.com/feed/": "ok",
       "rss:https://coinjournal.net/feed/": "ok",
       "rss:https://zycrypto.com/feed/": "ok",
-      "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22btc%22%20OR%20%22eth%22%20OR%20%22ethereum%22%20OR%20%22eth%22%20OR%20%22sol%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22solana%22%20OR%20%22sol%22%20OR%20%22ada%22%20OR%20%22cardano%22%20OR%20%22ada%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22xrp%22%20OR%20%22ripple%22%20OR%20%22xrp%22%20OR%20%22ltc%22%20OR%20%22litecoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22ltc%22%20OR%20%22avax%22%20OR%20%22avalanche%22%20OR%20%22avax%22%20OR%20%22shib%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22pepe%22%20OR%20%22bonk%22%20OR%20%22mew%22%20OR%20%22brett%22%20OR%20%22toshi%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=crypto%20hack%20OR%20exploit%20OR%20rugpull%20OR%20delisting%20OR%20%22trading%20halted%22&hl=en-US&gl=US&ceid=US:en": "ok",
+      "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22btc%22%20OR%20%22eth%22%20OR%20%22ethereum%22%20OR%20%22eth%22%20OR%20%22sol%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22solana%22%20OR%20%22sol%22%20OR%20%22ada%22%20OR%20%22cardano%22%20OR%20%22ada%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22xrp%22%20OR%20%22ripple%22%20OR%20%22xrp%22%20OR%20%22ltc%22%20OR%20%22litecoin%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22ltc%22%20OR%20%22avax%22%20OR%20%22avalanche%22%20OR%20%22avax%22%20OR%20%22shib%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22pepe%22%20OR%20%22bonk%22%20OR%20%22mew%22%20OR%20%22brett%22%20OR%20%22toshi%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=crypto%20hack%20OR%20exploit%20OR%20rugpull%20OR%20delisting%20OR%20%22trading%20halted%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
       "data:doge_1h": "ok:binance.us",
       "data:doge_1d": "ok:binance.us",
       "data:btc_1h": "ok:binance.us",
@@ -117,32 +117,32 @@
         "ts": 1790308838307
       },
       "toshi_1h": {
-        "key": "buy:1790370000000",
-        "ts": 1790373647165
+        "key": "buy:1790686800000",
+        "ts": 1790690494337
       },
       "btc_1h": {
         "key": "brake:1790092800000",
         "ts": 1790096439548
       }
     },
-    "lastCycleTs": 1790690322312,
+    "lastCycleTs": 1790690433053,
     "sentiment_gates_trades": false
   },
   "doge_1h": {
-    "lastBarTs": 1790683200000,
+    "lastBarTs": 1790686800000,
     "last": {
-      "price": 0.09596,
-      "ts": 1790683200000,
-      "fast": 0.09531000000000005,
-      "slow": 0.0941504999999999,
+      "price": 0.09582,
+      "ts": 1790686800000,
+      "fast": 0.09545000000000002,
+      "slow": 0.09421499999999991,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA is 1.23% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790690322312
+      "text": "fast MA is 1.31% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g7_dn",
@@ -169,18 +169,11 @@
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 1.431538865964756,
-      "gap": 1.2315388659647561,
+      "distance": 1.51083160855502,
+      "gap": 1.31083160855502,
       "need": 0.2
     },
     "bars": [
-      [
-        1790038800000,
-        0.09953,
-        0.10045,
-        0.09809,
-        0.09952
-      ],
       [
         1790042400000,
         0.09974,
@@ -1433,12 +1426,19 @@
         0.09625,
         0.09567,
         0.09596
+      ],
+      [
+        1790686800000,
+        0.09624,
+        0.09633,
+        0.09557,
+        0.09582
       ]
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 1,
-      "attention_z": -2.029,
+      "n_mentions": 0,
+      "attention_z": -2.54,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -1455,7 +1455,6 @@
     "attention": [
       5,
       5,
-      5,
       0,
       5,
       5,
@@ -1548,7 +1547,8 @@
       1,
       1,
       1,
-      1
+      1,
+      0
     ]
   },
   "doge_1d": {
@@ -1565,7 +1565,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 1.93% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g5_up",
@@ -2859,9 +2859,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0448,
-      "n_mentions": 6,
-      "attention_z": -1.856,
+      "polarity": 0,
+      "n_mentions": 0,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -2892,7 +2892,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      12,
       11,
       11,
       0,
@@ -2987,24 +2986,25 @@
       6,
       6,
       6,
-      6
+      6,
+      0
     ]
   },
   "btc_1h": {
-    "lastBarTs": 1790683200000,
+    "lastBarTs": 1790686800000,
     "last": {
-      "price": 84375.53,
-      "ts": 1790683200000,
-      "fast": 83876.28999999995,
-      "slow": 83619.88280000006,
+      "price": 84214.53,
+      "ts": 1790686800000,
+      "fast": 83986.34899999996,
+      "slow": 83645.77560000007,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA is 0.31% above slow (past the 0.05% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790690322312
+      "text": "fast MA is 0.41% above slow (past the 0.05% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g6_dn",
@@ -3021,10 +3021,7 @@
       "days_studied": 334,
       "text": "This chart has looked like this 455 times before. 12 candles later, price was higher 49.23% of the time (this coin is higher 49.71% of the time in general), median move -0.01%."
     },
-    "brake": {
-      "reason": "hack: Bitcoin Pioneer Adam Back’s Empire Beset by Hack, Lawsuits - Bloomberg.com. &lt;a href=\"ht",
-      "mentions": 95
-    },
+    "brake": null,
     "lastSignal": {
       "ts": 1790096431916,
       "action": "buy",
@@ -3034,18 +3031,11 @@
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 0.3566342494322234,
-      "gap": 0.3066342494322234,
+      "distance": 0.4571615064322408,
+      "gap": 0.4071615064322408,
       "need": 0.05
     },
     "bars": [
-      [
-        1790038800000,
-        85932.58,
-        85982.4,
-        85418.01,
-        85560.67
-      ],
       [
         1790042400000,
         85619.46,
@@ -4298,16 +4288,21 @@
         84473.19,
         84153.74,
         84375.53
+      ],
+      [
+        1790686800000,
+        84354.25,
+        84551.09,
+        84053.75,
+        84214.53
       ]
     ],
     "sentiment": {
-      "polarity": 0.0614,
-      "n_mentions": 95,
-      "attention_z": 1.318,
-      "risk_flag": true,
-      "risk_reasons": [
-        "hack: Bitcoin Pioneer Adam Back’s Empire Beset by Hack, Lawsuits - Bloomberg.com. &lt;a href=\"ht"
-      ]
+      "polarity": 0.1103,
+      "n_mentions": 12,
+      "attention_z": -2.363,
+      "risk_flag": false,
+      "risk_reasons": []
     },
     "broker": {
       "cash": 10000,
@@ -4320,7 +4315,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      34,
       35,
       35,
       5,
@@ -4415,7 +4409,8 @@
       96,
       96,
       96,
-      95
+      95,
+      12
     ]
   },
   "btc_4h": {
@@ -4432,7 +4427,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.35% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses. Price is above the 200-bar trend filter (ok).",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g5_up",
@@ -4451,7 +4446,7 @@
     },
     "brake": {
       "reason": "hack: Bitget hackers swap Ethereum for Bitcoin via THORChain — What&#8217;s happening?. The Bitg",
-      "mentions": 111
+      "mentions": 14
     },
     "lastSignal": {
       "ts": 1789732829555,
@@ -5729,13 +5724,12 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0609,
-      "n_mentions": 111,
-      "attention_z": 1.489,
+      "polarity": 0.0749,
+      "n_mentions": 14,
+      "attention_z": -3.211,
       "risk_flag": true,
       "risk_reasons": [
-        "hack: Bitget hackers swap Ethereum for Bitcoin via THORChain — What&#8217;s happening?. The Bitg",
-        "hack: Bitcoin Pioneer Adam Back’s Empire Beset by Hack, Lawsuits - Bloomberg.com. &lt;a href=\"ht"
+        "hack: Bitget hackers swap Ethereum for Bitcoin via THORChain — What&#8217;s happening?. The Bitg"
       ]
     },
     "broker": {
@@ -5749,7 +5743,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      62,
       63,
       59,
       10,
@@ -5844,7 +5837,8 @@
       113,
       112,
       112,
-      111
+      111,
+      14
     ]
   },
   "eth_4h": {
@@ -5861,7 +5855,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.01% above slow MA — needs a cross with the gap over 0.2% (0.19pts short).",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g5_up",
@@ -5880,7 +5874,7 @@
     },
     "brake": {
       "reason": "hack: Bitget hackers swap Ethereum for Bitcoin via THORChain — What&#8217;s happening?. The Bitg",
-      "mentions": 44
+      "mentions": 5
     },
     "lastSignal": null,
     "source": "binance.us",
@@ -7154,9 +7148,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.1332,
-      "n_mentions": 44,
-      "attention_z": 0.912,
+      "polarity": 0.0854,
+      "n_mentions": 5,
+      "attention_z": -3.352,
       "risk_flag": true,
       "risk_reasons": [
         "hack: Bitget hackers swap Ethereum for Bitcoin via THORChain — What&#8217;s happening?. The Bitg"
@@ -7173,7 +7167,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      24,
       24,
       23,
       4,
@@ -7268,39 +7261,40 @@
       46,
       44,
       44,
-      44
+      44,
+      5
     ]
   },
   "sol_1h": {
-    "lastBarTs": 1790683200000,
+    "lastBarTs": 1790686800000,
     "last": {
-      "price": 120.88,
-      "ts": 1790683200000,
-      "fast": 119.95,
-      "slow": 118.90239999999999,
+      "price": 121.03,
+      "ts": 1790686800000,
+      "fast": 120.324,
+      "slow": 118.94319999999999,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA is 0.88% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790690322312
+      "text": "fast MA is 1.16% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1790690433053
     },
     "outlook": {
-      "key": "g6_up",
+      "key": "g7_up",
       "matched": true,
-      "label": "fast MA 0.5 to 1 ATR from slow, price above the 200-bar line",
-      "n": 449,
-      "pct_up": 47.66,
-      "lo": 43.08,
-      "hi": 52.28,
-      "median_fwd": -0.12,
-      "lean": "no different from usual",
+      "label": "fast MA 1 to 2 ATR from slow, price above the 200-bar line",
+      "n": 768,
+      "pct_up": 43.1,
+      "lo": 39.64,
+      "hi": 46.63,
+      "median_fwd": -0.24,
+      "lean": "leans down",
       "baseline_pct_up": 47.69,
       "horizon_bars": 12,
       "days_studied": 334,
-      "text": "This chart has looked like this 449 times before. 12 candles later, price was higher 47.66% of the time (this coin is higher 47.69% of the time in general), median move -0.12%."
+      "text": "This chart has looked like this 768 times before. 12 candles later, price was higher 43.1% of the time (this coin is higher 47.69% of the time in general), median move -0.24%."
     },
     "brake": null,
     "lastSignal": {
@@ -7312,18 +7306,11 @@
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 1.0810587507064762,
-      "gap": 0.8810587507064762,
+      "distance": 1.360890240047357,
+      "gap": 1.160890240047357,
       "need": 0.2
     },
     "bars": [
-      [
-        1790038800000,
-        118.39,
-        118.42,
-        117.04,
-        117.51
-      ],
       [
         1790042400000,
         117.6,
@@ -8576,12 +8563,19 @@
         121.01,
         120.05,
         120.88
+      ],
+      [
+        1790686800000,
+        120.85,
+        121.61,
+        120.72,
+        121.03
       ]
     ],
     "sentiment": {
-      "polarity": 0.0895,
-      "n_mentions": 27,
-      "attention_z": 2.436,
+      "polarity": 0,
+      "n_mentions": 4,
+      "attention_z": -2.558,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -8640,7 +8634,6 @@
       "cooldownUntil": 1790524800000
     },
     "attention": [
-      17,
       17,
       15,
       0,
@@ -8735,7 +8728,8 @@
       26,
       26,
       26,
-      27
+      27,
+      4
     ]
   },
   "ada_4h": {
@@ -8752,7 +8746,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.41% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g5_up",
@@ -10046,9 +10040,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0436,
-      "n_mentions": 12,
-      "attention_z": 0.12,
+      "polarity": 0,
+      "n_mentions": 0,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -10063,7 +10057,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      16,
       15,
       15,
       1,
@@ -10158,7 +10151,8 @@
       12,
       12,
       12,
-      12
+      12,
+      0
     ]
   },
   "xrp_4h": {
@@ -10175,7 +10169,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.00% below slow MA — needs to cross above first, then clear 0.1%.",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g3_up",
@@ -11469,9 +11463,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0619,
-      "n_mentions": 60,
-      "attention_z": 1.831,
+      "polarity": 0.0446,
+      "n_mentions": 9,
+      "attention_z": -2.032,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -11486,7 +11480,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      29,
       29,
       26,
       2,
@@ -11581,7 +11574,8 @@
       60,
       59,
       59,
-      60
+      60,
+      9
     ]
   },
   "ltc_4h": {
@@ -11598,7 +11592,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.19% below slow MA — needs to cross above first, then clear 0%. Price is above the 200-bar trend filter (ok).",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g4_up",
@@ -12893,8 +12887,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 3,
-      "attention_z": 1.667,
+      "n_mentions": 0,
+      "attention_z": -1.515,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -12927,7 +12921,6 @@
     "attention": [
       1,
       1,
-      1,
       0,
       1,
       1,
@@ -13020,7 +13013,8 @@
       3,
       3,
       3,
-      3
+      3,
+      0
     ]
   },
   "avax_4h": {
@@ -13037,7 +13031,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.49% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g5_up",
@@ -14327,9 +14321,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0389,
-      "n_mentions": 22,
-      "attention_z": -0.406,
+      "polarity": 0,
+      "n_mentions": 0,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -14344,7 +14338,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      29,
       31,
       32,
       1,
@@ -14439,39 +14432,40 @@
       23,
       23,
       22,
-      22
+      22,
+      0
     ]
   },
   "shib_1h": {
-    "lastBarTs": 1790683200000,
+    "lastBarTs": 1790686800000,
     "last": {
-      "price": 0.00000587,
-      "ts": 1790683200000,
-      "fast": 0.000005775714285714285,
-      "slow": 0.000005679999999999991,
+      "price": 0.00000583,
+      "ts": 1790686800000,
+      "fast": 0.0000057957142857142846,
+      "slow": 0.000005687499999999991,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA is 1.69% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790690322312
+      "text": "fast MA is 1.90% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1790690433053
     },
     "outlook": {
-      "key": "g8_up",
+      "key": "g8_dn",
       "matched": true,
-      "label": "fast MA 2 to 3 ATR from slow, price above the 200-bar line",
-      "n": 338,
-      "pct_up": 39.05,
-      "lo": 34,
-      "hi": 44.35,
-      "median_fwd": -0.48,
+      "label": "fast MA 2 to 3 ATR from slow, price below the 200-bar line",
+      "n": 125,
+      "pct_up": 32.8,
+      "lo": 25.19,
+      "hi": 41.44,
+      "median_fwd": -0.53,
       "lean": "leans down",
       "baseline_pct_up": 44.87,
       "horizon_bars": 12,
       "days_studied": 334,
-      "text": "This chart has looked like this 338 times before. 12 candles later, price was higher 39.05% of the time (this coin is higher 44.87% of the time in general), median move -0.48%."
+      "text": "This chart has looked like this 125 times before. 12 candles later, price was higher 32.8% of the time (this coin is higher 44.87% of the time in general), median move -0.53%."
     },
     "brake": null,
     "lastSignal": {
@@ -14483,18 +14477,11 @@
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 1.8851106639840411,
-      "gap": 1.6851106639840412,
+      "distance": 2.1026687598117606,
+      "gap": 1.9026687598117604,
       "need": 0.2
     },
     "bars": [
-      [
-        1790038800000,
-        0.000006,
-        0.00000602,
-        0.000006,
-        0.00000601
-      ],
       [
         1790042400000,
         0.00000602,
@@ -15747,12 +15734,19 @@
         0.00000587,
         0.00000587,
         0.00000587
+      ],
+      [
+        1790686800000,
+        0.00000589,
+        0.00000589,
+        0.00000583,
+        0.00000583
       ]
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 1,
-      "attention_z": 1.134,
+      "n_mentions": 0,
+      "attention_z": -0.901,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -15819,7 +15813,6 @@
       0,
       0,
       0,
-      0,
       1,
       1,
       1,
@@ -15862,7 +15855,8 @@
       1,
       1,
       1,
-      1
+      1,
+      0
     ]
   },
   "pepe_4h": {
@@ -15879,7 +15873,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.49% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g3_up",
@@ -17175,7 +17169,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 0,
-      "attention_z": -0.724,
+      "attention_z": -0.707,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -17192,7 +17186,6 @@
     "attention": [
       1,
       1,
-      1,
       0,
       1,
       1,
@@ -17283,6 +17276,7 @@
       1,
       1,
       1,
+      0,
       0,
       0,
       0
@@ -17302,7 +17296,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.51% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g3_up",
@@ -18725,7 +18719,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.29% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g3_up",
@@ -20012,8 +20006,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 2,
-      "attention_z": 2.103,
+      "n_mentions": 0,
+      "attention_z": -0.552,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -20099,7 +20093,6 @@
       0,
       0,
       0,
-      0,
       1,
       1,
       1,
@@ -20123,7 +20116,8 @@
       2,
       2,
       2,
-      2
+      2,
+      0
     ]
   },
   "brett_4h": {
@@ -20140,7 +20134,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.01% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1790690322312
+      "ts": 1790690433053
     },
     "outlook": {
       "key": "g0_dn",
@@ -21434,9 +21428,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0216,
-      "n_mentions": 4,
-      "attention_z": 1.273,
+      "polarity": 0,
+      "n_mentions": 0,
+      "attention_z": -2.432,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -21452,7 +21446,6 @@
     },
     "attention": [
       6,
-      6,
       5,
       0,
       5,
@@ -21546,62 +21539,56 @@
       3,
       4,
       4,
-      4
+      4,
+      0
     ]
   },
   "toshi_1h": {
-    "lastBarTs": 1790683200000,
+    "lastBarTs": 1790686800000,
     "last": {
       "price": 0.00012359,
-      "ts": 1790683200000,
-      "fast": 0.00012011999999999986,
-      "slow": 0.00012015349999999986,
+      "ts": 1790686800000,
+      "fast": 0.00012053866666666652,
+      "slow": 0.00012022349999999988,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA 0.03% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1790690322312
+      "text": "MA just crossed up with a 0.26% gap (past the 0.2% trigger) — buying this check unless sentiment/trend blocks it.",
+      "ts": 1790690433053
     },
     "outlook": {
-      "key": "g4_dn",
+      "key": "g6_dn",
       "matched": true,
-      "label": "fast MA -0.5 to 0 ATR from slow, price below the 200-bar line",
-      "n": 2064,
-      "pct_up": 29.02,
-      "lo": 27.1,
-      "hi": 31.02,
+      "label": "fast MA 0.5 to 1 ATR from slow, price below the 200-bar line",
+      "n": 255,
+      "pct_up": 42.35,
+      "lo": 36.45,
+      "hi": 48.49,
       "median_fwd": 0,
-      "lean": "no different from usual",
+      "lean": "leans up",
       "baseline_pct_up": 29.9,
       "horizon_bars": 12,
       "days_studied": 334,
-      "text": "This chart has looked like this 2064 times before. 12 candles later, price was higher 29.02% of the time (this coin is higher 29.9% of the time in general), median move +0%."
+      "text": "This chart has looked like this 255 times before. 12 candles later, price was higher 42.35% of the time (this coin is higher 29.9% of the time in general), median move +0%."
     },
     "brake": null,
     "lastSignal": {
-      "ts": 1790373630433,
+      "ts": 1790690433053,
       "action": "buy",
-      "reason": "MA15>20 cross, gap 0.24% | sentiment off"
+      "reason": "MA15>20 cross, gap 0.26% | sentiment off"
     },
     "source": "binance.us",
     "missedEntries": 0,
     "readiness": {
-      "state": "approaching",
-      "distance": 0.2278810022179953,
-      "gap": -0.02788100221799528,
+      "state": "already_crossed",
+      "distance": 0.462150633334287,
+      "gap": 0.262150633334287,
       "need": 0.2
     },
     "bars": [
-      [
-        1790038800000,
-        0.00012186,
-        0.00012186,
-        0.00012186,
-        0.00012186
-      ],
       [
         1790042400000,
         0.00012186,
@@ -22850,6 +22837,13 @@
       ],
       [
         1790683200000,
+        0.00012359,
+        0.00012359,
+        0.00012359,
+        0.00012359
+      ],
+      [
+        1790686800000,
         0.00012359,
         0.00012359,
         0.00012359,
