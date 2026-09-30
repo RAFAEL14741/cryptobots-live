@@ -20,7 +20,7 @@
       "rss:https://cryptoslate.com/feed/": "ok",
       "rss:https://ambcrypto.com/feed/": "ok",
       "rss:https://coinjournal.net/feed/": "ok",
-      "rss:https://zycrypto.com/feed/": "ok",
+      "rss:https://zycrypto.com/feed/": "fetch failed",
       "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
       "rss:https://news.google.com/rss/search?q=%22btc%22%20OR%20%22eth%22%20OR%20%22ethereum%22%20OR%20%22eth%22%20OR%20%22sol%22&hl=en-US&gl=US&ceid=US:en": "ok",
       "rss:https://news.google.com/rss/search?q=%22solana%22%20OR%20%22sol%22%20OR%20%22ada%22%20OR%20%22cardano%22%20OR%20%22ada%22&hl=en-US&gl=US&ceid=US:en": "ok",
@@ -125,7 +125,7 @@
         "ts": 1790096439548
       }
     },
-    "lastCycleTs": 1790783122786,
+    "lastCycleTs": 1790783423473,
     "sentiment_gates_trades": false
   },
   "doge_1h": {
@@ -142,7 +142,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 1.08% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g6_dn",
@@ -1436,9 +1436,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0263,
-      "n_mentions": 14,
-      "attention_z": 1.717,
+      "polarity": -0.0231,
+      "n_mentions": 15,
+      "attention_z": 1.98,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -1456,7 +1456,6 @@
       5,
       5,
       5,
-      5,
       4,
       4,
       4,
@@ -1548,7 +1547,8 @@
       14,
       13,
       13,
-      14
+      14,
+      15
     ]
   },
   "doge_1d": {
@@ -1565,7 +1565,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 2.29% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g5_up",
@@ -2859,9 +2859,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0266,
-      "n_mentions": 16,
-      "attention_z": 0.99,
+      "polarity": -0.0247,
+      "n_mentions": 17,
+      "attention_z": 1.333,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -2892,7 +2892,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      11,
       11,
       11,
       11,
@@ -2987,7 +2986,8 @@
       16,
       15,
       15,
-      16
+      16,
+      17
     ]
   },
   "btc_1h": {
@@ -3004,7 +3004,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.28% above slow (past the 0.05% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g5_dn",
@@ -3023,7 +3023,7 @@
     },
     "brake": {
       "reason": "seized: Ex-NCA officer who worked on Silk Road operation ordered to repay £1.8M for stealing seize",
-      "mentions": 90
+      "mentions": 87
     },
     "lastSignal": {
       "ts": 1790096431916,
@@ -4301,9 +4301,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0774,
-      "n_mentions": 90,
-      "attention_z": 0.914,
+      "polarity": 0.0775,
+      "n_mentions": 87,
+      "attention_z": 0.675,
       "risk_flag": true,
       "risk_reasons": [
         "seized: Ex-NCA officer who worked on Silk Road operation ordered to repay £1.8M for stealing seize"
@@ -4320,7 +4320,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      57,
       54,
       55,
       54,
@@ -4415,7 +4414,8 @@
       90,
       92,
       91,
-      90
+      90,
+      87
     ]
   },
   "btc_4h": {
@@ -4432,7 +4432,7 @@
     "explain": {
       "state": "watching",
       "text": "MA just crossed up with a 0.08% gap (past the 0% trigger) — buying this check unless sentiment/trend blocks it. Price is above the 200-bar trend filter (ok).",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g5_up",
@@ -4451,7 +4451,7 @@
     },
     "brake": {
       "reason": "seized: Ex-NCA officer who worked on Silk Road operation ordered to repay £1.8M for stealing seize",
-      "mentions": 110
+      "mentions": 107
     },
     "lastSignal": {
       "ts": 1790769632887,
@@ -5729,9 +5729,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0851,
-      "n_mentions": 110,
-      "attention_z": 1.116,
+      "polarity": 0.0872,
+      "n_mentions": 107,
+      "attention_z": 0.915,
       "risk_flag": true,
       "risk_reasons": [
         "seized: Ex-NCA officer who worked on Silk Road operation ordered to repay £1.8M for stealing seize"
@@ -5748,7 +5748,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      66,
       66,
       67,
       66,
@@ -5843,7 +5842,8 @@
       110,
       112,
       112,
-      110
+      110,
+      107
     ]
   },
   "eth_4h": {
@@ -5860,7 +5860,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.11% above slow MA — needs a cross with the gap over 0.2% (0.09pts short).",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g5_up",
@@ -7150,9 +7150,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0621,
-      "n_mentions": 41,
-      "attention_z": 1.965,
+      "polarity": 0.0596,
+      "n_mentions": 42,
+      "attention_z": 2.237,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -7167,7 +7167,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      28,
       30,
       30,
       30,
@@ -7262,7 +7261,8 @@
       39,
       40,
       39,
-      41
+      41,
+      42
     ]
   },
   "sol_1h": {
@@ -7279,7 +7279,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.90% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g6_up",
@@ -8573,9 +8573,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0053,
-      "n_mentions": 23,
-      "attention_z": -0.29,
+      "polarity": -0.0052,
+      "n_mentions": 24,
+      "attention_z": 0.11,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -8648,7 +8648,6 @@
       "cooldownUntil": 1790784000000
     },
     "attention": [
-      21,
       21,
       22,
       22,
@@ -8743,7 +8742,8 @@
       23,
       23,
       22,
-      23
+      23,
+      24
     ]
   },
   "ada_4h": {
@@ -8760,7 +8760,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.30% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g3_up",
@@ -10056,7 +10056,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 17,
-      "attention_z": 2.053,
+      "attention_z": 1.986,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -10071,7 +10071,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      5,
       5,
       5,
       5,
@@ -10166,6 +10165,7 @@
       18,
       18,
       18,
+      17,
       17
     ]
   },
@@ -10183,7 +10183,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.56% below slow MA — needs to cross above first, then clear 0.1%.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g4_up",
@@ -11480,13 +11480,13 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0549,
+      "polarity": 0.0542,
       "n_mentions": 65,
-      "attention_z": 1.457,
+      "attention_z": 1.426,
       "risk_flag": true,
       "risk_reasons": [
         "lawsuit: XRP Price Forecast as Trump Weighs Ex-SEC Chief Behind Ripple Lawsuit for AI czar - Crypto",
-        "lawsuit: XRP Price Forecast as Trump Weighs Ex-SEC Chief Behind Ripple Lawsuit for AI czar - coinga"
+        "lawsuit: XRP Price Forecast as Trump Weighs Ex-SEC Chief Behind Ripple Lawsuit for AI czar - CoinGa"
       ]
     },
     "broker": {
@@ -11500,7 +11500,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      32,
       32,
       33,
       35,
@@ -11595,6 +11594,7 @@
       63,
       64,
       65,
+      65,
       65
     ]
   },
@@ -11612,7 +11612,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.87% below slow MA — needs to cross above first, then clear 0%. Price is above the 200-bar trend filter (ok).",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g3_up",
@@ -12908,7 +12908,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 0,
-      "attention_z": -0.209,
+      "attention_z": -0.18,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -12941,7 +12941,7 @@
     "attention": [
       1,
       1,
-      1,
+      0,
       0,
       0,
       0,
@@ -13051,7 +13051,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.00% above slow MA — needs a cross with the gap over 0.2% (0.20pts short).",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g5_up",
@@ -14341,9 +14341,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0072,
+      "polarity": 0.0073,
       "n_mentions": 53,
-      "attention_z": 3.029,
+      "attention_z": 2.865,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -14358,7 +14358,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      26,
       25,
       26,
       25,
@@ -14453,6 +14452,7 @@
       49,
       49,
       50,
+      53,
       53
     ]
   },
@@ -14470,7 +14470,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.97% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g7_dn",
@@ -15766,7 +15766,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 2,
-      "attention_z": 2.563,
+      "attention_z": 2.458,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -15822,7 +15822,6 @@
       0,
       0,
       0,
-      0,
       1,
       1,
       1,
@@ -15873,6 +15872,7 @@
       1,
       1,
       1,
+      2,
       2,
       2,
       2,
@@ -15893,7 +15893,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.35% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g4_up",
@@ -17316,7 +17316,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.03% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g4_up",
@@ -18739,7 +18739,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 1.20% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g7_up",
@@ -20154,7 +20154,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.04% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g0_dn",
@@ -21449,8 +21449,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 7,
-      "attention_z": 3.696,
+      "n_mentions": 6,
+      "attention_z": 2.632,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -21515,7 +21515,6 @@
       2,
       2,
       2,
-      2,
       1,
       1,
       1,
@@ -21560,7 +21559,8 @@
       6,
       5,
       6,
-      7
+      7,
+      6
     ]
   },
   "toshi_1h": {
@@ -21577,7 +21577,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.05% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1790783122786
+      "ts": 1790783423473
     },
     "outlook": {
       "key": "g4_dn",
