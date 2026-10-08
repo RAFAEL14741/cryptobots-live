@@ -21,13 +21,13 @@
       "rss:https://ambcrypto.com/feed/": "ok",
       "rss:https://coinjournal.net/feed/": "ok",
       "rss:https://zycrypto.com/feed/": "ok",
-      "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22btc%22%20OR%20%22eth%22%20OR%20%22ethereum%22%20OR%20%22eth%22%20OR%20%22sol%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22solana%22%20OR%20%22sol%22%20OR%20%22ada%22%20OR%20%22cardano%22%20OR%20%22ada%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22xrp%22%20OR%20%22ripple%22%20OR%20%22xrp%22%20OR%20%22ltc%22%20OR%20%22litecoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22ltc%22%20OR%20%22avax%22%20OR%20%22avalanche%22%20OR%20%22avax%22%20OR%20%22shib%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22pepe%22%20OR%20%22bonk%22%20OR%20%22mew%22%20OR%20%22brett%22%20OR%20%22toshi%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=crypto%20hack%20OR%20exploit%20OR%20rugpull%20OR%20delisting%20OR%20%22trading%20halted%22&hl=en-US&gl=US&ceid=US:en": "ok",
+      "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22btc%22%20OR%20%22eth%22%20OR%20%22ethereum%22%20OR%20%22eth%22%20OR%20%22sol%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22solana%22%20OR%20%22sol%22%20OR%20%22ada%22%20OR%20%22cardano%22%20OR%20%22ada%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22xrp%22%20OR%20%22ripple%22%20OR%20%22xrp%22%20OR%20%22ltc%22%20OR%20%22litecoin%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22ltc%22%20OR%20%22avax%22%20OR%20%22avalanche%22%20OR%20%22avax%22%20OR%20%22shib%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22pepe%22%20OR%20%22bonk%22%20OR%20%22mew%22%20OR%20%22brett%22%20OR%20%22toshi%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=crypto%20hack%20OR%20exploit%20OR%20rugpull%20OR%20delisting%20OR%20%22trading%20halted%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
       "data:doge_1h": "ok:binance.us",
       "data:doge_1d": "ok:binance.us",
       "data:btc_1h": "ok:binance.us",
@@ -125,7 +125,7 @@
         "ts": 1791291640710
       }
     },
-    "lastCycleTs": 1791425422055,
+    "lastCycleTs": 1791425721731,
     "sentiment_gates_trades": false
   },
   "doge_1h": {
@@ -142,7 +142,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.27% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g4_dn",
@@ -1437,8 +1437,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 3,
-      "attention_z": -1.659,
+      "n_mentions": 0,
+      "attention_z": -2.526,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -1453,7 +1453,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      9,
       9,
       9,
       8,
@@ -1548,7 +1547,8 @@
       2,
       3,
       3,
-      3
+      3,
+      0
     ]
   },
   "doge_1d": {
@@ -1565,7 +1565,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 3.23% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g6_up",
@@ -2859,9 +2859,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.1412,
-      "n_mentions": 21,
-      "attention_z": 0.272,
+      "polarity": -0.2969,
+      "n_mentions": 2,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -2895,7 +2895,6 @@
       14,
       14,
       14,
-      14,
       15,
       15,
       15,
@@ -2987,7 +2986,8 @@
       20,
       21,
       21,
-      21
+      21,
+      2
     ]
   },
   "btc_1h": {
@@ -3004,7 +3004,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.39% below slow MA — needs to cross above first, then clear 0.05%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g3_dn",
@@ -3023,7 +3023,7 @@
     },
     "brake": {
       "reason": "hack: US government moves $470 million in seized crypto to Coinbase wallets, raising Bitcoin sal",
-      "mentions": 32
+      "mentions": 4
     },
     "lastSignal": {
       "ts": 1791291635022,
@@ -4301,14 +4301,13 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0341,
-      "n_mentions": 32,
-      "attention_z": -1.594,
+      "polarity": -0.0978,
+      "n_mentions": 4,
+      "attention_z": -3.286,
       "risk_flag": true,
       "risk_reasons": [
         "hack: US government moves $470 million in seized crypto to Coinbase wallets, raising Bitcoin sal",
-        "seized: US government moves $470 million in seized crypto to Coinbase wallets, raising Bitcoin sal",
-        "seized: U.S. Government-Linked Wallet Moves Approximately ¥16 Billion in BTC and BNB, Possibly for"
+        "seized: US government moves $470 million in seized crypto to Coinbase wallets, raising Bitcoin sal"
       ]
     },
     "broker": {
@@ -4322,7 +4321,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      78,
       73,
       72,
       70,
@@ -4417,7 +4415,8 @@
       29,
       30,
       31,
-      32
+      32,
+      4
     ]
   },
   "btc_4h": {
@@ -4434,7 +4433,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.89% below slow MA — needs to cross above first, then clear 0%. Price is above the 200-bar trend filter (ok).",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g2_up",
@@ -4453,7 +4452,7 @@
     },
     "brake": {
       "reason": "seized: US Government Moves $103 Million in Seized Bitcoin and BNB, But Hasn&#39;t Said Why. Gover",
-      "mentions": 77
+      "mentions": 18
     },
     "lastSignal": {
       "ts": 1790769632887,
@@ -5731,16 +5730,14 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0004,
-      "n_mentions": 77,
-      "attention_z": -1.708,
+      "polarity": -0.0546,
+      "n_mentions": 18,
+      "attention_z": -5,
       "risk_flag": true,
       "risk_reasons": [
         "seized: US Government Moves $103 Million in Seized Bitcoin and BNB, But Hasn&#39;t Said Why. Gover",
         "hack: US government moves $470 million in seized crypto to Coinbase wallets, raising Bitcoin sal",
-        "seized: US government moves $470 million in seized crypto to Coinbase wallets, raising Bitcoin sal",
-        "seized: US government moves $470M in seized Bitcoin and Tether to Coinbase Prime - TradingView. &l",
-        "seized: US Government Moves $103 Million in Seized Bitcoin and BNB, But Hasn't Said Why - Yahoo Fi"
+        "seized: US government moves $470 million in seized crypto to Coinbase wallets, raising Bitcoin sal"
       ]
     },
     "broker": {
@@ -5754,7 +5751,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      129,
       128,
       126,
       126,
@@ -5849,7 +5845,8 @@
       79,
       79,
       79,
-      77
+      77,
+      18
     ]
   },
   "eth_4h": {
@@ -5866,7 +5863,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.60% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g1_dn",
@@ -7156,9 +7153,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.009,
-      "n_mentions": 41,
-      "attention_z": -1.44,
+      "polarity": -0.0232,
+      "n_mentions": 8,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -7173,7 +7170,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      59,
       58,
       57,
       57,
@@ -7268,7 +7264,8 @@
       40,
       42,
       42,
-      41
+      41,
+      8
     ]
   },
   "sol_1h": {
@@ -7285,7 +7282,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.94% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g2_dn",
@@ -8579,9 +8576,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0905,
-      "n_mentions": 13,
-      "attention_z": -1.341,
+      "polarity": 0,
+      "n_mentions": 0,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -8654,7 +8651,6 @@
       "cooldownUntil": 1790784000000
     },
     "attention": [
-      23,
       19,
       19,
       18,
@@ -8749,7 +8745,8 @@
       13,
       13,
       13,
-      13
+      13,
+      0
     ]
   },
   "ada_4h": {
@@ -8766,7 +8763,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 4.10% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g7_up",
@@ -10060,9 +10057,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0801,
-      "n_mentions": 26,
-      "attention_z": -1.586,
+      "polarity": 0.0743,
+      "n_mentions": 3,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -10093,7 +10090,6 @@
       "cooldownUntil": 1791244800000
     },
     "attention": [
-      30,
       31,
       31,
       32,
@@ -10188,7 +10184,8 @@
       28,
       28,
       26,
-      26
+      26,
+      3
     ]
   },
   "xrp_4h": {
@@ -10205,7 +10202,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.47% below slow MA — needs to cross above first, then clear 0.1%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g2_dn",
@@ -11499,9 +11496,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0538,
-      "n_mentions": 47,
-      "attention_z": -1.862,
+      "polarity": 0,
+      "n_mentions": 6,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -11516,7 +11513,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      77,
       77,
       77,
       78,
@@ -11611,7 +11607,8 @@
       48,
       49,
       47,
-      47
+      47,
+      6
     ]
   },
   "ltc_4h": {
@@ -11628,7 +11625,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.58% below slow MA — needs to cross above first, then clear 0%. Price is above the 200-bar trend filter (ok).",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g2_up",
@@ -12914,9 +12911,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0663,
-      "n_mentions": 7,
-      "attention_z": 2.58,
+      "polarity": 0.2425,
+      "n_mentions": 1,
+      "attention_z": -4.875,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -12975,7 +12972,6 @@
       "cooldownUntil": 1791331230898
     },
     "attention": [
-      4,
       4,
       4,
       5,
@@ -13070,7 +13066,8 @@
       6,
       6,
       7,
-      7
+      7,
+      1
     ]
   },
   "avax_4h": {
@@ -13087,7 +13084,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.58% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g5_up",
@@ -14378,8 +14375,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 37,
-      "attention_z": -0.838,
+      "n_mentions": 0,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -14394,7 +14391,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      39,
       37,
       37,
       37,
@@ -14489,7 +14485,8 @@
       37,
       38,
       37,
-      37
+      37,
+      0
     ]
   },
   "shib_1h": {
@@ -14506,7 +14503,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.51% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g2_dn",
@@ -15802,7 +15799,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 0,
-      "attention_z": -1.277,
+      "attention_z": -1.257,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -15817,7 +15814,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      5,
       6,
       6,
       5,
@@ -15895,6 +15891,7 @@
       1,
       1,
       1,
+      0,
       0,
       0,
       0,
@@ -15929,7 +15926,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 3.67% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g1_up",
@@ -17344,7 +17341,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.93% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g2_up",
@@ -18767,7 +18764,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.31% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g0_up",
@@ -20190,7 +20187,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.85% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g7_up",
@@ -21484,9 +21481,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0068,
-      "n_mentions": 6,
-      "attention_z": -1.287,
+      "polarity": 0,
+      "n_mentions": 0,
+      "attention_z": -4.723,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -21501,7 +21498,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      5,
       5,
       5,
       5,
@@ -21596,7 +21592,8 @@
       5,
       5,
       5,
-      6
+      6,
+      0
     ]
   },
   "toshi_1h": {
@@ -21613,7 +21610,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.69% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791425422055
+      "ts": 1791425721731
     },
     "outlook": {
       "key": "g2_dn",
