@@ -21,13 +21,13 @@
       "rss:https://ambcrypto.com/feed/": "ok",
       "rss:https://coinjournal.net/feed/": "ok",
       "rss:https://zycrypto.com/feed/": "ok",
-      "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22btc%22%20OR%20%22eth%22%20OR%20%22ethereum%22%20OR%20%22eth%22%20OR%20%22sol%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22solana%22%20OR%20%22sol%22%20OR%20%22ada%22%20OR%20%22cardano%22%20OR%20%22ada%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22xrp%22%20OR%20%22ripple%22%20OR%20%22xrp%22%20OR%20%22ltc%22%20OR%20%22litecoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22ltc%22%20OR%20%22avax%22%20OR%20%22avalanche%22%20OR%20%22avax%22%20OR%20%22shib%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=%22pepe%22%20OR%20%22bonk%22%20OR%20%22mew%22%20OR%20%22brett%22%20OR%20%22toshi%22&hl=en-US&gl=US&ceid=US:en": "ok",
-      "rss:https://news.google.com/rss/search?q=crypto%20hack%20OR%20exploit%20OR%20rugpull%20OR%20delisting%20OR%20%22trading%20halted%22&hl=en-US&gl=US&ceid=US:en": "ok",
+      "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22btc%22%20OR%20%22eth%22%20OR%20%22ethereum%22%20OR%20%22eth%22%20OR%20%22sol%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22solana%22%20OR%20%22sol%22%20OR%20%22ada%22%20OR%20%22cardano%22%20OR%20%22ada%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22xrp%22%20OR%20%22ripple%22%20OR%20%22xrp%22%20OR%20%22ltc%22%20OR%20%22litecoin%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22ltc%22%20OR%20%22avax%22%20OR%20%22avalanche%22%20OR%20%22avax%22%20OR%20%22shib%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=%22pepe%22%20OR%20%22bonk%22%20OR%20%22mew%22%20OR%20%22brett%22%20OR%20%22toshi%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
+      "rss:https://news.google.com/rss/search?q=crypto%20hack%20OR%20exploit%20OR%20rugpull%20OR%20delisting%20OR%20%22trading%20halted%22&hl=en-US&gl=US&ceid=US:en": "rss 503",
       "data:doge_1h": "ok:binance.us",
       "data:doge_1d": "ok:binance.us",
       "data:btc_1h": "ok:binance.us",
@@ -125,7 +125,7 @@
         "ts": 1791291640710
       }
     },
-    "lastCycleTs": 1791519321792,
+    "lastCycleTs": 1791519620152,
     "sentiment_gates_trades": false
   },
   "doge_1h": {
@@ -142,7 +142,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.53% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g3_dn",
@@ -1437,8 +1437,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 3,
-      "attention_z": -2.337,
+      "n_mentions": 0,
+      "attention_z": -4.211,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -1453,7 +1453,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      9,
       9,
       2,
       9,
@@ -1548,7 +1547,8 @@
       4,
       0,
       3,
-      3
+      3,
+      0
     ]
   },
   "doge_1d": {
@@ -1565,7 +1565,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 2.55% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g5_dn",
@@ -2859,9 +2859,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.1328,
-      "n_mentions": 13,
-      "attention_z": -0.212,
+      "polarity": -0.4795,
+      "n_mentions": 2,
+      "attention_z": -4.981,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -2892,7 +2892,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      14,
       14,
       2,
       14,
@@ -2987,7 +2986,8 @@
       13,
       1,
       12,
-      13
+      13,
+      2
     ]
   },
   "btc_1h": {
@@ -3004,7 +3004,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.35% below slow MA — needs to cross above first, then clear 0.05%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g3_dn",
@@ -4298,9 +4298,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0523,
-      "n_mentions": 38,
-      "attention_z": -0.871,
+      "polarity": 0.0356,
+      "n_mentions": 6,
+      "attention_z": -2.426,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -4315,7 +4315,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      90,
       89,
       19,
       92,
@@ -4410,7 +4409,8 @@
       38,
       5,
       36,
-      38
+      38,
+      6
     ]
   },
   "btc_4h": {
@@ -4427,7 +4427,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.09% below slow MA — needs to cross above first, then clear 0%. Price is above the 200-bar trend filter (ok).",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g1_up",
@@ -4438,7 +4438,7 @@
     },
     "brake": {
       "reason": "seized: US Government Moves $1 Billion in Bitcoin Seized From Bitfinex Hacker. A government wallet",
-      "mentions": 85
+      "mentions": 18
     },
     "lastSignal": {
       "ts": 1790769632887,
@@ -5716,16 +5716,12 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0857,
-      "n_mentions": 85,
-      "attention_z": -1.206,
+      "polarity": -0.0628,
+      "n_mentions": 18,
+      "attention_z": -4.546,
       "risk_flag": true,
       "risk_reasons": [
-        "seized: US Government Moves $1 Billion in Bitcoin Seized From Bitfinex Hacker. A government wallet",
-        "hack: U.S. government moves $1 billion in bitcoin tied to Bitfinex hack, with no sign of sale - ",
-        "seized: US Government Moves $1 Billion in Bitcoin Seized From Bitfinex Hacker - Decrypt News. &lt;",
-        "seized: US Government Moves $1 Billion in Bitcoin Seized From Bitfinex Hacker - Yahoo Finance. &lt",
-        "hack: U.S. government moves $1 billion in bitcoin from Bitfinex hack wallet, no sale indicated -"
+        "seized: US Government Moves $1 Billion in Bitcoin Seized From Bitfinex Hacker. A government wallet"
       ]
     },
     "broker": {
@@ -5739,7 +5735,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      137,
       136,
       34,
       135,
@@ -5834,7 +5829,8 @@
       89,
       15,
       84,
-      85
+      85,
+      18
     ]
   },
   "eth_4h": {
@@ -5851,7 +5847,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 3.61% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g1_dn",
@@ -7141,9 +7137,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0854,
-      "n_mentions": 38,
-      "attention_z": -0.638,
+      "polarity": -0.0549,
+      "n_mentions": 10,
+      "attention_z": -3.771,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -7158,7 +7154,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      53,
       53,
       17,
       54,
@@ -7253,7 +7248,8 @@
       38,
       10,
       38,
-      38
+      38,
+      10
     ]
   },
   "sol_1h": {
@@ -7270,7 +7266,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.57% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g2_dn",
@@ -8565,8 +8561,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 21,
-      "attention_z": -0.756,
+      "n_mentions": 2,
+      "attention_z": -3.216,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -8639,7 +8635,6 @@
       "cooldownUntil": 1790784000000
     },
     "attention": [
-      40,
       39,
       10,
       43,
@@ -8734,7 +8729,8 @@
       21,
       2,
       20,
-      21
+      21,
+      2
     ]
   },
   "ada_4h": {
@@ -8751,7 +8747,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.94% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g4_up",
@@ -10045,9 +10041,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0288,
-      "n_mentions": 16,
-      "attention_z": -1.865,
+      "polarity": 0,
+      "n_mentions": 0,
+      "attention_z": -4.603,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -10078,7 +10074,6 @@
       "cooldownUntil": 1791244800000
     },
     "attention": [
-      29,
       29,
       4,
       30,
@@ -10173,7 +10168,8 @@
       20,
       0,
       18,
-      16
+      16,
+      0
     ]
   },
   "xrp_4h": {
@@ -10190,7 +10186,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 4.03% below slow MA — needs to cross above first, then clear 0.1%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g1_dn",
@@ -10209,7 +10205,7 @@
     },
     "brake": {
       "reason": "fraud: Is XRP Decentralized? Cyber Capital Founder Says It's 'Straight-Up Fraud'. XRP is facing f",
-      "mentions": 36
+      "mentions": 6
     },
     "lastSignal": {
       "ts": 1790395228792,
@@ -11487,13 +11483,12 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0117,
-      "n_mentions": 36,
-      "attention_z": -1.446,
+      "polarity": -0.0427,
+      "n_mentions": 6,
+      "attention_z": -3.887,
       "risk_flag": true,
       "risk_reasons": [
-        "fraud: Is XRP Decentralized? Cyber Capital Founder Says It's 'Straight-Up Fraud'. XRP is facing f",
-        "fraud: Is XRP Decentralized? Cyber Capital Founder Says It's 'Straight-Up Fraud' - Cryptonews.net"
+        "fraud: Is XRP Decentralized? Cyber Capital Founder Says It's 'Straight-Up Fraud'. XRP is facing f"
       ]
     },
     "broker": {
@@ -11507,7 +11502,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      67,
       67,
       9,
       67,
@@ -11602,7 +11596,8 @@
       38,
       5,
       34,
-      36
+      36,
+      6
     ]
   },
   "ltc_4h": {
@@ -11619,7 +11614,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 3.58% below slow MA — needs to cross above first, then clear 0%. Price is above the 200-bar trend filter (ok).",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g1_up",
@@ -12906,8 +12901,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 3,
-      "attention_z": 0.887,
+      "n_mentions": 0,
+      "attention_z": -4.037,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -12967,7 +12962,6 @@
     },
     "attention": [
       2,
-      2,
       0,
       2,
       2,
@@ -13061,7 +13055,8 @@
       3,
       0,
       3,
-      3
+      3,
+      0
     ]
   },
   "avax_4h": {
@@ -13078,7 +13073,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.02% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g4_up",
@@ -14368,9 +14363,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.0163,
-      "n_mentions": 42,
-      "attention_z": 1.633,
+      "polarity": 0,
+      "n_mentions": 0,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -14385,7 +14380,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      31,
       31,
       0,
       32,
@@ -14480,7 +14474,8 @@
       38,
       0,
       42,
-      42
+      42,
+      0
     ]
   },
   "shib_1h": {
@@ -14497,7 +14492,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.17% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g4_dn",
@@ -15793,7 +15788,7 @@
     "sentiment": {
       "polarity": 0.1483,
       "n_mentions": 1,
-      "attention_z": 2.646,
+      "attention_z": 2.527,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -15890,7 +15885,7 @@
       0,
       0,
       0,
-      0,
+      1,
       1,
       1,
       1,
@@ -15920,7 +15915,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 6.72% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g0_dn",
@@ -17216,7 +17211,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 0,
-      "attention_z": -1.007,
+      "attention_z": -0.987,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -17231,7 +17226,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      3,
       3,
       0,
       3,
@@ -17285,6 +17279,7 @@
       1,
       1,
       1,
+      0,
       0,
       0,
       0,
@@ -17343,7 +17338,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 4.27% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g1_dn",
@@ -18758,7 +18753,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.62% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g0_up",
@@ -20181,7 +20176,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.25% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g3_dn",
@@ -21476,8 +21471,8 @@
     ],
     "sentiment": {
       "polarity": 0,
-      "n_mentions": 8,
-      "attention_z": 0.034,
+      "n_mentions": 0,
+      "attention_z": -5,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -21493,7 +21488,6 @@
     },
     "attention": [
       8,
-      8,
       0,
       8,
       8,
@@ -21587,7 +21581,8 @@
       8,
       0,
       8,
-      8
+      8,
+      0
     ]
   },
   "toshi_1h": {
@@ -21604,7 +21599,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.64% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1791519321792
+      "ts": 1791519620152
     },
     "outlook": {
       "key": "g2_dn",
