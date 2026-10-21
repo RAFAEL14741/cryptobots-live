@@ -129,24 +129,24 @@
         "ts": 1792353635511
       }
     },
-    "lastCycleTs": 1792580117917,
+    "lastCycleTs": 1792580429035,
     "sentiment_gates_trades": false
   },
   "doge_1h": {
-    "lastBarTs": 1792573200000,
+    "lastBarTs": 1792576800000,
     "last": {
-      "price": 0.08223,
-      "ts": 1792573200000,
-      "fast": 0.08182428571428571,
-      "slow": 0.08171499999999998,
+      "price": 0.08205,
+      "ts": 1792576800000,
+      "fast": 0.08189571428571428,
+      "slow": 0.08171799999999999,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA 0.13% above slow MA — needs a cross with the gap over 0.2% (0.07pts short).",
-      "ts": 1792580117917
+      "text": "fast MA is 0.22% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g5_up",
@@ -173,18 +173,11 @@
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 0.33374008968454805,
-      "gap": 0.13374008968454806,
+      "distance": 0.4174726323628759,
+      "gap": 0.21747263236287592,
       "need": 0.2
     },
     "bars": [
-      [
-        1791928800000,
-        0.08449,
-        0.08459,
-        0.08449,
-        0.08458
-      ],
       [
         1791932400000,
         0.08445,
@@ -1437,12 +1430,19 @@
         0.08223,
         0.08216,
         0.08223
+      ],
+      [
+        1792576800000,
+        0.08165,
+        0.08205,
+        0.08165,
+        0.08205
       ]
     ],
     "sentiment": {
       "polarity": 0,
       "n_mentions": 3,
-      "attention_z": -0.671,
+      "attention_z": -0.659,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -1463,7 +1463,6 @@
       8,
       8,
       8,
-      8,
       7,
       7,
       6,
@@ -1542,6 +1541,7 @@
       4,
       4,
       4,
+      3,
       3,
       3,
       3,
@@ -1569,7 +1569,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 5.02% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g2_dn",
@@ -2865,7 +2865,7 @@
     "sentiment": {
       "polarity": 0.0592,
       "n_mentions": 12,
-      "attention_z": -1.695,
+      "attention_z": -1.657,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -2898,7 +2898,6 @@
     "attention": [
       18,
       18,
-      18,
       17,
       17,
       17,
@@ -2982,6 +2981,7 @@
       13,
       13,
       13,
+      12,
       12,
       12,
       12,
@@ -2995,20 +2995,20 @@
     ]
   },
   "btc_1h": {
-    "lastBarTs": 1792573200000,
+    "lastBarTs": 1792576800000,
     "last": {
-      "price": 83446.26,
-      "ts": 1792573200000,
-      "fast": 82975.60800000008,
-      "slow": 82667.6872,
+      "price": 83417.85,
+      "ts": 1792576800000,
+      "fast": 83013.97400000009,
+      "slow": 82744.87200000002,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA is 0.37% above slow (past the 0.05% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1792580117917
+      "text": "fast MA is 0.33% above slow (past the 0.05% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g6_up",
@@ -3027,7 +3027,7 @@
     },
     "brake": {
       "reason": "halt: Bitcoin ‘top buyers’ halt BTC price upside with $87.7K now key: Glassnode. Bitcoin price c",
-      "mentions": 49
+      "mentions": 55
     },
     "lastSignal": {
       "ts": 1792515627095,
@@ -3038,18 +3038,11 @@
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 0.4224802403811291,
-      "gap": 0.3724802403811291,
+      "distance": 0.3752189452901343,
+      "gap": 0.3252189452901343,
       "need": 0.05
     },
     "bars": [
-      [
-        1791928800000,
-        83522.5,
-        83548.18,
-        83410.55,
-        83520.78
-      ],
       [
         1791932400000,
         83500.16,
@@ -4302,12 +4295,19 @@
         83619.98,
         83226.24,
         83446.26
+      ],
+      [
+        1792576800000,
+        83445.94,
+        83455.78,
+        83262.39,
+        83417.85
       ]
     ],
     "sentiment": {
-      "polarity": 0.044,
-      "n_mentions": 49,
-      "attention_z": 1.907,
+      "polarity": 0.0397,
+      "n_mentions": 55,
+      "attention_z": 2.351,
       "risk_flag": true,
       "risk_reasons": [
         "halt: Bitcoin ‘top buyers’ halt BTC price upside with $87.7K now key: Glassnode. Bitcoin price c"
@@ -4324,7 +4324,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      20,
       18,
       16,
       15,
@@ -4419,7 +4418,8 @@
       50,
       48,
       58,
-      49
+      49,
+      55
     ]
   },
   "btc_4h": {
@@ -4436,7 +4436,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.37% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses. Price is below the 200-bar trend filter (would block a buy even on a good cross).",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g5_dn",
@@ -4455,7 +4455,7 @@
     },
     "brake": {
       "reason": "halt: Bitcoin ‘top buyers’ halt BTC price upside with $87.7K now key: Glassnode. Bitcoin price c",
-      "mentions": 62
+      "mentions": 70
     },
     "lastSignal": {
       "ts": 1792540831430,
@@ -5733,9 +5733,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0413,
-      "n_mentions": 62,
-      "attention_z": -0.051,
+      "polarity": 0.0369,
+      "n_mentions": 70,
+      "attention_z": 0.666,
       "risk_flag": true,
       "risk_reasons": [
         "halt: Bitcoin ‘top buyers’ halt BTC price upside with $87.7K now key: Glassnode. Bitcoin price c"
@@ -5752,7 +5752,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      89,
       86,
       85,
       87,
@@ -5847,7 +5846,8 @@
       62,
       61,
       72,
-      62
+      62,
+      70
     ]
   },
   "eth_4h": {
@@ -5864,7 +5864,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.64% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g5_dn",
@@ -7154,9 +7154,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0696,
-      "n_mentions": 25,
-      "attention_z": -1.15,
+      "polarity": 0.0637,
+      "n_mentions": 28,
+      "attention_z": -0.6,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -7171,7 +7171,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      39,
       40,
       40,
       40,
@@ -7266,24 +7265,25 @@
       23,
       26,
       29,
-      25
+      25,
+      28
     ]
   },
   "sol_1h": {
-    "lastBarTs": 1792573200000,
+    "lastBarTs": 1792576800000,
     "last": {
-      "price": 106.88,
-      "ts": 1792573200000,
-      "fast": 106.43400000000001,
-      "slow": 106.05760000000001,
+      "price": 106.64,
+      "ts": 1792576800000,
+      "fast": 106.62,
+      "slow": 106.17039999999999,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA is 0.35% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1792580117917
+      "text": "fast MA is 0.42% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g6_up",
@@ -7310,18 +7310,11 @@
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 0.554901487493592,
-      "gap": 0.35490148749359196,
+      "distance": 0.6234701950826389,
+      "gap": 0.42347019508263883,
       "need": 0.2
     },
     "bars": [
-      [
-        1791928800000,
-        107.11,
-        107.13,
-        106.77,
-        107.02
-      ],
       [
         1791932400000,
         106.88,
@@ -8574,12 +8567,19 @@
         107.12,
         106.6,
         106.88
+      ],
+      [
+        1792576800000,
+        106.6,
+        106.7,
+        106.03,
+        106.64
       ]
     ],
     "sentiment": {
-      "polarity": 0.104,
-      "n_mentions": 16,
-      "attention_z": -0.583,
+      "polarity": 0.1006,
+      "n_mentions": 17,
+      "attention_z": -0.158,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -8694,7 +8694,6 @@
       "cooldownUntil": 1792515600000
     },
     "attention": [
-      20,
       21,
       21,
       18,
@@ -8789,7 +8788,8 @@
       16,
       17,
       16,
-      16
+      16,
+      17
     ]
   },
   "ada_4h": {
@@ -8806,7 +8806,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 2.28% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g2_dn",
@@ -10102,7 +10102,7 @@
     "sentiment": {
       "polarity": -0.0631,
       "n_mentions": 8,
-      "attention_z": 0.157,
+      "attention_z": 0.192,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -10133,7 +10133,6 @@
       "cooldownUntil": 1791244800000
     },
     "attention": [
-      12,
       11,
       11,
       9,
@@ -10214,6 +10213,7 @@
       8,
       8,
       9,
+      8,
       8,
       8,
       8,
@@ -10245,7 +10245,7 @@
     "explain": {
       "state": "in_position",
       "text": "holding since $1.29925 — now +3.61%. watching for the 10/25 MA to cross back down (gap 0.89% now). Stop $1.27099, target $1.35383.",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g6_dn",
@@ -11573,7 +11573,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      42,
       43,
       41,
       41,
@@ -11668,6 +11667,7 @@
       41,
       42,
       48,
+      42,
       42
     ]
   },
@@ -11685,7 +11685,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 1.70% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses. Price is below the 200-bar trend filter (would block a buy even on a good cross).",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g6_dn",
@@ -13095,7 +13095,6 @@
       1,
       1,
       1,
-      1,
       2,
       2,
       2,
@@ -13111,6 +13110,7 @@
       3,
       3,
       3,
+      2,
       2,
       2,
       2,
@@ -13166,7 +13166,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.41% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g4_dn",
@@ -14460,9 +14460,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": -0.042,
-      "n_mentions": 37,
-      "attention_z": -0.077,
+      "polarity": -0.0326,
+      "n_mentions": 23,
+      "attention_z": -1.668,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -14507,7 +14507,6 @@
       "cooldownUntil": 1792368000000
     },
     "attention": [
-      51,
       48,
       48,
       48,
@@ -14602,24 +14601,25 @@
       24,
       23,
       23,
-      37
+      37,
+      23
     ]
   },
   "shib_1h": {
-    "lastBarTs": 1792573200000,
+    "lastBarTs": 1792576800000,
     "last": {
       "price": 0.00000518,
-      "ts": 1792573200000,
-      "fast": 0.000005145714285714286,
-      "slow": 0.0000051260000000000006,
+      "ts": 1792576800000,
+      "fast": 0.0000051542857142857165,
+      "slow": 0.000005130500000000001,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA is 0.38% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1792580117917
+      "text": "fast MA is 0.46% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g7_up",
@@ -14646,18 +14646,11 @@
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 0.5845939468256952,
-      "gap": 0.3845939468256952,
+      "distance": 0.6636139613237574,
+      "gap": 0.4636139613237574,
       "need": 0.2
     },
     "bars": [
-      [
-        1791928800000,
-        0.0000052,
-        0.0000052,
-        0.0000052,
-        0.0000052
-      ],
       [
         1791932400000,
         0.0000052,
@@ -15910,12 +15903,19 @@
         0.00000518,
         0.00000518,
         0.00000518
+      ],
+      [
+        1792576800000,
+        0.00000518,
+        0.00000518,
+        0.00000518,
+        0.00000518
       ]
     ],
     "sentiment": {
-      "polarity": -0.0904,
-      "n_mentions": 3,
-      "attention_z": 3.964,
+      "polarity": -0.1101,
+      "n_mentions": 2,
+      "attention_z": 1.522,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -15964,7 +15964,6 @@
       1,
       1,
       1,
-      1,
       2,
       1,
       1,
@@ -16025,7 +16024,8 @@
       1,
       2,
       2,
-      3
+      3,
+      2
     ]
   },
   "pepe_4h": {
@@ -16042,7 +16042,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 6.82% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g9_up",
@@ -17338,7 +17338,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 1,
-      "attention_z": -2.067,
+      "attention_z": -2,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -17358,7 +17358,6 @@
       3,
       3,
       3,
-      3,
       2,
       2,
       2,
@@ -17445,6 +17444,7 @@
       2,
       2,
       3,
+      1,
       1,
       1,
       1,
@@ -17465,7 +17465,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.03% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g4_dn",
@@ -18786,7 +18786,6 @@
       1,
       1,
       1,
-      1,
       0,
       0,
       0,
@@ -18871,6 +18870,7 @@
       1,
       1,
       1,
+      1,
       1
     ]
   },
@@ -18888,7 +18888,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.00% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g5_dn",
@@ -20311,7 +20311,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 1.65% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1792580117917
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g7_up",
@@ -21607,7 +21607,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 2,
-      "attention_z": -0.731,
+      "attention_z": -0.729,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -21622,7 +21622,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      9,
       8,
       8,
       8,
@@ -21717,24 +21716,25 @@
       3,
       3,
       3,
+      2,
       2
     ]
   },
   "toshi_1h": {
-    "lastBarTs": 1792573200000,
+    "lastBarTs": 1792576800000,
     "last": {
       "price": 0.00012165,
-      "ts": 1792573200000,
-      "fast": 0.00011860000000000001,
-      "slow": 0.00011669800000000007,
+      "ts": 1792576800000,
+      "fast": 0.00011921000000000002,
+      "slow": 0.00011753250000000007,
       "label": "MA gap",
       "aboveNote": "fast above slow",
       "belowNote": "fast below slow"
     },
     "explain": {
       "state": "watching",
-      "text": "fast MA is 1.63% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1792580117917
+      "text": "fast MA is 1.43% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
+      "ts": 1792580429035
     },
     "outlook": {
       "key": "g9_up",
@@ -21761,18 +21761,11 @@
     "missedEntries": 0,
     "readiness": {
       "state": "already_crossed",
-      "distance": 1.8298479836843313,
-      "gap": 1.6298479836843314,
+      "distance": 1.6272647990980738,
+      "gap": 1.4272647990980738,
       "need": 0.2
     },
     "bars": [
-      [
-        1791928800000,
-        0.0001114,
-        0.0001114,
-        0.0001114,
-        0.0001114
-      ],
       [
         1791932400000,
         0.0001114,
@@ -23021,6 +23014,13 @@
       ],
       [
         1792573200000,
+        0.00012165,
+        0.00012165,
+        0.00012165,
+        0.00012165
+      ],
+      [
+        1792576800000,
         0.00012165,
         0.00012165,
         0.00012165,
