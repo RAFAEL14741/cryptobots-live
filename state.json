@@ -18,7 +18,7 @@
       "rss:https://u.today/rss": "ok",
       "rss:https://thedefiant.io/api/feed": "ok",
       "rss:https://cryptoslate.com/feed/": "ok",
-      "rss:https://ambcrypto.com/feed/": "ok",
+      "rss:https://ambcrypto.com/feed/": "rss 403",
       "rss:https://coinjournal.net/feed/": "ok",
       "rss:https://zycrypto.com/feed/": "ok",
       "rss:https://news.google.com/rss/search?q=%22doge%22%20OR%20%22dogecoin%22%20OR%20%22doge%22%20OR%20%22btc%22%20OR%20%22bitcoin%22&hl=en-US&gl=US&ceid=US:en": "ok",
@@ -133,7 +133,7 @@
         "ts": 1795723235070
       }
     },
-    "lastCycleTs": 1795776620651,
+    "lastCycleTs": 1795776917627,
     "sentiment_gates_trades": false
   },
   "doge_1h": {
@@ -150,7 +150,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 1.43% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g8_up",
@@ -1446,7 +1446,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 2,
-      "attention_z": -0.609,
+      "attention_z": -0.625,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -1461,7 +1461,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      1,
       1,
       1,
       1,
@@ -1556,6 +1555,7 @@
       2,
       2,
       2,
+      2,
       2
     ]
   },
@@ -1573,7 +1573,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 8.44% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g2_dn",
@@ -2869,7 +2869,7 @@
     "sentiment": {
       "polarity": 0.0956,
       "n_mentions": 5,
-      "attention_z": 0.293,
+      "attention_z": 0.276,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -2900,7 +2900,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      3,
       3,
       3,
       3,
@@ -2995,6 +2994,7 @@
       4,
       5,
       5,
+      5,
       5
     ]
   },
@@ -3012,7 +3012,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.72% above slow (past the 0.05% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g7_up",
@@ -3031,7 +3031,7 @@
     },
     "brake": {
       "reason": "delisting: Bitcoin Exchanges Upbit and Bithumb Add CVC and REI Tokens to Delisting Watchlist - Crypto",
-      "mentions": 57
+      "mentions": 53
     },
     "lastSignal": {
       "ts": 1795752027408,
@@ -4309,9 +4309,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0089,
-      "n_mentions": 57,
-      "attention_z": 2.418,
+      "polarity": 0.0097,
+      "n_mentions": 53,
+      "attention_z": 1.848,
       "risk_flag": true,
       "risk_reasons": [
         "delisting: Bitcoin Exchanges Upbit and Bithumb Add CVC and REI Tokens to Delisting Watchlist - Crypto"
@@ -4328,7 +4328,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      30,
       32,
       32,
       33,
@@ -4423,7 +4422,8 @@
       58,
       51,
       54,
-      57
+      57,
+      53
     ]
   },
   "btc_4h": {
@@ -4440,7 +4440,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.73% below slow MA — needs to cross above first, then clear 0%. Price is below the 200-bar trend filter (would block a buy even on a good cross).",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g4_dn",
@@ -4459,7 +4459,7 @@
     },
     "brake": {
       "reason": "delisting: Bitcoin Exchanges Upbit and Bithumb Add CVC and REI Tokens to Delisting Watchlist - Crypto",
-      "mentions": 70
+      "mentions": 66
     },
     "lastSignal": {
       "ts": 1793822424709,
@@ -5737,9 +5737,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0217,
-      "n_mentions": 70,
-      "attention_z": 0.165,
+      "polarity": 0.0233,
+      "n_mentions": 66,
+      "attention_z": -0.194,
       "risk_flag": true,
       "risk_reasons": [
         "delisting: Bitcoin Exchanges Upbit and Bithumb Add CVC and REI Tokens to Delisting Watchlist - Crypto"
@@ -5756,7 +5756,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      85,
       86,
       86,
       86,
@@ -5851,7 +5850,8 @@
       73,
       64,
       67,
-      70
+      70,
+      66
     ]
   },
   "eth_4h": {
@@ -5868,7 +5868,7 @@
     "explain": {
       "state": "in_position",
       "text": "holding since $1705.08 — now +1.78%. watching for the 7/20 MA to cross back down (gap 1.13% now). Stop $1681.35, target $1815.13, trailing 2×ATR.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g6_dn",
@@ -5887,7 +5887,7 @@
     },
     "brake": {
       "reason": "halted: Ethereum Sets December 15 Date for Delayed Glamsterdam Testnet Upgrade. Core developers wi",
-      "mentions": 48
+      "mentions": 43
     },
     "lastSignal": {
       "ts": 1795766432017,
@@ -7165,9 +7165,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0997,
-      "n_mentions": 48,
-      "attention_z": 1.603,
+      "polarity": 0.1064,
+      "n_mentions": 43,
+      "attention_z": 1.151,
       "risk_flag": true,
       "risk_reasons": [
         "halted: Ethereum Sets December 15 Date for Delayed Glamsterdam Testnet Upgrade. Core developers wi"
@@ -7195,7 +7195,6 @@
       "cooldownUntil": 0
     },
     "attention": [
-      15,
       14,
       14,
       13,
@@ -7290,7 +7289,8 @@
       43,
       43,
       48,
-      48
+      48,
+      43
     ]
   },
   "sol_1h": {
@@ -7307,7 +7307,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 2.15% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g8_up",
@@ -8601,9 +8601,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0128,
-      "n_mentions": 22,
-      "attention_z": 2.453,
+      "polarity": 0.0185,
+      "n_mentions": 14,
+      "attention_z": 0.284,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -8788,7 +8788,6 @@
       "cooldownUntil": 1795338025135
     },
     "attention": [
-      9,
       8,
       7,
       10,
@@ -8883,7 +8882,8 @@
       13,
       21,
       20,
-      22
+      22,
+      14
     ]
   },
   "ada_4h": {
@@ -8900,7 +8900,7 @@
     "explain": {
       "state": "in_position",
       "text": "holding since $0.153337 — now -0.05%. watching for the 15/50 MA to cross back down (gap 0.17% now). Stop $0.146000, target $0.164149, trailing 2×ATR.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g5_dn",
@@ -10194,9 +10194,9 @@
       ]
     ],
     "sentiment": {
-      "polarity": 0.0572,
-      "n_mentions": 8,
-      "attention_z": 1.129,
+      "polarity": 0.0907,
+      "n_mentions": 4,
+      "attention_z": -1.545,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -10238,7 +10238,6 @@
       "cooldownUntil": 1791244800000
     },
     "attention": [
-      7,
       7,
       7,
       7,
@@ -10333,7 +10332,8 @@
       5,
       8,
       5,
-      8
+      8,
+      4
     ]
   },
   "xrp_4h": {
@@ -10350,7 +10350,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 1.29% above slow (past the 0.1% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g6_dn",
@@ -11646,7 +11646,7 @@
     "sentiment": {
       "polarity": 0.0774,
       "n_mentions": 28,
-      "attention_z": 0.179,
+      "attention_z": 0.189,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -11719,7 +11719,6 @@
       "cooldownUntil": 1795478400000
     },
     "attention": [
-      33,
       32,
       32,
       32,
@@ -11814,6 +11813,7 @@
       27,
       27,
       27,
+      28,
       28
     ]
   },
@@ -11831,7 +11831,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 3.35% above slow (past the 0% bar), but there's no fresh cross right now — this only fires on the bar it first crosses. Price is below the 200-bar trend filter (would block a buy even on a good cross).",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g7_dn",
@@ -13220,7 +13220,6 @@
       1,
       1,
       1,
-      1,
       0,
       1,
       1,
@@ -13287,6 +13286,7 @@
       0,
       0,
       0,
+      1,
       1,
       1,
       1,
@@ -13312,7 +13312,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 1.00% below slow MA — needs to cross above first, then clear 0.2%.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g4_dn",
@@ -14608,7 +14608,7 @@
     "sentiment": {
       "polarity": -0.0582,
       "n_mentions": 9,
-      "attention_z": -0.27,
+      "attention_z": -0.255,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -14667,7 +14667,6 @@
       "cooldownUntil": 1795550400000
     },
     "attention": [
-      14,
       13,
       14,
       13,
@@ -14762,6 +14761,7 @@
       8,
       8,
       8,
+      9,
       9
     ]
   },
@@ -14779,7 +14779,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.82% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g8_up",
@@ -16093,60 +16093,60 @@
       1,
       1,
       1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
       1,
       1,
       1,
@@ -16202,7 +16202,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.92% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g4_dn",
@@ -17498,7 +17498,7 @@
     "sentiment": {
       "polarity": 0,
       "n_mentions": 1,
-      "attention_z": 0.593,
+      "attention_z": 0.577,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -17529,7 +17529,6 @@
       0,
       0,
       0,
-      0,
       1,
       1,
       1,
@@ -17605,6 +17604,7 @@
       0,
       0,
       0,
+      1,
       1,
       1,
       1,
@@ -17625,7 +17625,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.53% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g4_dn",
@@ -19048,7 +19048,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.00% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g4_dn",
@@ -20336,7 +20336,7 @@
     "sentiment": {
       "polarity": 0.2873,
       "n_mentions": 1,
-      "attention_z": 1.291,
+      "attention_z": 1.263,
       "risk_flag": false,
       "risk_reasons": []
     },
@@ -20383,7 +20383,6 @@
       0,
       0,
       0,
-      0,
       1,
       1,
       1,
@@ -20443,6 +20442,7 @@
       0,
       0,
       0,
+      1,
       1,
       1,
       1,
@@ -20463,7 +20463,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA 0.00% below slow MA — needs to cross above first, then clear 0%.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g4_dn",
@@ -21794,7 +21794,6 @@
       1,
       1,
       1,
-      1,
       0,
       1,
       1,
@@ -21869,6 +21868,7 @@
       1,
       1,
       1,
+      1,
       1
     ]
   },
@@ -21886,7 +21886,7 @@
     "explain": {
       "state": "watching",
       "text": "fast MA is 0.22% above slow (past the 0.2% bar), but there's no fresh cross right now — this only fires on the bar it first crosses.",
-      "ts": 1795776620651
+      "ts": 1795776917627
     },
     "outlook": {
       "key": "g7_up",
